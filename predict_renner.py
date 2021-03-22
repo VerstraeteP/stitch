@@ -77,7 +77,7 @@ for d in ["train", "val"]:
 	cfg.SOLVER.MAX_ITER = 1000    # 300 iterations seems good enough for this toy dataset; you will need to train longer for a practical dataset
 	cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 512   # faster, and good enough for this toy dataset (default: 512)
 	cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1  # only has one class (ballon)
-	cfg.OUTPUT_DIR="/drive/MyDrive/renner"
+	cfg.OUTPUT_DIR="./drive/MyDrive/renner"
 
 
 	# cfg already contains everything we've set previously. Now we changed it a little bit for inference:
