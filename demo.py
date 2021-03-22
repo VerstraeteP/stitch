@@ -79,7 +79,7 @@ def predict_surface(img):
 	cfg.SOLVER.MAX_ITER = 1000    
 	cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 512   
 	cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1 
-	cfg.OUTPUT_DIR="/drive/myDrive/surface"
+	cfg.OUTPUT_DIR="./drive/myDrive/surface"
 	"""
 		os.makedirs(cfg.OUTPUT_DIR, exist_ok=True)
 		trainer = DefaultTrainer(cfg) 
