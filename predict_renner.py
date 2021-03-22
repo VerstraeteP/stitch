@@ -64,9 +64,9 @@ for d in ["train", "val"]:
 	DatasetCatalog.register("renner_" + d, lambda d=d: get_balloon_dicts("surface_img/" + d))
 	MetadataCatalog.get("renner_" + d).set(thing_classes=["renner"])
 	balloon_metadata = MetadataCatalog.get("renner_train")
-	dataset_dicts = get_balloon_dicts("surface_img/train")
+	#dataset_dicts = get_balloon_dicts("surface_img/train")
 	cfg = get_cfg()
-	cfg.MODEL.DEVICE='cpu'
+
 	cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
 	cfg.DATASETS.TRAIN = ("renner_train",)
 	cfg.DATASETS.TEST = ()
@@ -77,7 +77,7 @@ for d in ["train", "val"]:
 	cfg.SOLVER.MAX_ITER = 1000    # 300 iterations seems good enough for this toy dataset; you will need to train longer for a practical dataset
 	cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 512   # faster, and good enough for this toy dataset (default: 512)
 	cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1  # only has one class (ballon)
-	cfg.OUTPUT_DIR="./renner"
+	cfg.OUTPUT_DIR="/drive/MyDrive/renner"
 
 
 	# cfg already contains everything we've set previously. Now we changed it a little bit for inference:
