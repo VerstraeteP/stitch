@@ -11,7 +11,7 @@ from importlib import reload
 
 def main():
 	
-	for file in glob.glob("videos/*/*"):
+	for file in glob.glob("/drive/MyDrive/videos/*/*"):
 		
 		try:
 			outfiles=[]
@@ -29,12 +29,12 @@ def main():
 			stitch,line,renner,mask=start(file)
 			
 			
-			cv2.imwrite("dataset/stitch/"+str(jaartal)+"/"+filename+".jpg",stitch)
-			cv2.imwrite("dataset/lines/"+str(jaartal)+"/"+filename+".jpg",line)
-			cv2.imwrite("dataset/mask/"+str(jaartal)+"/"+filename+".jpg",mask)
+			cv2.imwrite("/drive/MyDrive/dataset/stitch/"+str(jaartal)+"/"+filename+".jpg",stitch)
+			cv2.imwrite("/drive/MyDrive/dataset/lines/"+str(jaartal)+"/"+filename+".jpg",line)
+			cv2.imwrite("/drive/MyDrive/dataset/mask/"+str(jaartal)+"/"+filename+".jpg",mask)
 			outfiles.append(jsonfinal)
 			outfiles.append(renner)
-			with open("dataset/json/"+str(jaartal)+"/"+filename+".txt", 'w') as outfile:
+			with open("/drive/MyDrive/dataset/json/"+str(jaartal)+"/"+filename+".txt", 'w') as outfile:
 				json.dump(outfiles, outfile)
 			
 		except:
