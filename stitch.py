@@ -135,8 +135,7 @@ def stitching(images,masks):
 			increase=np.zeros((curr.shape[0],images[0].shape[1],3), np.uint8)
 			increase_mask=np.zeros((curr.shape[0],images[0].shape[1]), np.uint8)
 			heightc, widthc = curr.shape[:2]
-		plt.figure(5)
-		plt.imshow(base_gray)	
+		
 		if (baselineneg-cur_image.shape[1]/2)<0:
 			print("neg")
 			base_gray = np.append(base_gray,increase,axis=1)
@@ -163,7 +162,7 @@ def stitching(images,masks):
 		mask_photo[mask_photo<255]=0
 		
 		times+=1
-		
+		"""
 		if times>60:
 			plt.imshow(base_gray)
 			plt.figure(1)
@@ -175,14 +174,14 @@ def stitching(images,masks):
 			plt.figure(4)
 			plt.imshow(img3)
 			plt.show()
-		
+		"""
 		base_features, base_descs = detector.detectAndCompute(base_gray,mask_photo)
 		
 		next_features, next_descs = detector.detectAndCompute(curr,(base_mask))	
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
-		filtered_matches=matches[:200]
+		filtered_matches=matches[:100]
 		
 		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,matches[:200],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
 		
