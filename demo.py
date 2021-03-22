@@ -61,12 +61,12 @@ def predict_surface(img):
 			DatasetCatalog.register("surface_" + d, lambda d=d: get_surface_dicts("surface/" + d))
 			MetadataCatalog.get("surface_" + d).set(thing_classes=["surface"])
 			surface_metadata = MetadataCatalog.get("surface_train")
-			dataset_dicts = get_surface_dicts("surface_img/train")
+			#dataset_dicts = get_surface_dicts("surface_img/train")
 			#visualize 3 random samples
 		
 		
 	cfg = get_cfg()
-	cfg.MODEL.DEVICE='cpu'
+	
 		
 		
 	cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
@@ -79,7 +79,7 @@ def predict_surface(img):
 	cfg.SOLVER.MAX_ITER = 1000    
 	cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 512   
 	cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1 
-	cfg.OUTPUT_DIR="./surface"
+	cfg.OUTPUT_DIR="/drive/myDrive/surface"
 	"""
 		os.makedirs(cfg.OUTPUT_DIR, exist_ok=True)
 		trainer = DefaultTrainer(cfg) 
