@@ -99,7 +99,7 @@ def predict_surface(img):
 		
 	middle=[img[0].shape[0]/2,img[0].shape[1]/2]
 	background=backgroundsubtraction(img)
-	background=255-background
+
 	
 	#print(background.shape)
 	
@@ -156,11 +156,12 @@ def predict_surface(img):
 		
 		#maskoutput = maskoutput+i
 		maskoutput=maskoutput*255
+		maskoutput+=background
 		maskoutput = maskoutput.astype(np.uint8)
 		mask = np.ones((k.shape[0], k.shape[1]), dtype=np.uint8) 
 		
 		img_res = cv2.bitwise_and(mask,mask, mask = maskoutput)
-		img_res= img_res+background
+		
 		img_res[img_res > 1] = 1
 		
 		
