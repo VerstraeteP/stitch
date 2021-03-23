@@ -34,7 +34,7 @@ def main():
 			cv2.imwrite("./drive/MyDrive/dataset/mask/"+str(jaartal)+"/"+filename+".jpg",mask)
 			outfiles.append(jsonfinal)
 			outfiles.append(renner)
-			with open("/drive/MyDrive/dataset/json/"+str(jaartal)+"/"+filename+".txt", 'w') as outfile:
+			with open("./drive/MyDrive/dataset/json/"+str(jaartal)+"/"+filename+".txt", 'w') as outfile:
 				json.dump(outfiles, outfile)
 			
 		except:
