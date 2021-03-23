@@ -105,7 +105,7 @@ def predict_surface(img):
 	
 		
 		
-	for k in img:
+	for index,k in enumerate(img):
 		
 		minimum=None
 		predictor = DefaultPredictor(cfg)
@@ -115,7 +115,8 @@ def predict_surface(img):
 		out=v.draw_instance_predictions(outputs["instances"].to("cpu"))
 		v=out.get_image()[:, :, ::-1]
 		plt.imshow(v),plt.title("Warped Image")
-		
+		if index==220:
+			cv2.imwrite("img.jpg",v)
 		
 		
 		#maskoutput=outputs['instances'].pred_masks.to("cpu")[0][:2]
