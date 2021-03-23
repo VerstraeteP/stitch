@@ -196,8 +196,7 @@ def stitching(images,masks):
 		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,matches[:100],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
-		plt.imshow(img3)
-		plt.show()
+		
 		
 		
 		
@@ -210,8 +209,7 @@ def stitching(images,masks):
 		image3 = cv2.drawMatches(base_gray, inlier_keypoints_left, cur_image, inlier_keypoints_right, placeholder_matches, None)
 		src_pts = np.float32([ inlier_keypoints_left[m.queryIdx].pt for m in placeholder_matches ]).reshape(-1, 2)
 		dst_pts = np.float32([ inlier_keypoints_right[m.trainIdx].pt for m in placeholder_matches ]).reshape(-1, 2)
-		plt.imshow(image3)
-		plt.show()
+		
 		
 		
 		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts)
