@@ -162,6 +162,7 @@ def stitching(images,masks):
 		mask_photo[mask_photo<255]=0
 		
 		times+=1
+		print(times)
 		"""
 		if times>60:
 			plt.imshow(base_gray)
