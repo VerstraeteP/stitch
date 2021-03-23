@@ -115,6 +115,8 @@ def predict_surface(img):
 		out=v.draw_instance_predictions(outputs["instances"].to("cpu"))
 		v=out.get_image()[:, :, ::-1]
 		plt.imshow(v),plt.title("Warped Image")
+		if index==219:
+			cv2.imwrite("img0.jpg",v)
 		if index==220:
 			cv2.imwrite("img.jpg",v)
 		
