@@ -87,10 +87,7 @@ for d in ["train", "val"]:
 	#dataset_dicts = get_balloon_dicts("balloon/train")
 	dataset_dicts="surface_img/val"
 	files=sorted(glob.glob("balloon/val/*.jpg"))
-	#background= cv2.imread("background.jpg")
-	#background_mask=cv2.cvtColor(background, cv2.COLOR_BGR2GRAY)
-	#(thresh, blackAndWhiteImage) = cv2.threshold(background_mask, 127, 255, cv2.THRESH_BINARY)
-	data =[]
+	
 
 def predict_renner(images,masks):
 	teller=0
@@ -108,9 +105,6 @@ def predict_renner(images,masks):
 		out=v.draw_instance_predictions(outputs["instances"].to("cpu"))
 		v=out.get_image()[:, :, ::-1]
 		plt.imshow(v),plt.title("Warped Image")
-		
-		
-		
 		
 		
 		for k in range(len(outputs['instances'])):
