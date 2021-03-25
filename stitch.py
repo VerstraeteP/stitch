@@ -95,9 +95,12 @@ def stitching(images,masks):
 			mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
 			cnt=cnt+1	
 		
-		
+		"""
+		base_msk[base_msk>0]=255
+		"""
 		base_msk[base_msk<255]=0
 		
+		cv2.imwrite("mask.jpg",base_msk)
 		starttime=time.time()
 		
 		
