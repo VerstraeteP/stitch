@@ -10,7 +10,7 @@ from skimage.transform import ProjectiveTransform, AffineTransform
 import sys
 from surface import predict_surface
 from predict_renner import predict_renner
-from scc import scc
+from scc import ssc
 def prepare_data_and_stitch(images,fps,scalingfactor=10):
 	
 	"""
