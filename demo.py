@@ -158,7 +158,12 @@ def predict_surface(img):
 		maskoutput = maskoutput.astype(np.uint8)
 		mask = np.ones((k.shape[0], k.shape[1]), dtype=np.uint8) 
 		img_res = cv2.bitwise_and(mask,mask, mask = maskoutput)
-	
+		for k in img_res:
+		    for i in k:
+        		dup.append(i)
+
+		print (max(dup), min(dup))
+		
 		#img_res[img_res > 1] = 1
 		
 		
