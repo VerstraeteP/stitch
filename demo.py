@@ -66,7 +66,7 @@ def predict_surface(img):
 		
 		
 	cfg = get_cfg()
-	cfg.MODEL.DEVICE='cpu'
+	
 		
 		
 	cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
@@ -152,13 +152,14 @@ def predict_surface(img):
 		
 		
 		#maskoutput = maskoutput+i
-		maskoutput=maskoutput*255
+		maskoutput=maskoutput
 		maskoutput+=background
+		maskoutput[maskoutput>1]=255
 		maskoutput = maskoutput.astype(np.uint8)
 		mask = np.ones((k.shape[0], k.shape[1]), dtype=np.uint8) 
 		img_res = cv2.bitwise_and(mask,mask, mask = maskoutput)
 	
-		img_res[img_res > 1] = 1
+		#img_res[img_res > 1] = 1
 		
 		
 		"""
