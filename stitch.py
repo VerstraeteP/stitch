@@ -184,6 +184,7 @@ def stitching(images,masks):
 		matches = sorted(matches, key = lambda x:x.distance)
 		#filtered_matches=matches[:200]
 		selected_keypoints = ssc(matches, 200, 0.1, cur_image.shape[1], cur_image.shape[0])
+		print(selected_keypoints)
 		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,matches[:100],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
