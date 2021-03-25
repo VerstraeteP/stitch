@@ -187,19 +187,6 @@ def stitching(images,masks):
 		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,matches[:100],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
 		
-		"""
-		
-		
-		
-		model, inliers = ransac((src_pts, dst_pts),AffineTransform, min_samples=40,residual_threshold=8, max_trials=10000)
-		n_inliers = np.sum(inliers)
-		inlier_keypoints_left = [cv2.KeyPoint(point[0], point[1], 1) for point in src_pts[inliers]]
-		inlier_keypoints_right = [cv2.KeyPoint(point[0], point[1], 1) for point in dst_pts[inliers]]
-		placeholder_matches = [cv2.DMatch(idx, idx, 1) for idx in range(n_inliers)]
-		image3 = cv2.drawMatches(base_gray, inlier_keypoints_left, cur_image, inlier_keypoints_right, placeholder_matches, None)
-		src_pts = np.float32([ inlier_keypoints_left[m.queryIdx].pt for m in placeholder_matches ]).reshape(-1, 2)
-		dst_pts = np.float32([ inlier_keypoints_right[m.trainIdx].pt for m in placeholder_matches ]).reshape(-1, 2)
-		"""
 		
 		if times>0:
 			cv2.imwrite("image"+str(times)+".jpg",img3)
@@ -243,14 +230,7 @@ def stitching(images,masks):
 		mod_photo= cv2.bitwise_and(mod_photo,mod_photo,mask =(data_map))
 		mod_photo1= cv2.bitwise_and(base_msk,base_msk,mask =(base_msk))
 		final_img = cv2.add(mod_photo,enlarged_base_img1,dtype=cv2.CV_8U)
-		"""
-		if neg==True:
-			plt.imshow(enlarged_base_img1)
-			plt.figure(2)
-			plt.imshow(mod_photo)
-			plt.show()
-			neg==False
-		"""
+		
 		total_mask= cv2.add(mod_photo1,enlarged_base_img,dtype=cv2.CV_8U)
 		
 		base_gray=final_img
