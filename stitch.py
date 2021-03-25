@@ -171,19 +171,9 @@ def stitching(images,masks):
 		
 		times+=1
 		print(times)
-		"""
-		if times>1:
-			plt.imshow(base_gray)
-			plt.figure(1)
-			plt.imshow(mask_photo)
-			plt.figure(2)
-			plt.imshow(curr)
-			plt.figure(3)
-			plt.imshow(base_mask)
-			plt.figure(4)
-			plt.imshow(img3)
-			plt.show()
-		"""
+		
+		if times>0:
+			cv2.imwrite("image"+str(times)+".jpg",base_mask)
 		
 		base_features, base_descs = detector.detectAndCompute(base_gray,mask_photo)
 		
