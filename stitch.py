@@ -177,11 +177,12 @@ def stitching(images,masks):
 			cv2.imwrite("image"+str(times)+".jpg",base_mask)
 		base_features=detector.detect(base_gray,mask_photo)
 		img2 = cv.drawKeypoints(base_gray, base_features, None, color=(0,255,0), flags=0)
+		cv2.imwrite("img2.jpg",img2)
+
 		#base_features, base_descs = detector.detectAndCompute(base_gray,mask_photo)
 		base_features = ssc(base_features, 200, 0.1, cur_image.shape[1], cur_image.shape[0])
 		img3 = cv.drawKeypoints(base_gray, base_features, None, color=(0,255,0), flags=0)
 		base_desc=detector.compute(base_gray,base_features)
-		cv2.imwrite("img2.jpg",img2)
 		cv2.imwrite("img3.jpg",img3)
 
 		next_features, next_descs = detector.detectAndCompute(curr,(base_mask))	
