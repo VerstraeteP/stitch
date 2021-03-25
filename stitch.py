@@ -8,7 +8,7 @@ import math
 from skimage.measure import ransac
 from skimage.transform import ProjectiveTransform, AffineTransform
 import sys
-from demo import predict_surface
+from surface import predict_surface
 from predict_renner import predict_renner
 def prepare_data_and_stitch(images,fps,scalingfactor=10):
 	
