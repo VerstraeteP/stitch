@@ -61,12 +61,12 @@ def predict_surface(img):
 			DatasetCatalog.register("surface_" + d, lambda d=d: get_surface_dicts("surface/" + d))
 			MetadataCatalog.get("surface_" + d).set(thing_classes=["surface"])
 			surface_metadata = MetadataCatalog.get("surface_train")
-			#dataset_dicts = get_surface_dicts("surface_img/train")
+			dataset_dicts = get_surface_dicts("surface_img/train")
 			#visualize 3 random samples
 		
 		
 	cfg = get_cfg()
-	
+	cfg.MODEL.DEVICE='cpu'
 		
 		
 	cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
@@ -79,7 +79,7 @@ def predict_surface(img):
 	cfg.SOLVER.MAX_ITER = 1000    
 	cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 512   
 	cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1 
-	cfg.OUTPUT_DIR="./drive/MyDrive/surface"
+	cfg.OUTPUT_DIR="./surface"
 	"""
 		os.makedirs(cfg.OUTPUT_DIR, exist_ok=True)
 		trainer = DefaultTrainer(cfg) 
@@ -99,13 +99,13 @@ def predict_surface(img):
 		
 	middle=[img[0].shape[0]/2,img[0].shape[1]/2]
 	background=backgroundsubtraction(img)
-
+	cv2.imwrite("background.jpg",background)
 	
 	#print(background.shape)
 	
 		
 		
-	for index,k in enumerate(img):
+	for k in img:
 		
 		minimum=None
 		predictor = DefaultPredictor(cfg)
@@ -115,10 +115,7 @@ def predict_surface(img):
 		out=v.draw_instance_predictions(outputs["instances"].to("cpu"))
 		v=out.get_image()[:, :, ::-1]
 		plt.imshow(v),plt.title("Warped Image")
-		if index==219:
-			cv2.imwrite("img0.jpg",v)
-		if index==220:
-			cv2.imwrite("img.jpg",v)
+		
 		
 		
 		#maskoutput=outputs['instances'].pred_masks.to("cpu")[0][:2]
@@ -159,9 +156,8 @@ def predict_surface(img):
 		maskoutput+=background
 		maskoutput = maskoutput.astype(np.uint8)
 		mask = np.ones((k.shape[0], k.shape[1]), dtype=np.uint8) 
-		
 		img_res = cv2.bitwise_and(mask,mask, mask = maskoutput)
-		
+	
 		img_res[img_res > 1] = 1
 		
 		
