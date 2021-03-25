@@ -51,7 +51,7 @@ def stitching(images,masks):
 	ttlchange=0
 	ttlchangeteller=0
 	
-	detector = cv2.xfeatures2d.SIFT_create()
+	detector = cv2.ORB_create()
 	Affinetransformations=[[[1 , 0 ,0],[0,1,0]]]
 	
 	base_msk= masks[0]
@@ -86,8 +86,7 @@ def stitching(images,masks):
 		if len(base_msk.shape)==3:
 			base_msk=  cv2.cvtColor(base_msk, cv2.COLOR_BGR2GRAY)
 		"""
-		plt.imshow(base_mask)
-		plt.show()
+		
 		base_mask[:,:]=0
 		curr[:,:]=0	
 		base_mask[:base_msk.shape[0],:base_msk.shape[1]]=base_msk
@@ -97,7 +96,7 @@ def stitching(images,masks):
 			cnt=cnt+1	
 		
 		
-		#base_msk[base_msk<255]=0
+		base_msk[base_msk<255]=0
 		
 		starttime=time.time()
 		
@@ -142,8 +141,7 @@ def stitching(images,masks):
 			increase=np.zeros((curr.shape[0],images[0].shape[1],3), np.uint8)
 			increase_mask=np.zeros((curr.shape[0],images[0].shape[1]), np.uint8)
 			heightc, widthc = curr.shape[:2]
-		plt.figure(5)
-		plt.imshow(base_gray)	
+		
 		if (baselineneg-cur_image.shape[1]/2)<0:
 			print("neg")
 			base_gray = np.append(base_gray,increase,axis=1)
@@ -188,7 +186,7 @@ def stitching(images,masks):
 		base_features, base_descs = detector.detectAndCompute(base_gray,mask_photo)
 		
 		next_features, next_descs = detector.detectAndCompute(curr,(base_mask))	
-		bf = cv2.BFMatcher(cv2.NORM_L2, crossCheck=True)
+		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
 		filtered_matches=matches[:200]
@@ -196,8 +194,7 @@ def stitching(images,masks):
 		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,matches[:100],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
-		plt.imshow(img3)
-		plt.show()
+		
 		
 		
 		
@@ -210,8 +207,7 @@ def stitching(images,masks):
 		image3 = cv2.drawMatches(base_gray, inlier_keypoints_left, cur_image, inlier_keypoints_right, placeholder_matches, None)
 		src_pts = np.float32([ inlier_keypoints_left[m.queryIdx].pt for m in placeholder_matches ]).reshape(-1, 2)
 		dst_pts = np.float32([ inlier_keypoints_right[m.trainIdx].pt for m in placeholder_matches ]).reshape(-1, 2)
-		plt.imshow(image3)
-		plt.show()
+		
 		
 		
 		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts)
