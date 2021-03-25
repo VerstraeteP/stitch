@@ -72,7 +72,7 @@ def process_video(file_name,n=1):
 			time.sleep(2)
 	
 	return(frame_list,list_frame_number,fps)		
-		
+"""		
 def process_frames(frames,numbers,maxgap=12):
 	"""
 	get the largest group of consecutively finish frames
@@ -94,7 +94,7 @@ def process_frames(frames,numbers,maxgap=12):
 	index_list=max(indexen, key=len)
 	
 	return([frames[i] for i in index_list],[numbers[i] for i in index_list[5:]])
-
+"""
 	
 	
 
