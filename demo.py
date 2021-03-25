@@ -61,9 +61,7 @@ def predict_surface(img):
 			DatasetCatalog.register("surface_" + d, lambda d=d: get_surface_dicts("surface/" + d))
 			MetadataCatalog.get("surface_" + d).set(thing_classes=["surface"])
 			surface_metadata = MetadataCatalog.get("surface_train")
-			#dataset_dicts = get_surface_dicts("surface_img/train")
-			#visualize 3 random samples
-		
+			
 		
 	cfg = get_cfg()
 	
@@ -120,64 +118,21 @@ def predict_surface(img):
 		
 		#maskoutput=outputs['instances'].pred_masks.to("cpu")[0][:2]
 		maskoutput=0
-		"""
-		if len(outputs['instances'].pred_boxes)>1:
-			for index,value in enumerate(outputs['instances'].pred_boxes.to("cpu")):
-				
-				dist=math.dist(middle, value[:2])
-				
-				if minimum is None or minimum>=dist:
-					i=index
-					minimum=dist
-			for index,value in enumerate(outputs['instances'].pred_boxes.to("cpu")):
-				x=outputs['instances'].pred_boxes.get_centers().to("cpu").numpy()[i][0]
-				if x>value[0] and x< value[0]+value[2]:
-					maskoutput+=outputs['instances'].pred_masks.to("cpu").numpy()[index]
-			maskoutput[maskoutput==0]=0
-			maskoutput[maskoutput!=0]=1
-			
-		else:
-			middle=outputs['instances'].pred_boxes.get_centers().to("cpu").numpy()[0]		
-			i=0
 		
 		
 
-			
-		maskoutput=outputs['instances'].pred_masks.to("cpu").numpy()[i]
-		"""
+		
 		for k in outputs['instances'].pred_masks.to("cpu").numpy():
 			maskoutput+=k
-		
-		
-		
-		
-		dup=[]
+	
 		maskoutput=maskoutput*255
 		maskoutput+=background
 		
 		maskoutput = maskoutput.astype(np.uint8)
 		mask = np.ones((k.shape[0], k.shape[1]), dtype=np.uint8) 
 		img_res = cv2.bitwise_and(mask,mask, mask = maskoutput)
-    
-		for k in img_res:
-		    for i in k:
-        		dup.append(i)
-
-		print (max(dup), min(dup))
-		
-		#img_res[img_res > 1] = 1
-		
-		
-		"""
-		im = cv2.bitwise_and(k,k, mask = maskoutput)
-		img_res=np.bitwise_not(img_res)
-		img_res=img_res*2
-		res = cv2.bitwise_and(k,k,mask = maskoutput)
-		"""
-		
+  
 		data.append(img_res)
-		
-		DatasetCatalog.clear()
 	return data
     
     
