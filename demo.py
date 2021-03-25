@@ -61,7 +61,7 @@ def predict_surface(img):
 			DatasetCatalog.register("surface_" + d, lambda d=d: get_surface_dicts("surface/" + d))
 			MetadataCatalog.get("surface_" + d).set(thing_classes=["surface"])
 			surface_metadata = MetadataCatalog.get("surface_train")
-			dataset_dicts = get_surface_dicts("surface_img/train")
+			#dataset_dicts = get_surface_dicts("surface_img/train")
 			#visualize 3 random samples
 		
 		
@@ -79,7 +79,7 @@ def predict_surface(img):
 	cfg.SOLVER.MAX_ITER = 1000    
 	cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 512   
 	cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1 
-	cfg.OUTPUT_DIR="./surface"
+	cfg.OUTPUT_DIR=".content/drive/MyDrive/surface"
 	"""
 		os.makedirs(cfg.OUTPUT_DIR, exist_ok=True)
 		trainer = DefaultTrainer(cfg) 
