@@ -177,13 +177,13 @@ def stitching(images,masks):
 			cv2.imwrite("image"+str(times)+".jpg",base_mask)
 		
 		base_features, base_descs = detector.detectAndCompute(base_gray,mask_photo)
-		
+		base_features = ssc(base_features, 200, 0.1, cur_image.shape[1], cur_image.shape[0])
+
 		next_features, next_descs = detector.detectAndCompute(curr,(base_mask))	
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
 		#filtered_matches=matches[:200]
-		selected_keypoints = ssc(matches, 200, 0.1, cur_image.shape[1], cur_image.shape[0])
 		print(selected_keypoints)
 		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
