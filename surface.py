@@ -57,7 +57,7 @@ def get_surface_dicts(img_dir):
 def predict_surface(img):
 	
 	for d in ["train", "val"]:
-		
+			DatasetCatalog.clear()
 			DatasetCatalog.register("surface_" + d, lambda d=d: get_surface_dicts("surface/" + d))
 			MetadataCatalog.get("surface_" + d).set(thing_classes=["surface"])
 			surface_metadata = MetadataCatalog.get("surface_train")
