@@ -151,13 +151,14 @@ def predict_surface(img):
 		
 		
 		
-		#maskoutput = maskoutput+i
-		maskoutput=maskoutput
+		dup=[]
+		maskoutput=maskoutput*255
 		maskoutput+=background
-		maskoutput[maskoutput>1]=255
+		
 		maskoutput = maskoutput.astype(np.uint8)
 		mask = np.ones((k.shape[0], k.shape[1]), dtype=np.uint8) 
 		img_res = cv2.bitwise_and(mask,mask, mask = maskoutput)
+    
 		for k in img_res:
 		    for i in k:
         		dup.append(i)
@@ -174,7 +175,7 @@ def predict_surface(img):
 		res = cv2.bitwise_and(k,k,mask = maskoutput)
 		"""
 		
-		data.append(255-img_res)
+		data.append(img_res)
 		
 		DatasetCatalog.clear()
 	return data
