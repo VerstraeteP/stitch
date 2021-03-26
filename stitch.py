@@ -5,6 +5,7 @@ import glob
 import os
 import time
 import math
+form scc import ssc
 from skimage.measure import ransac
 from skimage.transform import ProjectiveTransform, AffineTransform
 import sys
@@ -175,7 +176,13 @@ def stitching(images,masks):
 		
 		
 
-		base_features, base_descs = detector.detectAndCompute(base_gray,mask_photo)
+		#base_features, base_descs = detector.detectAndCompute(base_gray,mask_photo)
+		keypoints=detector.detect(base_gray,mask_photo)
+		shuffle(keypoints)  # simulating sorting by score with random shuffle
+		selected_keypoints = ssc(keypoints, 20, 0.1, base_gray.shape[1], base_gray.shape[0])
+
+    		img3 = cv2.drawKeypoints(base_gray, selected_keypoints, color=(255, 0, 0))
+    		cv2.imwrite("image1.jpg",img3)
 
 		next_features, next_descs = detector.detectAndCompute(curr,(base_mask))	
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
