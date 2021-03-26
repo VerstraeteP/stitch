@@ -186,11 +186,14 @@ def stitching(images,masks):
 		matches = sorted(matches, key = lambda x:x.distance)
 		filtered_matches=matches[:200]
 		filtered_keypoints=[base_features[m.queryIdx] for m in filtered_matches]
-		
+		print("gelukt")
+
 		base_features = ssc(filtered_keypoints, 100, 0.7, base_gray.shape[1], base_gray.shape[0])
+		print("gelukt")
 		base_descs=detector.compute(base_gray,base_features)
 		matches = bf.match(base_descs,next_descs)
-		
+		print("gelukt")
+
 		filtered_matches=matches[:100]
 		img3 = cv2.drawKeypoints(base_gray, base_features,base_gray, color=(255, 0, 0))
 		cv2.imwrite("image1.jpg",img3)
