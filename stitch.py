@@ -196,11 +196,15 @@ def stitching(images,masks):
 
 		filtered_matches=matches[:100]
 		img3 = cv2.drawKeypoints(base_gray, base_features,base_gray, color=(255, 0, 0))
+		print("gelukt")
 		cv2.imwrite("image1.jpg",img3)
 		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
+		print("gelukt")
+
 		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,matches[:100],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
-		
+		print("gelukt")
+
 		
 		if times>0:
 			cv2.imwrite("image"+str(times)+".jpg",img3)
