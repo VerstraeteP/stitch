@@ -5,13 +5,13 @@ import glob
 import os
 import time
 import math
-form scc import ssc
+from scc import ssc
 from skimage.measure import ransac
 from skimage.transform import ProjectiveTransform, AffineTransform
 import sys
 from surface import predict_surface
 from predict_renner import predict_renner
-
+from random import shuffle
 def prepare_data_and_stitch(images,fps,scalingfactor=10):
 	
 	"""
