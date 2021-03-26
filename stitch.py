@@ -189,8 +189,10 @@ def stitching(images,masks):
 		print("gelukt")
 
 		base_features = ssc(filtered_keypoints, 100, 0.7, base_gray.shape[1], base_gray.shape[0])
-		print("gelukt")
+		print(base_features)
 		base_descs=detector.compute(base_gray,base_features)
+		print(base_descs)
+		print("gelukt")
 		matches = bf.match(base_descs,next_descs)
 		print("gelukt")
 
