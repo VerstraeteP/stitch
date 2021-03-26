@@ -177,46 +177,32 @@ def stitching(images,masks):
 		
 
 		#base_features, base_descs = detector.detectAndCompute(base_gray,mask_photo)
-		base_features=detector.detect(base_gray,mask_photo)
-		base_feature = ssc(base_features, 20, 0.1, base_gray.shape[1], base_gray.shape[0])
-		copy=base_gray.copy()
-		img3 = cv2.drawKeypoints(base_gray, base_features,base_gray, color=(255, 0, 0))
 		
-		img3e = cv2.drawKeypoints(copy, base_feature,copy, color=(255, 0, 0))
-		cv2.imwrite("before.jpg",img3)
-		cv2.imwrite("after.jpg",img3e)
-		
-
-
-
+		base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)	
 		next_features, next_descs = detector.detectAndCompute(curr,(base_mask))	
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
 		filtered_matches=matches[:200]
-		filtered_keypoints=[base_features[m.queryIdx] for m in filtered_matches]
-		print("gelukt")
-		base_features=[]
-
-		base_feature = ssc(filtered_keypoints, 100, 0.7, base_gray.shape[1], base_gray.shape[0])
-		for k in base_feature:
-				base_features.append(k)
-		print(base_features)
-		base_descs=detector.compute(base_gray,base_features)
-		print(base_descs)
-		print("gelukt")
-		matches = bf.match(base_descs,next_descs)
-		print("gelukt")
-
-		filtered_matches=matches[:100]
+		base_features=[base_features[m.queryIdx].pt for m in filtered_matches]
+		next_descs=[next_descs[m.queryIdx] for m in filtered_matches]
+		base_features = ssc(base_features, 20, 0.1, base_gray.shape[1], base_gray.shape[0])
+		base_features, base_desc= detector.compute(base_gray,base_features)
 		img3 = cv2.drawKeypoints(base_gray, base_features,base_gray, color=(255, 0, 0))
-		print("gelukt")
-		cv2.imwrite("image1.jpg",img3)
+		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+		filtered_matches = bf.match(base_descs,next_descs)
+		copy=base_gray.copy()
+		img3e = cv2.drawKeypoints(copy, base_feature,copy, color=(255, 0, 0))
+		cv2.imwrite("before.jpg",img3)
+		cv2.imwrite("after.jpg",img3e)
+		
+		
+	
 		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 		
 
-		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,matches[:100],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
+		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,matches[:20],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
 		print("gelukt")
 
 		
