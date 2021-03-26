@@ -182,7 +182,7 @@ def stitching(images,masks):
 		base_features = ssc(keypoints, 200, 0.1, base_gray.shape[1], base_gray.shape[0])
 		img3 = cv2.drawKeypoints(base_gray, base_features,base_gray, color=(255, 0, 0))
 		cv2.imwrite("image1.jpg",img3)
-		base_descs=detector.compute(base_gray,base_features)
+		base_features,base_descs=detector.compute(base_gray,base_features)
 
 		next_features, next_descs = detector.detectAndCompute(curr,(base_mask))	
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
