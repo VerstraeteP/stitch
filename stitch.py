@@ -179,7 +179,7 @@ def stitching(images,masks):
 		#base_features, base_descs = detector.detectAndCompute(base_gray,mask_photo)
 		keypoints=detector.detect(base_gray,mask_photo)
 		shuffle(keypoints)  # simulating sorting by score with random shuffle
-		base_features = ssc(keypoints, 200, 0.1, base_gray.shape[1], base_gray.shape[0])
+		base_features = ssc(keypoints, 600, 0.7, base_gray.shape[1], base_gray.shape[0])
 		img3 = cv2.drawKeypoints(base_gray, base_features,base_gray, color=(255, 0, 0))
 		cv2.imwrite("image1.jpg",img3)
 		base_features,base_descs=detector.compute(base_gray,base_features)
