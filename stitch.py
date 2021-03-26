@@ -179,8 +179,10 @@ def stitching(images,masks):
 		#base_features, base_descs = detector.detectAndCompute(base_gray,mask_photo)
 		base_features=detector.detect(base_gray,mask_photo)
 		base_feature = ssc(base_features, 20, 0.1, base_gray.shape[1], base_gray.shape[0])
+		copy=base_gray.copy()
 		img3 = cv2.drawKeypoints(base_gray, base_features,base_gray, color=(255, 0, 0))
-		img3e = cv2.drawKeypoints(base_gray, base_feature,base_gray, color=(255, 0, 0))
+		
+		img3e = cv2.drawKeypoints(copy, base_feature,copy, color=(255, 0, 0))
 		cv2.imwrite("before.jpg",img3)
 		cv2.imwrite("after.jpg",img3e)
 		
