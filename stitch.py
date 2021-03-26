@@ -186,7 +186,7 @@ def stitching(images,masks):
 		matches = sorted(matches, key = lambda x:x.distance)
 		filtered_matches=matches[:200]
 		base_features=[base_features[m.queryIdx] for m in filtered_matches]
-		next_features=[next_features[m.queryIdx] for m in filtered_matches]
+		next_features=[next_features[m.trainIdx] for m in filtered_matches]
 		next_descs=[next_descs[m.trainIdx] for m in filtered_matches]
 		base_features = ssc(base_features, 20, 0.1, base_gray.shape[1], base_gray.shape[0])
 		base_features, base_desc= detector.compute(base_gray,base_features)
