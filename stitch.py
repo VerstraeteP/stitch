@@ -54,7 +54,7 @@ def stitching(images,masks):
 	ttlchange=0
 	ttlchangeteller=0
 	
-	detector = cv2.ORB_create()
+	detector = cv2.ORB_create(edgeThreshold = 30)
 	Affinetransformations=[[[1 , 0 ,0],[0,1,0]]]
 	
 	base_msk= masks[0]
@@ -80,7 +80,7 @@ def stitching(images,masks):
 	largest=0
 	times=0
 	baselineneg=600
-	
+	border=30
 	for cur_image in images[1:]:
 		neg=False
 		base_msk=masks[teller]
@@ -98,8 +98,10 @@ def stitching(images,masks):
 		curr[:cur_image.shape[0],:cur_image.shape[1]]=cur_image
 		if cnt == 0:
 			mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
-			cnt=cnt+1	
-		
+			cnt=cnt+1
+		cv2.imwrite("befmask.jpg",base_msk)
+		base_msk=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
+		cv2.imwrite("aftermask.jpg",base_msk)
 		
 		
 		cv2.imwrite("mask.jpg",base_msk)
@@ -187,7 +189,7 @@ def stitching(images,masks):
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
-		filtered_matches=matches[:200]
+		filtered_matches=matches[:20]
 		
 		base_features=[base_features[m.queryIdx] for m in filtered_matches]
 		base_descs=[base_descs[m.queryIdx] for m in filtered_matches]
@@ -198,13 +200,14 @@ def stitching(images,masks):
 
 		next_features=[next_features[m.trainIdx] for m in filtered_matches]
 		next_descs=[next_descs[m.trainIdx] for m in filtered_matches]
-		
+	
 		base_descs=np.array(base_descs)
 		next_descs=np.array(next_descs)
+    
 
 		      
 		
-		base_features,base_descs = KDT_NMS(base_features, base_descs, r=15, k_max=60)
+		base_features,base_descs = KDT_NMS(base_features, base_descs, r=30, k_max=20)
 		#base_descs=base_descs.astype('uint8')
 		#base_features = ssc(base_features, 100, 0.1, base_gray.shape[1], base_gray.shape[0])
 		#base_features, base_descs= detector.compute(base_gray,base_features)
@@ -217,15 +220,15 @@ def stitching(images,masks):
 	
 		img3 = cv2.drawKeypoints(base_gray, base_features,base_gray, color=(255, 0, 0))
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
-		filtered_matches = bf.match(base_descs,next_descs)
+		filter_matches = bf.match(base_descs,next_descs)
 		copy=base_gray.copy()
 		img3e = cv2.drawKeypoints(copy, base_features,copy, color=(255, 0, 0))
 		cv2.imwrite("before.jpg",img3)
 		cv2.imwrite("after.jpg",img3e)
 		print(len(filtered_matches))
-		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,filtered_matches[:100],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
-		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
-		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
+		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,filter_matches[:20],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
+		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filter_matches]).reshape(-1,2)
+		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filter_matches]).reshape(-1,2)
 		
 
 
