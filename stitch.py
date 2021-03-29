@@ -183,7 +183,9 @@ def stitching(images,masks):
 		base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
 		base_features,base_descs = KDT_NMS(base_features, base_descs, r=15, k_max=60)
 
-		next_features, next_descs = detector.detectAndCompute(curr,(base_mask))	
+		next_features, next_descs = detector.detectAndCompute(curr,(base_mask))
+		print(next_descs.dtype)
+		print(base_descs.dtype)
 		print(next_features)
 		print(base_features)
 		print(next_descs)
