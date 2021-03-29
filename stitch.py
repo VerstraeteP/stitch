@@ -94,14 +94,13 @@ def stitching(images,masks):
 		base_msk[base_msk==1]=0
 		base_mask[:,:]=0
 		curr[:,:]=0	
-		base_mask[:base_msk.shape[0],:base_msk.shape[1]]=base_msk
+		base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 		curr[:cur_image.shape[0],:cur_image.shape[1]]=cur_image
 		if cnt == 0:
 			mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
 			cnt=cnt+1
-		cv2.imwrite("befmask.jpg",base_msk)
-		base_msk=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
-		cv2.imwrite("aftermask.jpg",base_msk)
+		
+		cv2.imwrite("aftermask.jpg",base_mask)
 		
 		
 		cv2.imwrite("mask.jpg",base_msk)
