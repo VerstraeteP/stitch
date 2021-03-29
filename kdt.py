@@ -14,6 +14,7 @@ def KDT_NMS(kps, descs=None, r=15, k_max=20):
 
     # create kd-tree for quick NN queries
     data = np.array([list(kp.pt) for kp in kps])
+    print(len(data))
     kd_tree = KDTree(data)
 
     # perform NMS using kd-tree, by querying points by score order, 
