@@ -13,7 +13,7 @@ def main():
 	
 	for file in glob.glob("./drive/MyDrive/videos/2019/zBrabantsepijl_1_Zaventem.mp4"):
 		
-		try:
+		
 			outfiles=[]
 			print(file)
 			
@@ -38,9 +38,6 @@ def main():
 				json.dump(outfiles, outfile)
 			
 		
-		except Exception as e:
-			print(e)
-			continue
 			
 		
 main()
