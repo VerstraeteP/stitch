@@ -197,10 +197,10 @@ def stitching(images,masks):
 		next_descs=[next_descs[m.trainIdx] for m in filtered_matches]
 		print(base_descs.dtype)
 		
-		base_features,base_descs = KDT_NMS(base_features, base_descs, r=15, k_max=60)
-		base_descs=base_descs.astype('uint8')
-		#base_features = ssc(base_features, 20, 0.1, base_gray.shape[1], base_gray.shape[0])
-		#base_features, base_descs= detector.compute(base_gray,base_features)
+		#base_features,base_descs = KDT_NMS(base_features, base_descs, r=15, k_max=60)
+		#base_descs=base_descs.astype('uint8')
+		base_features = ssc(base_features, 20, 0.1, base_gray.shape[1], base_gray.shape[0])
+		base_features, base_descs= detector.compute(base_gray,base_features)
 		img3 = cv2.drawKeypoints(base_gray, base_features,base_gray, color=(255, 0, 0))
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		filtered_matches = bf.match(base_descs,next_descs)
