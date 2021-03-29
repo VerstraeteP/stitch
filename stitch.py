@@ -210,7 +210,8 @@ def stitching(images,masks):
 		#base_features, base_descs= detector.compute(base_gray,base_features)
 		base_descs=np.array(base_descs)
 		next_descs=np.array(next_descs)
-		
+		base_features=np.array(base_features)
+		base_features=base_features.astype('uint8')
 		
 		base_descs=base_descs.astype('uint8')
 		next_descs=next_descs.astype('uint8')
