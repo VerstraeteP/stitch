@@ -211,9 +211,9 @@ def stitching(images,masks):
 		print(len(base_descs))
 		
 		
-		print(base_descs)
+		print(base_features)
 		next_descs=np.array(next_descs)
-		print(next_descs)
+		print(next_features)
 		img3 = cv2.drawKeypoints(base_gray, base_features,base_gray, color=(255, 0, 0))
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		filtered_matches = bf.match(base_descs,next_descs)
