@@ -208,6 +208,8 @@ def stitching(images,masks):
 		img3e = cv2.drawKeypoints(copy, base_features,copy, color=(255, 0, 0))
 		cv2.imwrite("before.jpg",img3)
 		cv2.imwrite("after.jpg",img3e)
+		print(len(filtered_matches)
+		    
 		
 		
    
