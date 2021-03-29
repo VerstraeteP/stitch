@@ -190,6 +190,7 @@ def stitching(images,masks):
 		
 		base_features=[base_features[m.queryIdx] for m in filtered_matches]
 		base_descs=[base_descs[m.queryIdx] for m in filtered_matches]
+		base_descs=np.array(base_descs)
 
 		next_features=[next_features[m.trainIdx] for m in filtered_matches]
 		next_descs=[next_descs[m.trainIdx] for m in filtered_matches]
