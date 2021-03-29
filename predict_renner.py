@@ -66,6 +66,7 @@ for d in ["train", "val"]:
 	balloon_metadata = MetadataCatalog.get("renner_train")
 	#dataset_dicts = get_balloon_dicts("surface_img/train")
 	cfg = get_cfg()
+	cfg.MODEL.DEVICE='cpu'
 
 	cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
 	cfg.DATASETS.TRAIN = ("renner_train",)
