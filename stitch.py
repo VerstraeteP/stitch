@@ -235,7 +235,7 @@ def stitching(images,masks):
 		print(len(src_pts))
 		print(len(dst_pts))
 
-		img3 = cv2.drawMatches(base_gray,next_features,cur_image,base_features,matches[:10],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
+		
 		print("gelukt")
 
 
