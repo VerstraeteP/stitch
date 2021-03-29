@@ -199,7 +199,7 @@ def stitching(images,masks):
 
 		next_features=[next_features[m.trainIdx] for m in filtered_matches]
 		next_descs=[next_descs[m.trainIdx] for m in filtered_matches]
-		#print(base_descs.dtype)
+		print(base_descs.dtype)
 		print(len(next_features))
 		print(len(next_descs))
 		      
