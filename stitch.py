@@ -203,6 +203,8 @@ def stitching(images,masks):
 		print(len(next_features))
 		print(len(next_descs))
 		base_descs=np.array(base_descs)
+		next_descs=np.array(next_descs)
+
 		base_descs=base_descs.astype('uint8')
 		next_descs=next_descs.astype('uint8')
 		      
