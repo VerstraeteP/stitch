@@ -201,6 +201,10 @@ def stitching(images,masks):
 		cv2.imwrite("before.jpg",img3)
 		cv2.imwrite("after.jpg",img3e)
 		"""
+		print(next_features)
+		print(base_features)
+		print(next_descs)
+		print(base_descs)
    
 		
 		
