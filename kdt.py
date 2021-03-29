@@ -34,6 +34,7 @@ def KDT_NMS(kps, descs=None, r=15, k_max=20):
     if descs is not None:
         descs = descs[order]
         descs_filtered = np.array([desc for i,desc in enumerate(descs) if i not in removed],dtype=np.float32)
-        descs_filtered=int(descs_filtered)
+        descs_filtered=descs_filtered.astype(int)
+        
     
     return kp_filtered, descs_filtered
