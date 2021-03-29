@@ -186,6 +186,7 @@ def stitching(images,masks):
 		
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
+		matches = sorted(matches, key = lambda x:x.distance)
 		filtered_matches=matches[:200]
 		
 		base_features=[base_features[m.queryIdx] for m in filtered_matches]
@@ -205,7 +206,7 @@ def stitching(images,masks):
 		
 		#base_features,base_descs = KDT_NMS(base_features, base_descs, r=15, k_max=60)
 		#base_descs=base_descs.astype('uint8')
-		base_features = ssc(base_features, 20, 0.1, base_gray.shape[1], base_gray.shape[0])
+		base_features = ssc(base_features, 100, 0.1, base_gray.shape[1], base_gray.shape[0])
 		base_features, base_descs= detector.compute(base_gray,base_features)
 		print(len(base_features))
 		print(len(base_descs))
