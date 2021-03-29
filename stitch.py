@@ -192,10 +192,16 @@ def stitching(images,masks):
 		base_descs=[base_descs[m.queryIdx] for m in filtered_matches]
 		#base_descs=np.array(base_descs)
 		#base_features=np.array(base_features)
+		print(len(base_features))
+		print(len(base_descs))
+		 
 
 		next_features=[next_features[m.trainIdx] for m in filtered_matches]
 		next_descs=[next_descs[m.trainIdx] for m in filtered_matches]
 		#print(base_descs.dtype)
+		print(len(next_features))
+		prin(len(next_descs))
+		      
 		
 		#base_features,base_descs = KDT_NMS(base_features, base_descs, r=15, k_max=60)
 		#base_descs=base_descs.astype('uint8')
