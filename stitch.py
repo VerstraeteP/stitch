@@ -195,7 +195,7 @@ def stitching(images,masks):
 
 		next_features=[next_features[m.trainIdx] for m in filtered_matches]
 		next_descs=[next_descs[m.trainIdx] for m in filtered_matches]
-		print(base_descs.dtype)
+		#print(base_descs.dtype)
 		
 		#base_features,base_descs = KDT_NMS(base_features, base_descs, r=15, k_max=60)
 		#base_descs=base_descs.astype('uint8')
