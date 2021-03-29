@@ -202,7 +202,7 @@ def stitching(images,masks):
 		
 		print(len(next_features))
 		print(len(next_descs))
-		base_descs=base_descs.astype('uint8')
+		base_descs=np.array(base_descs)
 		      
 		
 		base_features,base_descs = KDT_NMS(base_features, base_descs, r=15, k_max=60)
