@@ -188,7 +188,9 @@ def stitching(images,masks):
 		base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
 		
 		next_features, next_descs = detector.detectAndCompute(curr,(base_mask))
-		
+		cv.imwrite("afbeedling"+str(times)+".jpg",curr)
+		cv.imwrite("afbeedling"+str(times)+".jpg",base_mask)
+
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
