@@ -94,12 +94,14 @@ def stitching(images,masks):
 		
 		base_msk[base_msk==1]=0
 		base_mask[:,:]=0
-		curr[:,:]=0	
+		
 		base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
-		curr[:cur_image.shape[0],:cur_image.shape[1]]=cur_image
+		
 		if cnt == 0:
 			mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
 			cnt=cnt+1
+			curr[:,:]=0	
+			curr[:cur_image.shape[0],:cur_image.shape[1]]=cur_image
 		
 		cv2.imwrite("aftermask.jpg",base_mask)
 		
@@ -267,6 +269,7 @@ def stitching(images,masks):
 		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
 		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))
+		curr=cv2.warpAffine(images[teller+1],transformation,(widthc,heightc))
 		
 		ttldistance=0
 		tellers=0
@@ -299,6 +302,7 @@ def stitching(images,masks):
 		cv2.drawContours(data_map, contours, -1, (0,255,255), 10)
 		enlarged_base_img= cv2.bitwise_and(total_mask,total_mask, mask =np.bitwise_not(data_map))
 		enlarged_base_img1 = cv2.bitwise_and(base_gray,base_gray,mask =np.bitwise_not(data_map))
+		
 		cv2.imwrite("data_map.jpg",data_map)
 		mod_photo= cv2.bitwise_and(mod_photo,mod_photo,mask =(data_map))
 		mod_photo1= cv2.bitwise_and(base_msk,base_msk,mask =(base_msk))
