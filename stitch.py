@@ -184,7 +184,7 @@ def stitching(images,masks):
 		base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
 		
 		next_features, next_descs = detector.detectAndCompute(curr,(base_mask))
-		
+		"""
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
@@ -199,6 +199,7 @@ def stitching(images,masks):
 
 		next_features=[next_features[m.trainIdx] for m in filtered_matches]
 		next_descs=[next_descs[m.trainIdx] for m in filtered_matches]
+		
 	
 		base_descs=np.array(base_descs)
 		next_descs=np.array(next_descs)
@@ -235,15 +236,24 @@ def stitching(images,masks):
 		inlier_keypoints_right = [cv2.KeyPoint(point[0], point[1], 1) for point in dst_pts[inliers]]
 		placeholder_matches = [cv2.DMatch(idx, idx, 1) for idx in range(n_inliers)]
 		image3 = cv2.drawMatches(base_gray, inlier_keypoints_left, cur_image, inlier_keypoints_right, placeholder_matches, None)
-		src_pts = np.float32([ inlier_keypoints_left[m.queryIdx].pt for m in placeholder_matches ]).reshape(-1, 2)
-		dst_pts = np.float32([ inlier_keypoints_right[m.trainIdx].pt for m in placeholder_matches ]).reshape(-1, 2)
+		"""
+		matcher = cv2.BFMatcher(cv2.NORM_HAMMING)
+		matches_all = matcher.match(base_descs, next_descs)
+		start = time.time()
+		matches_gms = matchGMS(base_gray.shape[:2], curr.shape[:2], base_features, next_features, matches_all, withScale=False, withRotation=False, thresholdFactor=6)
+		end = time.time()
+		print('Found', len(matches_gms), 'matches')
+		print('GMS takes', end-start, 'seconds')
+		output = draw_matches(base_gray, curr, base_features, next_features, matches_gms, DrawingType.ONLY_LINES)
+		src_pts = np.float32([ base_features[m.queryIdx].pt for m in matches_gms ]).reshape(-1, 2)
+		dst_pts = np.float32([ next_features[m.trainIdx].pt for m in matches_gms ]).reshape(-1, 2)
 		
 
 
 		
 		if times>0:
 			cv2.imwrite("image"+str(times)+".jpg",img3)
-			cv2.imwrite("imageafter"+str(times)+".jpg",image3)
+			cv2.imwrite("imageafter"+str(times)+".jpg",output)
 		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts)
 		Affinetransformations.append(transformation)
 		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
