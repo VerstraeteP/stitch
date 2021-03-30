@@ -92,7 +92,6 @@ def stitching(images,masks):
 		"""
 		
 		
-		if cnt == 0:
 			base_msk[base_msk==0]=255
 		
 			base_msk[base_msk==1]=0
@@ -188,8 +187,8 @@ def stitching(images,masks):
 		base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
 		
 		next_features, next_descs = detector.detectAndCompute(curr,(base_mask))
-		cv.imwrite("afbeedling"+str(times)+".jpg",curr)
-		cv.imwrite("afbeedling"+str(times)+".jpg",base_mask)
+		cv2.imwrite("afbeedling"+str(times)+".jpg",curr)
+		cv2.imwrite("afbmask"+str(times)+".jpg",base_mask)
 
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
@@ -278,7 +277,7 @@ def stitching(images,masks):
 		base_mask[:,:]=0
 		
 		base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
-		base_mask=cv2.warpAffine(base_mask,transformation,(widhtc,heightc))
+		base_mask=cv2.warpAffine(base_mask,transformation,(widthc,heightc))
 		ttldistance=0
 		tellers=0
 		if evaluate==1:
@@ -308,7 +307,7 @@ def stitching(images,masks):
 		contours, hierarchy = cv2.findContours(data_map, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 		contours1, hierarchy1 = cv2.findContours(base_msk, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 		cv2.drawContours(data_map, contours, -1, (0,255,255), 10)
-		enlarged_base_img= cv2.bitwise_and(total_mask,total_mask, mask =np.bitwise_not(data_map))
+		#enlarged_base_img= cv2.bitwise_and(total_mask,total_mask, mask =np.bitwise_not(data_map))
 		enlarged_base_img1 = cv2.bitwise_and(base_gray,base_gray,mask =np.bitwise_not(data_map))
 		
 		cv2.imwrite("data_map.jpg",data_map)
@@ -316,11 +315,11 @@ def stitching(images,masks):
 		mod_photo1= cv2.bitwise_and(base_msk,base_msk,mask =(base_msk))
 		final_img = cv2.add(mod_photo,enlarged_base_img1,dtype=cv2.CV_8U)
 		
-		total_mask= cv2.add(mod_photo1,enlarged_base_img,dtype=cv2.CV_8U)
+		#total_mask= cv2.add(mod_photo1,enlarged_base_img,dtype=cv2.CV_8U)
 		
 		base_gray=final_img
 	
-		base_msk=masks[teller]
+
 		
 		teller=teller+1
 		
