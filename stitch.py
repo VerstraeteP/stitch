@@ -84,14 +84,14 @@ def stitching(images,masks):
 	border=30
 	for cur_image in images[1:]:
 		neg=False
-		base_msk=masks[teller]
+		
 		
 		"""
 		if len(base_msk.shape)==3:
 			base_msk=  cv2.cvtColor(base_msk, cv2.COLOR_BGR2GRAY)
 		"""
-		
-		
+		if cnt==0:
+			base_msk=masks[teller]
 			base_msk[base_msk==0]=255
 		
 			base_msk[base_msk==1]=0
