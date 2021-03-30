@@ -185,12 +185,12 @@ def stitching(images,masks):
 		base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
 		
 		next_features, next_descs = detector.detectAndCompute(curr,(base_mask))
-		"""
+		
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
-		filtered_matches=matches[:20]
-		
+		filtered_matches=matches[:200]
+		"""
 		base_features=[base_features[m.queryIdx] for m in filtered_matches]
 		base_descs=[base_descs[m.queryIdx] for m in filtered_matches]
 		#base_descs=np.array(base_descs)
@@ -227,7 +227,8 @@ def stitching(images,masks):
 		cv2.imwrite("before.jpg",img3)
 		cv2.imwrite("after.jpg",img3e)
 		print(len(filtered_matches))
-		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,filter_matches[:20],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
+		"""
+		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,filtered_matches[:20],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
 		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filter_matches]).reshape(-1,2)
 		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filter_matches]).reshape(-1,2)
 		
@@ -249,13 +250,13 @@ def stitching(images,masks):
 		output = cv2.drawMatches(base_gray, base_features, curr, next_features, matches_gms, None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS))
 		src_pts = np.float32([ base_features[m.queryIdx].pt for m in matches_gms ]).reshape(-1, 2)
 		dst_pts = np.float32([ next_features[m.trainIdx].pt for m in matches_gms ]).reshape(-1, 2)
-		
+		"""
 
 
 		
 		if times>0:
-			cv2.imwrite("image"+str(times)+".jpg",img3)
-			cv2.imwrite("imageafter"+str(times)+".jpg",output)
+			
+			cv2.imwrite("imageafter"+str(times)+".jpg",image3)
 		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts)
 		Affinetransformations.append(transformation)
 		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
