@@ -257,6 +257,7 @@ def stitching(images,masks):
 
 
 		output=[]
+		output.astype('int32')
 		if times>0:
 			
 			cv2.imwrite("imageafter"+str(times)+".jpg",img3)
