@@ -299,6 +299,7 @@ def stitching(images,masks):
 		cv2.drawContours(data_map, contours, -1, (0,255,255), 10)
 		enlarged_base_img= cv2.bitwise_and(total_mask,total_mask, mask =np.bitwise_not(data_map))
 		enlarged_base_img1 = cv2.bitwise_and(base_gray,base_gray,mask =np.bitwise_not(data_map))
+		cv2.imwrite("data_map.jpg",data_map)
 		mod_photo= cv2.bitwise_and(mod_photo,mod_photo,mask =(data_map))
 		mod_photo1= cv2.bitwise_and(base_msk,base_msk,mask =(base_msk))
 		final_img = cv2.add(mod_photo,enlarged_base_img1,dtype=cv2.CV_8U)
