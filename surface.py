@@ -64,7 +64,7 @@ def predict_surface(img):
 			
 		
 	cfg = get_cfg()
-	cfg.MODEL.DEVICE='cpu'
+	
 	
 		
 		
