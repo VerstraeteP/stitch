@@ -90,14 +90,15 @@ def stitching(images,masks):
 		if len(base_msk.shape)==3:
 			base_msk=  cv2.cvtColor(base_msk, cv2.COLOR_BGR2GRAY)
 		"""
-		base_msk[base_msk==0]=255
 		
-		base_msk[base_msk==1]=0
-		base_mask[:,:]=0
-		
-		base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 		
 		if cnt == 0:
+			base_msk[base_msk==0]=255
+		
+			base_msk[base_msk==1]=0
+			base_mask[:,:]=0
+		
+			base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 			mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
 			cnt=cnt+1
 			curr[:,:]=0	
