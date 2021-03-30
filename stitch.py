@@ -245,7 +245,7 @@ def stitching(images,masks):
 		end = time.time()
 		print('Found', len(matches_gms), 'matches')
 		print('GMS takes', end-start, 'seconds')
-		output = draw_matches(base_gray, curr, base_features, next_features, matches_gms, DrawingType.ONLY_LINES)
+		output = cv2.drawMatches(base_gray, base_features, curr, next_features, matches_gms, None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS))
 		src_pts = np.float32([ base_features[m.queryIdx].pt for m in matches_gms ]).reshape(-1, 2)
 		dst_pts = np.float32([ next_features[m.trainIdx].pt for m in matches_gms ]).reshape(-1, 2)
 		
