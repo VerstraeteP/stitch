@@ -238,8 +238,9 @@ def stitching(images,masks):
 		placeholder_matches = [cv2.DMatch(idx, idx, 1) for idx in range(n_inliers)]
 		image3 = cv2.drawMatches(base_gray, inlier_keypoints_left, cur_image, inlier_keypoints_right, placeholder_matches, None)
 		"""
-		matcher = cv2.BFMatcher(cv2.NORM_HAMMING)
+		matcher = cv2.BFMatcher(cv2.NORM_HAMMING,crossCheck=True)
 		matches_all = matcher.match(base_descs, next_descs)
+		matches_all=matches_all[:200]
 		start = time.time()
 		matches_gms = matchGMS(base_gray.shape[:2], curr.shape[:2], base_features, next_features, matches_all, withScale=False, withRotation=False, thresholdFactor=6)
 		end = time.time()
