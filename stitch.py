@@ -229,9 +229,10 @@ def stitching(images,masks):
 		print(len(filtered_matches))
 		
 		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,filtered_matches[:20],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
+		"""
 		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filter_matches]).reshape(-1,2)
 		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filter_matches]).reshape(-1,2)
-		
+		"""
 		model, inliers = ransac((src_pts, dst_pts),AffineTransform, min_samples=40,residual_threshold=8, max_trials=10000)
 		n_inliers = np.sum(inliers)
 		inlier_keypoints_left = [cv2.KeyPoint(point[0], point[1], 1) for point in src_pts[inliers]]
@@ -258,7 +259,7 @@ def stitching(images,masks):
 		output=[]
 		if times>0:
 			
-			cv2.imwrite("imageafter"+str(times)+".jpg",image3)
+			cv2.imwrite("imageafter"+str(times)+".jpg",img3)
 		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts, output)
 		print(len(output))
 		Affinetransformations.append(transformation)
