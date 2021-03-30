@@ -5,6 +5,7 @@ import glob
 import os
 import time
 import math
+from cv2.xfeatures2d import matchGMS
 from scc import ssc
 from skimage.measure import ransac
 from skimage.transform import ProjectiveTransform, AffineTransform
