@@ -227,7 +227,7 @@ def stitching(images,masks):
 		cv2.imwrite("before.jpg",img3)
 		cv2.imwrite("after.jpg",img3e)
 		print(len(filtered_matches))
-		"""
+		
 		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,filtered_matches[:20],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
 		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filter_matches]).reshape(-1,2)
 		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filter_matches]).reshape(-1,2)
@@ -238,7 +238,7 @@ def stitching(images,masks):
 		inlier_keypoints_right = [cv2.KeyPoint(point[0], point[1], 1) for point in dst_pts[inliers]]
 		placeholder_matches = [cv2.DMatch(idx, idx, 1) for idx in range(n_inliers)]
 		image3 = cv2.drawMatches(base_gray, inlier_keypoints_left, cur_image, inlier_keypoints_right, placeholder_matches, None)
-		"""
+		
 		matcher = cv2.BFMatcher(cv2.NORM_HAMMING,crossCheck=True)
 		matches_all = matcher.match(base_descs, next_descs)
 		matches_all=matches_all[:200]
@@ -251,6 +251,8 @@ def stitching(images,masks):
 		src_pts = np.float32([ base_features[m.queryIdx].pt for m in matches_gms ]).reshape(-1, 2)
 		dst_pts = np.float32([ next_features[m.trainIdx].pt for m in matches_gms ]).reshape(-1, 2)
 		"""
+		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,filtered_matches,None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
+
 
 
 		output=[]
