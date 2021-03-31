@@ -84,24 +84,24 @@ def stitching(images,masks):
 	border=30
 	for cur_image in images[1:]:
 		neg=False
+		base_msk=masks[teller]
+		base_msk[base_msk==0]=255
 		
+		base_msk[base_msk==1]=0
+		base_mask[:,:]=0
 		
+		base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
+		curr[:,:]=0	
+		curr[:cur_image.shape[0],:cur_image.shape[1]]=cur_image
 		"""
 		if len(base_msk.shape)==3:
 			base_msk=  cv2.cvtColor(base_msk, cv2.COLOR_BGR2GRAY)
 		"""
 		if cnt==0:
-			base_msk=masks[teller]
-			base_msk[base_msk==0]=255
-		
-			base_msk[base_msk==1]=0
-			base_mask[:,:]=0
-		
-			base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
+			
 			mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
 			cnt=cnt+1
-			curr[:,:]=0	
-			curr[:cur_image.shape[0],:cur_image.shape[1]]=cur_image
+			
 		
 		cv2.imwrite("aftermask.jpg",base_mask)
 		
@@ -269,15 +269,7 @@ def stitching(images,masks):
 		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
 		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))
-		curr=cv2.warpAffine(images[teller+1],transformation,(widthc,heightc))
-		base_msk=masks[teller+1]
-		base_msk[base_msk==0]=255
 		
-		base_msk[base_msk==1]=0
-		base_mask[:,:]=0
-		
-		base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
-		base_mask=cv2.warpAffine(base_mask,transformation,(widthc,heightc))
 		ttldistance=0
 		tellers=0
 		if evaluate==1:
