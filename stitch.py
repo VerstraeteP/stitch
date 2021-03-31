@@ -199,8 +199,8 @@ def stitching(images,masks):
 		filtered_matches=matches[:200]
 		good_matches=[]
 		for k in filtered_matches:
-			src_pts  = np.float32([base_features[k.queryIdx].pt).reshape(-1,2)
-			dst_pts  = np.float32([next_features[k.trainIdx].pt).reshape(-1,2)
+			src_pts  = np.float32(base_features[k.queryIdx].pt).reshape(-1,2)
+			dst_pts  = np.float32(next_features[k.trainIdx].pt).reshape(-1,2)
 			if src_pts[1]>dst_pts[1]:
 				good_matches.append(k)
 
