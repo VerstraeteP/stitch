@@ -55,7 +55,7 @@ def stitching(images,masks):
 	ttlchange=0
 	ttlchangeteller=0
 	
-	detector = cv2.ORB_create(edgeThreshold = 30)
+	detector = cv2.SIFT_create()
 	Affinetransformations=[[[1 , 0 ,0],[0,1,0]]]
 	
 	base_msk= masks[0]
@@ -193,7 +193,7 @@ def stitching(images,masks):
 		cv2.imwrite("afbeedling"+str(times)+".jpg",curr)
 		cv2.imwrite("afbmask"+str(times)+".jpg",base_mask)
 
-		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+		bf = cv2.BFMatcher(cv2.NORM_L2, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
 		filtered_matches=matches[:200]
@@ -203,6 +203,7 @@ def stitching(images,masks):
 			dst_pts  = np.float32(next_features[k.trainIdx].pt).reshape(-1,2)
 			
 			if src_pts[0][1]>dst_pts[0][1]:
+        print(src_pts[0][1]-dst_pts[0][1])
 				good_matches.append(k)
 
 					
@@ -275,7 +276,7 @@ def stitching(images,masks):
 		if times>0:
 			
 			cv2.imwrite("imageafter"+str(times)+".jpg",img3)
-		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts)
+		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts, method=cv2.LMEDS)
 	
 		Affinetransformations.append(transformation)
 		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
