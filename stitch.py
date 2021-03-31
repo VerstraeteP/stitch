@@ -261,7 +261,7 @@ def stitching(images,masks):
 		src_pts = np.float32([ base_features[m.queryIdx].pt for m in matches_gms ]).reshape(-1, 2)
 		dst_pts = np.float32([ next_features[m.trainIdx].pt for m in matches_gms ]).reshape(-1, 2)
 		"""
-		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,filtered_matches,None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
+		img3 = cv2.drawMatches(base_gray,base_features,curr,next_features,filtered_matches,None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
 
 
 
