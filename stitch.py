@@ -101,7 +101,7 @@ def stitching(images,masks):
 
 			mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
 		else:
-			base_mask[start_img+border:base_msk.shape[0]-border+start_image,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
+			base_mask[start_img+border:base_msk.shape[0]-border+start_img,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 
 			
 		
