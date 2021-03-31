@@ -108,7 +108,9 @@ def stitching(images,masks):
 		
 		cv2.imwrite("mask.jpg",base_msk)
 		starttime=time.time()
-		
+		for k, i in enumerate(data_map[:,:]):
+				if(i.any()):
+					print(k)
 		
 		for k,i in enumerate(base_gray[baseline:,:]):
 			if(~i.any()):
