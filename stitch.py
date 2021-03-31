@@ -100,7 +100,7 @@ def stitching(images,masks):
 		if cnt==0:
 			
 			mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
-			cnt=cnt+1
+			
 			
 		
 		cv2.imwrite("aftermask.jpg",base_mask)
@@ -125,12 +125,13 @@ def stitching(images,masks):
 				break
 		transpose=base_gray[:baseline,:baselineneg]
 		tranposes=np.transpose(transpose,(1, 0, 2))
-		for k,i in enumerate(tranposes):
-			if (i.any()):
-				baselineneg=k
-				break
+		if cnt>0:
+			for k,i in enumerate(tranposes):
+				if (i.any()):
+					baselineneg=k
+					break
 			
-		
+		cnt=cnt+1
 		if (baselinex+int(cur_image.shape[1])/2)>base_gray.shape[1]:
 			print("increasing")
 			base_gray = np.append(base_gray,increase,axis=1)
