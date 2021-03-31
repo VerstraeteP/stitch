@@ -90,7 +90,6 @@ def stitching(images,masks):
 		base_msk[base_msk==1]=0
 		base_mask[:,:]=0
 		
-		base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 		curr[:,:]=0	
 		curr[start_img:cur_image.shape[0]+start_img,:cur_image.shape[1]]=cur_image
 		"""
@@ -98,9 +97,12 @@ def stitching(images,masks):
 			base_msk=  cv2.cvtColor(base_msk, cv2.COLOR_BGR2GRAY)
 		"""
 		if cnt==0:
-			
+			base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
+
 			mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
-			
+		else:
+			base_mask[start_img+border:base_msk.shape[0]-border+start_image,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
+
 			
 		
 		cv2.imwrite("aftermask.jpg",base_mask)
