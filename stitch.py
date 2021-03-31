@@ -284,12 +284,13 @@ def stitching(images,masks):
 		if times>0:
 			
 			cv2.imwrite("imageafter"+str(times)+".jpg",img3)
-		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts, method=cv2.LMEDS)
+		#transformation, status = cv2.estimateAffine2D(dst_pts, src_pts, method=cv2.LMEDS)
+		transformation = cv.getPerspectiveTransform(dst_pts, src_pts);
 	
 		Affinetransformations.append(transformation)
-		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
-		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
-		base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))
+		mod_photo = cv2.warpPerspective(curr, transformation, (widthc, heightc))
+		mask_photo = cv2.warpPerspective(base_mask, transformation, (widthc, heightc))
+		base_msk = cv2.warpPerspective(base_msk, transformation, (widthc, heightc))
 		
 		ttldistance=0
 		tellers=0
