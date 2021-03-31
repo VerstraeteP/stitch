@@ -72,7 +72,7 @@ def stitching(images,masks):
 	increasex=np.zeros((images[0].shape[0]*2,images[0].shape[1]*2,3), np.uint8)
 	increase_mask=np.zeros((images[0].shape[0]*2,images[0].shape[1]*2), np.uint8)
 	increase_mask_x=np.zeros((images[0].shape[0]*2,images[0].shape[1]*2), np.uint8)
-	
+	start_img=0
 	base_gray[:images[0].shape[0],500:images[0].shape[1]+500]=images[0]
 	total_mask[:base_msk.shape[0],500:base_msk.shape[1]+500]=base_msk
 	heightc, widthc = curr.shape[:2]
@@ -92,7 +92,7 @@ def stitching(images,masks):
 		
 		base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 		curr[:,:]=0	
-		curr[:cur_image.shape[0],:cur_image.shape[1]]=cur_image
+		curr[start_img:cur_image.shape[0]+start_img,:cur_image.shape[1]]=cur_image
 		"""
 		if len(base_msk.shape)==3:
 			base_msk=  cv2.cvtColor(base_msk, cv2.COLOR_BGR2GRAY)
@@ -111,7 +111,7 @@ def stitching(images,masks):
 		if cnt>0:
 			for k, i in enumerate(data_map[:,:]):
 					if(i.any()):
-						print(k)
+						start_img=k
 						break
 		cnt=cnt+1
 		for k,i in enumerate(base_gray[baseline:,:]):
