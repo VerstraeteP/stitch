@@ -208,10 +208,10 @@ def stitching(images,masks):
 				good_matches.append(k)
 
 		d = np.abs(data - np.median(data))
-    		mdev = np.median(d)
-    		s = d/mdev if mdev else 0.
+		mdev = np.median(d)
+		s = d/mdev if mdev else 0.
 		print(s)
-    		data=data[s<2]		
+		data=data[s<2]		
 		"""
 		base_features=[base_features[m.queryIdx] for m in filtered_matches]
 		base_descs=[base_descs[m.queryIdx] for m in filtered_matches]
