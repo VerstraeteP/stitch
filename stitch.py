@@ -212,8 +212,8 @@ def stitching(images,masks):
 		s = d/mdev if mdev else 0.
 		for index,k in enumerate(s):
 			if k>2:
-				del good_matches[index]
-				
+				good_matches[index]=0
+		good_matches = [x for x in good_matches if x !=0]
 			
 		"""
 		base_features=[base_features[m.queryIdx] for m in filtered_matches]
