@@ -203,7 +203,7 @@ def stitching(images,masks):
 			dst_pts  = np.float32(next_features[k.trainIdx].pt).reshape(-1,2)
 			
 			if src_pts[0][1]>dst_pts[0][1]:
-        print(src_pts[0][1]-dst_pts[0][1])
+        			print(src_pts[0][1]-dst_pts[0][1])
 				good_matches.append(k)
 
 					
