@@ -196,7 +196,7 @@ def stitching(images,masks):
 		bf = cv2.BFMatcher(cv2.NORM_L2, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
-		filtered_matches=matches[:400]
+		filtered_matches=matches[:500]
 		data=[]
 		good_matches=[]
 		for k in filtered_matches:
