@@ -197,16 +197,21 @@ def stitching(images,masks):
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
 		filtered_matches=matches[:200]
+		data=np.array([])
 		good_matches=[]
 		for k in filtered_matches:
 			src_pts  = np.float32(base_features[k.queryIdx].pt).reshape(-1,2)
 			dst_pts  = np.float32(next_features[k.trainIdx].pt).reshape(-1,2)
 			
 			if src_pts[0][1]>dst_pts[0][1]:
-				print(src_pts[0][1]-dst_pts[0][1])
+				data.append(src_pts[0][1]-dst_pts[0][1])
 				good_matches.append(k)
 
-					
+		d = np.abs(data - np.median(data))
+    		mdev = np.median(d)
+    		s = d/mdev if mdev else 0.
+		print(s)
+    		data=data[s<2]		
 		"""
 		base_features=[base_features[m.queryIdx] for m in filtered_matches]
 		base_descs=[base_descs[m.queryIdx] for m in filtered_matches]
