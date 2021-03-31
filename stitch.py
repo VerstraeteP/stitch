@@ -284,7 +284,7 @@ def stitching(images,masks):
 		if times>0:
 			
 			cv2.imwrite("imageafter"+str(times)+".jpg",img3)
-		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts, method=cv2.LMEDS)
+		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts, cv2.Ransac, RansacThreshold=10 ,RefineIters=5)
 		
 	
 		Affinetransformations.append(transformation)
