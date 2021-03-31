@@ -110,11 +110,7 @@ def stitching(images,masks):
 		
 		cv2.imwrite("mask.jpg",base_msk)
 		starttime=time.time()
-		if cnt>0:
-			for k, i in enumerate(data_map[:,:]):
-					if(i.any()):
-						start_img=k
-						break
+		
 		cnt=cnt+1
 		for k,i in enumerate(base_gray[baseline:,:]):
 			if(~i.any()):
@@ -317,6 +313,11 @@ def stitching(images,masks):
 		#total_mask= cv2.add(mod_photo1,enlarged_base_img,dtype=cv2.CV_8U)
 		
 		base_gray=final_img
+		if cnt>0:
+			for k, i in enumerate(data_map[:,:]):
+					if(i.any()):
+						start_img=k
+						break
 	
 
 		
