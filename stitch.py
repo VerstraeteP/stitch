@@ -112,6 +112,7 @@ def stitching(images,masks):
 			for k, i in enumerate(data_map[:,:]):
 					if(i.any()):
 						print(k)
+						break
 		cnt=cnt+1
 		for k,i in enumerate(base_gray[baseline:,:]):
 			if(~i.any()):
