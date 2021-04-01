@@ -323,8 +323,8 @@ def stitching(images,masks):
 			for index,k in enumerate(src_pts):
 				dist=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
 				if dist<5:
-					src1.append(src_pts[0])
-					dst1.append(dst_pts[0])
+					np.append(src1,src_pts[0])
+					np..append(dst1,dst_pts[0])
 			src1.astype(np.float32)
 			dst1.astype(np.float32)
 			transformation, status = cv2.estimateAffine2D(dst1, src1,ransacReprojThreshold=50,maxIters=10000 ,refineIters=10000)
