@@ -324,6 +324,7 @@ def stitching(images,masks):
 			for index,k in enumerate(src_pts):
 				dist=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
 				sum+=dist
+				print(dist)
 				if dist<5:
 					src1.append(src_pts[0])
 					dst1.append(dst_pts[0])
