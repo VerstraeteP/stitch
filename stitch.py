@@ -298,7 +298,7 @@ def stitching(images,masks):
 		base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))	
 		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
-		flag=cv2.NTER_LANCZOS4
+		flag=cv2.INTER_LANCZOS4
 
 		for k in range(20):
 			
@@ -316,12 +316,17 @@ def stitching(images,masks):
 			filtered_matches=matches[:200]
 			
 			
-		
+			src1=[]
+			dst1=[]
 			src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
-			transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=50,maxIters=10000 ,refineIters=10000)
 			for index,k in enumerate(src_pts):
-				print(math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2))
+				dist=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
+          			if dist<5:
+					src1.append(src_pts[0])
+					dst1.append(dst_pts[0])
+            
+			transformation, status = cv2.estimateAffine2D(dst1, src1,ransacReprojThreshold=50,maxIters=10000 ,refineIters=10000)
 
 			mod_photo = cv2.warpAffine(mod_photo, transformation, (widthc, heightc),flags=flag)
 			base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc),flags=flag)
