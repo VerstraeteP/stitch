@@ -327,6 +327,7 @@ def stitching(images,masks):
 					np..append(dst1,dst_pts[0])
 			src1.astype(np.float32)
 			dst1.astype(np.float32)
+			print(src1)
 			transformation, status = cv2.estimateAffine2D(dst1, src1,ransacReprojThreshold=50,maxIters=10000 ,refineIters=10000)
 
 			mod_photo = cv2.warpAffine(mod_photo, transformation, (widthc, heightc),flags=flag)
