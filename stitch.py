@@ -299,11 +299,10 @@ def stitching(images,masks):
 		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 
-		for k in range(3):
+		for k in range(20):
 			
 			
-			cv2.imwrite("mod_photo"+str(k)+".jpg",mod_photo)
-			cv2.imwrite("base_mask"+str(k)+".jpg",base_mask)
+			
 
 
 
@@ -314,31 +313,17 @@ def stitching(images,masks):
 			matches = bf.match(base_descs,next_descs)
 			matches = sorted(matches, key = lambda x:x.distance)
 			filtered_matches=matches[:200]
-			print(len(filtered_matches))
-			data=[]
-			good_matches=[]
-			for k in filtered_matches:
-				src_pts  = np.float32(base_features[k.queryIdx].pt).reshape(-1,2)
-				dst_pts  = np.float32(next_features[k.trainIdx].pt).reshape(-1,2)
 			
-				if src_pts[0][1]>dst_pts[0][1]:
-					data.append(src_pts[0][1]-dst_pts[0][1])
-					good_matches.append(k)
-			data=np.array(data)
-			d = np.abs(data - np.median(data))
-			mdev = np.median(d)
-			s = d/mdev if mdev else 0.
-			for index,k in enumerate(s):
-				if k>2:
-					good_matches[index]=0
-			good_matches = [x for x in good_matches if x !=0]
-			src_pts  = np.float32([base_features[m.queryIdx].pt for m in good_matches]).reshape(-1,2)
-			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in good_matches]).reshape(-1,2)
+			
+		
+			src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
+			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 			transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=50,maxIters=10000 ,refineIters=10000)
-			mod_photo = cv2.warpAffine(mod_photo, transformation, (widthc, heightc))
-			base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))
-			mask_photo = cv2.warpAffine(mask_photo, transformation, (widthc, heightc))
-			base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+			transformation.astype(int)
+			mod_photo = cv2.warpAffine(mod_photo, transformation, (widthc, heightc),flags=cv2.INTER_NEAREST)
+			base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc),flags=cv2.INTER_NEAREST)
+			mask_photo = cv2.warpAffine(mask_photo, transformation, (widthc, heightc),flags=cv2.INTER_NEAREST)
+			base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc),flags=cv2.INTER_NEAREST)
 
 		
 		
