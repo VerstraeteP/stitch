@@ -299,6 +299,9 @@ def stitching(images,masks):
 			base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))
 			mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 			base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+			cv2.imwrite("mod_photo"+str(k)+".jpg",mod_photo)
+			cv2.imwrite("base_mask"+str(k)+".jpg",base_mask)
+
 
 
 			
