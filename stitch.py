@@ -285,7 +285,7 @@ def stitching(images,masks):
 		if times>0:
 			
 			cv2.imwrite("imageafter"+str(times)+".jpg",img3)
-		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=500,maxIters=10000 ,refineIters=10000)
+		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=50,maxIters=10000 ,refineIters=10000)
 		count=0
 		for k in status:
 			if k==1:
@@ -293,10 +293,45 @@ def stitching(images,masks):
 		print("before:"+str(src_pts.shape))
 		print("matches:"+ str(count))
 		Affinetransformations.append(transformation)
+		for k in range(3):
+			
+			mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
+			base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))
+			
+
+			base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
+		
+			next_features, next_descs = detector.detectAndCompute(mod_photo,(base_msk))
+			bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+			matches = bf.match(base_descs,next_descs)
+			matches = sorted(matches, key = lambda x:x.distance)
+			filtered_matches=matches[:200]
+			data=[]
+			good_matches=[]
+			for k in filtered_matches:
+				src_pts  = np.float32(base_features[k.queryIdx].pt).reshape(-1,2)
+				dst_pts  = np.float32(next_features[k.trainIdx].pt).reshape(-1,2)
+			
+				if src_pts[0][1]>dst_pts[0][1]:
+					data.append(src_pts[0][1]-dst_pts[0][1])
+					good_matches.append(k)
+			data=np.array(data)
+			d = np.abs(data - np.median(data))
+			mdev = np.median(d)
+			s = d/mdev if mdev else 0.
+			for index,k in enumerate(s):
+				if k>2:
+					good_matches[index]=0
+			good_matches = [x for x in good_matches if x !=0]
+			src_pts  = np.float32([base_features[m.queryIdx].pt for m in good_matches]).reshape(-1,2)
+			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in good_matches]).reshape(-1,2)
+			transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=50,maxIters=10000 ,refineIters=10000)
+
 		
 		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
+		base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))	
 		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
-		base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))
+		
 		
 		ttldistance=0
 		tellers=0
