@@ -5,7 +5,7 @@ def backgroundsubtraction(images):
 	
 	medianFrame = np.median(images, axis=0).astype(dtype=np.uint8)   
 	medianFrame= cv2.cvtColor(medianFrame, cv2.COLOR_BGR2GRAY)
-	
+	cv2.imwrite("backgroudn.jpg",medianFrame)
 	medianFrame[medianFrame<200]=0
 	
 	
