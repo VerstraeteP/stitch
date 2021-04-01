@@ -55,7 +55,7 @@ def stitching(images,masks):
 	ttlchange=0
 	ttlchangeteller=0
 	
-	detector = cv2.SIFT_create()
+	detector = cv2.ORB_create()
 	Affinetransformations=[[[1 , 0 ,0],[0,1,0]]]
 	
 	base_msk= masks[0]
@@ -132,7 +132,7 @@ def stitching(images,masks):
 					break
 			
 		cnt=cnt+1
-		"""
+		
 		if (baselinex+int(cur_image.shape[1])/2)>base_gray.shape[1]:
 			print("increasing")
 			base_gray = np.append(base_gray,increase,axis=1)
@@ -177,7 +177,7 @@ def stitching(images,masks):
 			heightc, widthc = curr.shape[:2]
 			baselineneg+=increase.shape[1]
 			neg=True
-		"""
+		
 		mask_photo[mask_photo<255]=0
 		
 		times+=1
@@ -194,7 +194,7 @@ def stitching(images,masks):
 		cv2.imwrite("afbeedling"+str(times)+".jpg",curr)
 		cv2.imwrite("afbmask"+str(times)+".jpg",base_mask)
 
-		bf = cv2.BFMatcher(cv2.NORM_L2, crossCheck=True)
+		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
 		filtered_matches=matches[:200]
