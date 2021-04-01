@@ -293,7 +293,7 @@ def stitching(images,masks):
 		print("before:"+str(src_pts.shape))
 		print("matches:"+ str(count))
 		Affinetransformations.append(transformation)
-		heightc,widthc=cur_image.shape[:2]
+		
 		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
 		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))
