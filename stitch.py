@@ -196,7 +196,7 @@ def stitching(images,masks):
 		bf = cv2.BFMatcher(cv2.NORM_L2, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
-		filtered_matches=matches[:500]
+		filtered_matches=matches[:200]
 		data=[]
 		good_matches=[]
 		for k in filtered_matches:
@@ -284,14 +284,15 @@ def stitching(images,masks):
 		if times>0:
 			
 			cv2.imwrite("imageafter"+str(times)+".jpg",img3)
-		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=5,maxIters=10000 ,refineIters=10000)
+		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=500,maxIters=10000 ,refineIters=10000)
 		count=0
 		for k in status:
 			if k==1:
 				count+=1
-		print("before:"+str(src_pts.len()))
+		print("before:"+str(src_pts.shape))
 		print("matches:"+ str(count))
 		Affinetransformations.append(transformation)
+    		widthc,heightc=cur_image.shape[:2]
 		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
 		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))
