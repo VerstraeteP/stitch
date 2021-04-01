@@ -330,8 +330,10 @@ def stitching(images,masks):
 			src1=numpy.array(src1)
 			dst1=numpy.array(dst1)
 			print(sum)
+			print(src1)
 			src1.astype(np.float32)
 			dst1.astype(np.float32)
+			print(src1)
 			
 			transformation, status = cv2.estimateAffine2D(dst1, src1,ransacReprojThreshold=50,maxIters=10000 ,refineIters=10000)
 
