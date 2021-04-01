@@ -284,9 +284,12 @@ def stitching(images,masks):
 		if times>0:
 			
 			cv2.imwrite("imageafter"+str(times)+".jpg",img3)
-		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts, cv2.Ransac, RansacThreshold=10 ,RefineIters=5)
-		
-	
+		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=5,maxIters=10000 ,refineIters=10000)
+		count=0
+		for k in status:
+			if k==1:
+				count+=1
+		print("matches:"+ str(count))
 		Affinetransformations.append(transformation)
 		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
 		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
