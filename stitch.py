@@ -132,6 +132,7 @@ def stitching(images,masks):
 					break
 			
 		cnt=cnt+1
+		"""
 		if (baselinex+int(cur_image.shape[1])/2)>base_gray.shape[1]:
 			print("increasing")
 			base_gray = np.append(base_gray,increase,axis=1)
@@ -176,7 +177,7 @@ def stitching(images,masks):
 			heightc, widthc = curr.shape[:2]
 			baselineneg+=increase.shape[1]
 			neg=True
-		
+		"""
 		mask_photo[mask_photo<255]=0
 		
 		times+=1
