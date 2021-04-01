@@ -314,6 +314,7 @@ def stitching(images,masks):
 			matches = bf.match(base_descs,next_descs)
 			matches = sorted(matches, key = lambda x:x.distance)
 			filtered_matches=matches[:200]
+			print(len(filtered_matches))
 			data=[]
 			good_matches=[]
 			for k in filtered_matches:
