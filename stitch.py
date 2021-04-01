@@ -316,8 +316,8 @@ def stitching(images,masks):
 			filtered_matches=matches[:200]
 			
 			
-			src1=[]
-			dst1=[]
+			src1=np.array([])
+			dst1=np.array([])
 			src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 			for index,k in enumerate(src_pts):
