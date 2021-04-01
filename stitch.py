@@ -320,8 +320,8 @@ def stitching(images,masks):
 			src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 			transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=50,maxIters=10000 ,refineIters=10000)
-			for k in src_pts:
-				print(math.sqrt((src_pts[0][0]-dst_pts[0][0])**2+(src_pts[0][1]-dst_pts[0][1])**2))
+			for index,k in enumerate(src_pts):
+				print(math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2))
 
 			mod_photo = cv2.warpAffine(mod_photo, transformation, (widthc, heightc),flags=flag)
 			base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc),flags=flag)
