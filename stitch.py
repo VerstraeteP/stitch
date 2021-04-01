@@ -289,7 +289,7 @@ def stitching(images,masks):
 		for k in status:
 			if k==1:
 				count+=1
-		print("before:"+str(src_pts.len())
+		print("before:"+str(src_pts.len()))
 		print("matches:"+ str(count))
 		Affinetransformations.append(transformation)
 		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
