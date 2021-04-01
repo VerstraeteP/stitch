@@ -297,7 +297,8 @@ def stitching(images,masks):
 			
 			mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
 			base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))
-			
+			mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+
 
 			base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
 		
