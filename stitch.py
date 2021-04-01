@@ -322,12 +322,14 @@ def stitching(images,masks):
 			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 			for index,k in enumerate(src_pts):
 				dist=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
+				print(dist)
 				if dist<5:
 					np.append(src1,src_pts[0])
-					np..append(dst1,dst_pts[0])
+					np.append(dst1,dst_pts[0])
+			print(src1)
 			src1.astype(np.float32)
 			dst1.astype(np.float32)
-			print(src1)
+			
 			transformation, status = cv2.estimateAffine2D(dst1, src1,ransacReprojThreshold=50,maxIters=10000 ,refineIters=10000)
 
 			mod_photo = cv2.warpAffine(mod_photo, transformation, (widthc, heightc),flags=flag)
