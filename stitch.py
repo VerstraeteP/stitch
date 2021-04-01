@@ -298,7 +298,7 @@ def stitching(images,masks):
 		base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))	
 		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
-		flag=cv2.INTER_NEAREST
+		flag=cv2.NTER_LANCZOS4
 
 		for k in range(20):
 			
