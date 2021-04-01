@@ -293,12 +293,15 @@ def stitching(images,masks):
 		print("before:"+str(src_pts.shape))
 		print("matches:"+ str(count))
 		Affinetransformations.append(transformation)
+		
+		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
+		base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))	
+		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+
 		for k in range(3):
 			
-			mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
-			base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))
-			mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
-			base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+			
 			cv2.imwrite("mod_photo"+str(k)+".jpg",mod_photo)
 			cv2.imwrite("base_mask"+str(k)+".jpg",base_mask)
 
@@ -331,11 +334,12 @@ def stitching(images,masks):
 			src_pts  = np.float32([base_features[m.queryIdx].pt for m in good_matches]).reshape(-1,2)
 			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in good_matches]).reshape(-1,2)
 			transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=50,maxIters=10000 ,refineIters=10000)
+			mod_photo = cv2.warpAffine(mod_photo, transformation, (widthc, heightc))
+			base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))
+			mask_photo = cv2.warpAffine(mask_photo, transformation, (widthc, heightc))
+			base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 
 		
-		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
-		base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))	
-		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		
 		
 		ttldistance=0
