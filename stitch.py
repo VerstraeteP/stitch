@@ -322,7 +322,7 @@ def stitching(images,masks):
 			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 			for index,k in enumerate(src_pts):
 				dist=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
-          			if dist<5:
+				if dist<5:
 					src1.append(src_pts[0])
 					dst1.append(dst_pts[0])
             
