@@ -316,17 +316,20 @@ def stitching(images,masks):
 			filtered_matches=matches[:200]
 			
 			
-			src1=np.array([])
-			dst1=np.array([])
+			src1=[]
+			dst1=[]
+			sum=0
 			src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 			for index,k in enumerate(src_pts):
 				dist=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
-				print(dist)
+				sum+=dist
 				if dist<5:
-					np.append(src1,src_pts[0])
-					np.append(dst1,dst_pts[0])
-			print(src1)
+					src1.append(src_pts[0])
+					dst1.append(dst_pts[0])
+			src1=numpy.array(src1)
+			dst1=numpy.array(dst1)
+			print(sum)
 			src1.astype(np.float32)
 			dst1.astype(np.float32)
 			
