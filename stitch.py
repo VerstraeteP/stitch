@@ -311,7 +311,7 @@ def stitching(images,masks):
 		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		flag=cv2.INTER_LANCZOS4
 
-		for z in range(20):
+		for z in range(1):
 			
 			
 			
@@ -324,7 +324,7 @@ def stitching(images,masks):
 			bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 			matches = bf.match(base_descs,next_descs)
 			matches = sorted(matches, key = lambda x:x.distance)
-			filtered_matches=matches[:200]
+			filtered_matches=matches[:20]
 			
 			src_pts=[]
 			dst_pts=[]
