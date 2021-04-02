@@ -313,7 +313,7 @@ def stitching(images,masks):
 		sum=50
 		z=0
 
-		while sum>=40:
+		for z in range(4):
 			print("keer:"+str(z))
 			z+=1
 			
