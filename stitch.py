@@ -308,7 +308,8 @@ def stitching(images,masks):
 			matches = sorted(matches, key = lambda x:x.distance)
 			filtered_matches=matches[:200]
 			
-			
+			src_pts=[]
+			dst_pts=[]
 			src1=[]
 			dst1=[]
 			sum=0
@@ -317,6 +318,7 @@ def stitching(images,masks):
 			for index,k in enumerate(src_pts):
 				dist=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
 				sum+=dist
+				
 				
 				if dist<5:
 					src1.append(src_pts[index])
