@@ -347,7 +347,7 @@ def stitching(images,masks):
 			
 			indexd=find_anomalies(distance)
 			bad_base_feat=[]
-			for m in index:
+			for m in indexd:
 				
 				
 				src1[m]=[None,None]
