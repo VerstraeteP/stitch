@@ -311,7 +311,7 @@ def stitching(images,masks):
 		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		flag=cv2.INTER_LANCZOS4
 
-		for z in range(2):
+		for z in range(20):
 			print("keer:"+str(z))
 			
 			
