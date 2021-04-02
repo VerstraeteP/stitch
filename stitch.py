@@ -352,15 +352,22 @@ def stitching(images,masks):
 				src1[m]=[None,None]
 				dst1[m]=[None,None]
 				distance[m]=20212
-			src1 = [x for x in src1 if x !=[None,None]]
-			dst1 = [x for x in dst1 if x !=[None,None]]
+			src2=[]
+			dst2=[]
+			for index,k in enumerate(src1):
+				if k[0]=None and k[1]=None:
+					print("Nobnd")
+				else:
+					src2.append(src1[index])
+					dst2.append(dst1[index])
+			
 			distance = [x for x in distance if x !=20212]
 
 
 			
 					
-			src1=np.array(src1)
-			dst1=np.array(dst1)
+			src1=np.array(src2)
+			dst1=np.array(dst2)
 			print(str(z)+":"+str(sum))
 			
 			plt.plot(distance,'o')
