@@ -321,8 +321,8 @@ def stitching(images,masks):
 				if dist<5:
 					src1.append(src_pts[0])
 					dst1.append(dst_pts[0])
-			src1=numpy.array(src1)
-			dst1=numpy.array(dst1)
+			src1=np.array(src1)
+			dst1=np.array(dst1)
 			print(sum)
 			print(src1)
 			src1.astype(np.float32)
