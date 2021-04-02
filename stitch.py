@@ -345,7 +345,7 @@ def stitching(images,masks):
 				src1.append(src_pts[index])
 				dst1.append(dst_pts[index])
 			
-			index=find_anomalies(distance)
+			indexd=find_anomalies(distance)
 			bad_base_feat=[]
 			for m in index:
 				
@@ -376,7 +376,7 @@ def stitching(images,masks):
 			distance = [x for x in distance if x !=20212]
 			matches = bf.match(base_descs,next_descs)
 			matches = sorted(matches, key = lambda x:x.distance)
-			k=200-len(index)
+			k=200-len(indexd)
 			filtered_matches=matches[:k]
 
 			
