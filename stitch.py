@@ -20,8 +20,8 @@ def find_anomalies(data):
     anomalies = []
     
     # Set upper and lower limit to 3 standard deviation
-    random_data_std = std(data)
-    random_data_mean = mean(data)
+    random_data_std = np.std(data)
+    random_data_mean = np.mean(data)
     anomaly_cut_off = random_data_std * 3
     
     lower_limit  = random_data_mean - anomaly_cut_off 
