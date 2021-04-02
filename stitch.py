@@ -356,6 +356,7 @@ def stitching(images,masks):
 			dst2=[]
 			for index,k in enumerate(src1):
 				if k[0]==None and k[1]==None:
+					pass
 					
 				else:
 					src2.append(src1[index])
