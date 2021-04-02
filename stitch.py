@@ -349,11 +349,11 @@ def stitching(images,masks):
 			for m in index:
 				print(m)
 				
-				src1[m]=[None, None]
+				src1[m]=[None,None]
 				dst1[m]=[None,None]
 				distance[m]=20212
-			src1 = [x for x in src1 if x.all() !=None]
-			dst1 = [x for x in dst1 if x.all() !=None]
+			src1 = [x for x in src1 if x !=[None,None]]
+			dst1 = [x for x in dst1 if x !=[None,None]]
 			distance = [x for x in distance if x !=20212]
 
 
