@@ -352,6 +352,7 @@ def stitching(images,masks):
 				
 				src1[m]=[None,None]
 				dst1[m]=[None,None]
+				print(base_feat(m))
 				index=base_features.index(base_feat[m])
 				print("index"+str(index))
 				del(base_features[index])
