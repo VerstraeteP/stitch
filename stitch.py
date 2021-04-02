@@ -352,8 +352,8 @@ def stitching(images,masks):
 				src1[m]=[None, None]
 				dst1[m]=[None,None]
 				distance[m]=20212
-			src1 = [x for x in src1 if x !=[None,None]]
-			dst1 = [x for x in dst1 if x !=[None,None]]
+			src1 = [x for x in src1 if x.all() !=[None,None]]
+			dst1 = [x for x in dst1 if x.all() !=[None,None]]
 			distance = [x for x in distance if x !=20212]
 
 
