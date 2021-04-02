@@ -354,13 +354,12 @@ def stitching(images,masks):
 				dst1[m]=[None,None]
 				
 				ind=base_features.index(base_feat[m])
-				print("index"+str(ind))
-				print(len(base_features))
+				
 				del(base_features[ind])
-				print(len(base_features))
+				
 				print(base_descs.shape)
 				
-				np.delete(base_descs,ind)
+				np.delete(base_descs,ind,axis=0)
 				print(base_descs.shape)
 				
 				distance[m]=20212
