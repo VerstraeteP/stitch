@@ -22,7 +22,7 @@ def find_anomalies(data):
     # Set upper and lower limit to 3 standard deviation
     random_data_std = np.std(data)
     random_data_mean = np.mean(data)
-    anomaly_cut_off = random_data_std * 3
+    anomaly_cut_off = random_data_std * 2
     
     lower_limit  = random_data_mean - anomaly_cut_off 
     upper_limit = random_data_mean + anomaly_cut_off
@@ -343,9 +343,9 @@ def stitching(images,masks):
 				src1.append(src_pts[index])
 				dst1.append(dst_pts[index])
 			plt.plot(distance,'o')
-			plt.savefig("feforeplot"+str(z)+".png")
+			plt.savefig("feforeplot"+str(z)+str(times)+".png")
 			index=find_anomalies(distance)
-			print(len(src1))
+			
 			for m in index:
 				print(m)
 				
@@ -356,7 +356,7 @@ def stitching(images,masks):
 			dst2=[]
 			for index,k in enumerate(src1):
 				if k[0]==None and k[1]==None:
-					print("Nobnd")
+					
 				else:
 					src2.append(src1[index])
 					dst2.append(dst1[index])
@@ -368,10 +368,10 @@ def stitching(images,masks):
 					
 			src1=np.array(src2)
 			dst1=np.array(dst2)
-			print(str(z)+":"+str(sum))
+			
 			
 			plt.plot(distance,'o')
-			plt.savefig("plot"+str(z)+".png")
+			plt.savefig("plot"+str(z)+str(times)+".png")
 
 			
 			src1.astype(np.float32)
