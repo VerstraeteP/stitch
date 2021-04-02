@@ -15,6 +15,23 @@ from predict_renner import predict_renner
 from random import shuffle
 from kdt import KDT_NMS
 import matplotlib.pyplot as plt
+def find_anomalies(data):
+    #define a list to accumlate anomalies
+    anomalies = []
+    
+    # Set upper and lower limit to 3 standard deviation
+    random_data_std = std(data)
+    random_data_mean = mean(data)
+    anomaly_cut_off = random_data_std * 3
+    
+    lower_limit  = random_data_mean - anomaly_cut_off 
+    upper_limit = random_data_mean + anomaly_cut_off
+    print(lower_limit)
+    # Generate outliers
+    for index,outlier in enumerate(data):
+        if outlier > upper_limit or outlier < lower_limit:
+            anomalies.append(index)
+    return anomalies
 def prepare_data_and_stitch(images,fps,scalingfactor=10):
 	
 	"""
@@ -323,10 +340,22 @@ def stitching(images,masks):
 				distance.append(dist)
 				
 				    
-				
-				if dist<5:
-					src1.append(src_pts[index])
-					dst1.append(dst_pts[index])
+			src1.append(src_pts[index])
+			dst1.append(dst_pts[index])
+			plt.plot(distance,'o')
+			plt.savefig("feforeplot"+str(z)+".png")
+			index=find_anomalies(distance)
+			for k in index:
+				src1[k]=0
+				dst1[k]=0
+				distance[k]=20212
+			src1 = [x for x in src1 if x !=0]
+			dst1 = [x for x in dst1 if x !=0]
+			distance = [x for x in distance if x !=20212]
+
+
+			
+					
 			src1=np.array(src1)
 			dst1=np.array(dst1)
 			print(str(z)+":"+str(sum))
