@@ -293,7 +293,7 @@ def stitching(images,masks):
 		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		flag=cv2.INTER_LANCZOS4
 
-		for k in range(20):
+		for z in range(5):
 			
 			
 			
@@ -323,7 +323,7 @@ def stitching(images,masks):
 					dst1.append(dst_pts[index])
 			src1=np.array(src1)
 			dst1=np.array(dst1)
-			print(str(k)+":"+str(sum))
+			print(str(z)+":"+str(sum))
 			
 			src1.astype(np.float32)
 			dst1.astype(np.float32)
