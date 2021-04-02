@@ -345,10 +345,10 @@ def stitching(images,masks):
 			plt.plot(distance,'o')
 			plt.savefig("feforeplot"+str(z)+".png")
 			index=find_anomalies(distance)
-			for k in index:
-				src1[k]=0
-				dst1[k]=0
-				distance[k]=20212
+			for m in index:
+				src1[m]=0
+				dst1[m]=0
+				distance[m]=20212
 			src1 = [x for x in src1 if x !=0]
 			dst1 = [x for x in dst1 if x !=0]
 			distance = [x for x in distance if x !=20212]
