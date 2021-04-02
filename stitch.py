@@ -378,7 +378,7 @@ def stitching(images,masks):
 			matches = bf.match(base_descs,next_descs)
 			matches = sorted(matches, key = lambda x:x.distance)
 			maxindex-=len(indexd)
-			filtered_matches=matches[:k]
+			filtered_matches=matches[:maxindex]
 
 			
 					
