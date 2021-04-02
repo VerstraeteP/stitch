@@ -328,7 +328,7 @@ def stitching(images,masks):
 			src1=np.array(src1)
 			dst1=np.array(dst1)
 			print(str(z)+":"+str(sum))
-			plt.plot(dist)
+			plt.plot(dist,1)
 			plt.savefig("plot"+str(z)+".png")
 
 			
