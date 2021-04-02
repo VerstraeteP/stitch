@@ -310,7 +310,7 @@ def stitching(images,masks):
 		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		flag=cv2.INTER_LANCZOS4
 		maxindex=300
-		sum=1
+		sum=50
 		z=0
 
 		while sum>=40:
