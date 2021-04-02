@@ -197,6 +197,7 @@ def stitching(images,masks):
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
 		filtered_matches=matches[:200]
+		"""
 		data=[]
 		good_matches=[]
 		for k in filtered_matches:
@@ -214,8 +215,7 @@ def stitching(images,masks):
 			if k>2:
 				good_matches[index]=0
 		good_matches = [x for x in good_matches if x !=0]
-			
-		"""
+		
 		base_features=[base_features[m.queryIdx] for m in filtered_matches]
 		base_descs=[base_descs[m.queryIdx] for m in filtered_matches]
 		#base_descs=np.array(base_descs)
@@ -255,8 +255,8 @@ def stitching(images,masks):
 		
 		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,filtered_matches[:20],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
 		"""
-		src_pts  = np.float32([base_features[m.queryIdx].pt for m in good_matches]).reshape(-1,2)
-		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in good_matches]).reshape(-1,2)
+		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
+		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 		"""
 		model, inliers = ransac((src_pts, dst_pts),AffineTransform, min_samples=40,residual_threshold=8, max_trials=10000)
 		n_inliers = np.sum(inliers)
