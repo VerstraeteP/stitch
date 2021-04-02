@@ -355,7 +355,7 @@ def stitching(images,masks):
 			src2=[]
 			dst2=[]
 			for index,k in enumerate(src1):
-				if k[0]=None and k[1]=None:
+				if k[0]==None and k[1]==None:
 					print("Nobnd")
 				else:
 					src2.append(src1[index])
