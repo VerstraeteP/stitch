@@ -319,8 +319,8 @@ def stitching(images,masks):
 				sum+=dist
 				print(dist)
 				if dist<5:
-					src1.append(src_pts[0])
-					dst1.append(dst_pts[0])
+					src1.append(src_pts[index])
+					dst1.append(dst_pts[index])
 			src1=np.array(src1)
 			dst1=np.array(dst1)
 			print(sum)
