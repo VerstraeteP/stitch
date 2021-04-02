@@ -317,17 +317,17 @@ def stitching(images,masks):
 			for index,k in enumerate(src_pts):
 				dist=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
 				sum+=dist
-				print(dist)
+				
 				if dist<5:
 					src1.append(src_pts[index])
 					dst1.append(dst_pts[index])
 			src1=np.array(src1)
 			dst1=np.array(dst1)
-			print(sum)
-			print(src1)
+			print(str(k)+":"+str(sum))
+			
 			src1.astype(np.float32)
 			dst1.astype(np.float32)
-			print(src1)
+			
 			
 			transformation, status = cv2.estimateAffine2D(dst1, src1,ransacReprojThreshold=50,maxIters=10000 ,refineIters=10000)
 
