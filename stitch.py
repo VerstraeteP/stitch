@@ -355,7 +355,9 @@ def stitching(images,masks):
 				
 				ind=base_features.index(base_feat[m])
 				print("index"+str(ind))
+				print(base_features.shape)
 				del(base_features[ind])
+				print(base_features.shape)
 				print(base_descs.shape)
 				
 				np.delete(base_descs,ind)
