@@ -14,6 +14,7 @@ from surface import predict_surface
 from predict_renner import predict_renner
 from random import shuffle
 from kdt import KDT_NMS
+import matplotlib.pyplot as plt
 def prepare_data_and_stitch(images,fps,scalingfactor=10):
 	
 	"""
@@ -327,6 +328,9 @@ def stitching(images,masks):
 			src1=np.array(src1)
 			dst1=np.array(dst1)
 			print(str(z)+":"+str(sum))
+			plt.plot(dist)
+			plt.savefig("plot"+str(z)+".png")
+
 			
 			src1.astype(np.float32)
 			dst1.astype(np.float32)
