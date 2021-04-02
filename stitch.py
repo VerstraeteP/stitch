@@ -346,7 +346,7 @@ def stitching(images,masks):
 			index=find_anomalies(distance)
 			
 			for m in index:
-				print(m)
+				
 				
 				src1[m]=[None,None]
 				dst1[m]=[None,None]
