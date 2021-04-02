@@ -311,7 +311,7 @@ def stitching(images,masks):
 		flag=cv2.INTER_LANCZOS4
 		maxindex=200
 
-		for z in range(20):
+		for z in range(40):
 			print("keer:"+str(z))
 			
 			
