@@ -311,7 +311,7 @@ def stitching(images,masks):
 		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		flag=cv2.INTER_LANCZOS4
 
-		for z in range(5):
+		for z in range(20):
 			
 			
 			
@@ -342,8 +342,7 @@ def stitching(images,masks):
 				    
 				src1.append(src_pts[index])
 				dst1.append(dst_pts[index])
-			plt.plot(distance,'o')
-			plt.savefig("feforeplot"+str(z)+str(times)+".png")
+			
 			index=find_anomalies(distance)
 			
 			for m in index:
@@ -371,8 +370,7 @@ def stitching(images,masks):
 			dst1=np.array(dst2)
 			
 			
-			plt.plot(distance,'o')
-			plt.savefig("plot"+str(z)+str(times)+".png")
+			
 
 			
 			src1.astype(np.float32)
