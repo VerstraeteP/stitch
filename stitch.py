@@ -337,7 +337,7 @@ def stitching(images,masks):
 			base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc),flags=flag)
 
 		
-		img3 = cv2.drawMatches(base_gray,base_features,curr,next_features,good_matches,None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
+		img3 = cv2.drawMatches(base_gray,base_features,mod_photo,next_features,good_matches,None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
 
 
 
