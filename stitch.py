@@ -334,6 +334,7 @@ def stitching(images,masks):
 			sum=0
 			src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
+			base_feat=[base_features[m.queryIdx] for m in filtere_matches]
 			for index,k in enumerate(src_pts):
 				dist=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
 				sum+=dist
@@ -345,12 +346,15 @@ def stitching(images,masks):
 				dst1.append(dst_pts[index])
 			
 			index=find_anomalies(distance)
-			
+			bad_base_feat=[]
 			for m in index:
 				
 				
 				src1[m]=[None,None]
 				dst1[m]=[None,None]
+				index=base_features.index(base_feat[m])
+				del(base_features[index])
+				
 				distance[m]=20212
 			src2=[]
 			dst2=[]
