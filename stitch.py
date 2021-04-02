@@ -213,7 +213,7 @@ def stitching(images,masks):
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
-		filtered_matches=matches[:200]
+		filtered_matches=matches[:60]
 		"""
 		data=[]
 		good_matches=[]
@@ -309,7 +309,7 @@ def stitching(images,masks):
 		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		flag=cv2.INTER_LANCZOS4
-		maxindex=200
+		maxindex=300
 
 		for z in range(40):
 			print("keer:"+str(z))
