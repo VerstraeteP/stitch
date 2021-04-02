@@ -394,7 +394,7 @@ def stitching(images,masks):
 
 		
 			img3 = cv2.drawMatches(base_gray,base_features,mod_photo,next_features,filtered_matches,None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
-			cv2.imwrite("imageafter"+str(times)+str(z)+".jpg",img3)
+			cv2.imwrite("image"+str(times)+str(z)+".jpg",img3)
 
 
 		if times>0:
