@@ -324,7 +324,7 @@ def stitching(images,masks):
 			bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 			matches = bf.match(base_descs,next_descs)
 			matches = sorted(matches, key = lambda x:x.distance)
-			filtered_matches=matches[:20]
+			filtered_matches=matches[:200]
 			
 			src_pts=[]
 			dst_pts=[]
@@ -338,7 +338,7 @@ def stitching(images,masks):
 			for index,k in enumerate(src_pts):
 				dist=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
 				sum+=dist
-				print(dist)
+				
 				distance.append(dist)
 				
 				    
@@ -357,10 +357,10 @@ def stitching(images,masks):
 				
 				del(base_features[ind])
 				
-				print(base_descs.shape)
 				
-				np.delete(base_descs,ind,axis=0)
-				print(base_descs.shape)
+				
+				base_descs=np.delete(base_descs,ind,axis=0)
+				
 				
 				distance[m]=20212
 			src2=[]
@@ -374,7 +374,10 @@ def stitching(images,masks):
 					dst2.append(dst1[index])
 			
 			distance = [x for x in distance if x !=20212]
-
+			matches = bf.match(base_descs,next_descs)
+			matches = sorted(matches, key = lambda x:x.distance)
+			k=200-len(index)
+			filtered_matches=matches[:k]
 
 			
 					
