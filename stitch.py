@@ -355,7 +355,7 @@ def stitching(images,masks):
 				index=base_features.index(base_feat[m])
 				print("index"+str(index))
 				del(base_features[index])
-				del(base_descs[index])
+				np.delete(base_descs,index)
 				
 				distance[m]=20212
 			src2=[]
