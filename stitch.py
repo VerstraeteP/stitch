@@ -224,7 +224,7 @@ def stitching(images,masks):
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
 		filtered_matches=matches[:200]
-		"""
+		
 		data=[]
 		good_matches=[]
 		for k in filtered_matches:
@@ -303,7 +303,7 @@ def stitching(images,masks):
 		output = cv2.drawMatches(base_gray, base_features, curr, next_features, matches_gms, None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS))
 		src_pts = np.float32([ base_features[m.queryIdx].pt for m in matches_gms ]).reshape(-1, 2)
 		dst_pts = np.float32([ next_features[m.trainIdx].pt for m in matches_gms ]).reshape(-1, 2)
-		"""
+		
 		
 		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=5,maxIters=10000 ,refineIters=10000)
 		count=0
