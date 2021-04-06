@@ -26,7 +26,7 @@ def find_anomalies(data):
     
     lower_limit  = random_data_mean - anomaly_cut_off 
     upper_limit = random_data_mean + anomaly_cut_off
-    print("upper:"+ str(upper_limit))
+   
     # Generate outliers
 	
 
@@ -316,13 +316,12 @@ def stitching(images,masks):
 		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		flag=cv2.INTER_LANCZOS4
-		maxindex=20
+		maxindex=200
 		sum=50
 		z=0
 
 		for z in range(4):
-			print("keer:"+str(z))
-			z+=1
+			
 			
 			
 
@@ -389,7 +388,7 @@ def stitching(images,masks):
 			distance = [x for x in distance if x !=20212]
 			matches = bf.match(base_descs,next_descs)
 			matches = sorted(matches, key = lambda x:x.distance)
-			maxindex-=len(indexd)
+			
 			filtered_matches=matches[:maxindex]
 			
 			
@@ -411,13 +410,11 @@ def stitching(images,masks):
 			
 
 		
-			img3 = cv2.drawMatches(base_gray,base_features,mod_photo,next_features,filtered_matches,None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
-			cv2.imwrite("image"+str(times)+".."+str(z)+".jpg",img3)
+		img3 = cv2.drawMatches(base_gray,base_features,mod_photo,next_features,filtered_matches,None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
+		cv2.imwrite("image"+str(times)+".jpg",img3)
 
 
-		if times>0:
-			
-			cv2.imwrite("imageafter"+str(times)+".jpg",img3)
+		
 		
 		ttldistance=0
 		tellers=0
