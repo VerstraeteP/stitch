@@ -262,7 +262,7 @@ def stitching(images,masks):
 
 		      
 		
-		base_features,base_descs = KDT_NMS(base_features, base_descs, r=30, k_max=20)
+		base_features,base_descs = KDT_NMS(base_features, base_descs, r=30, k_max=200)
 		#base_descs=base_descs.astype('uint8')
 		#base_features = ssc(base_features, 100, 0.1, base_gray.shape[1], base_gray.shape[0])
 		#base_features, base_descs= detector.compute(base_gray,base_features)
@@ -281,7 +281,6 @@ def stitching(images,masks):
 		cv2.imwrite("after.jpg",img3e)
 		print(len(filtered_matches))
 		
-		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,filtered_matches[:20],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
 		
 		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
