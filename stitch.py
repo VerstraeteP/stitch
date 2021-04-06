@@ -256,6 +256,8 @@ def stitching(images,masks):
 	
 		base_descs=np.array(base_descs)
 		next_descs=np.array(next_descs)
+		
+		img3 = cv2.drawKeypoints(base_gray, base_features,base_gray, color=(255, 0, 0))
     
 
 		      
@@ -271,7 +273,6 @@ def stitching(images,masks):
 		base_descs=base_descs.astype('uint8')
 		next_descs=next_descs.astype('uint8')
 	
-		img3 = cv2.drawKeypoints(base_gray, base_features,base_gray, color=(255, 0, 0))
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		filter_matches = bf.match(base_descs,next_descs)
 		copy=base_gray.copy()
@@ -281,7 +282,7 @@ def stitching(images,masks):
 		print(len(filtered_matches))
 		
 		img3 = cv2.drawMatches(base_gray,base_features,cur_image,next_features,filtered_matches[:20],None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
-		"""
+		
 		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 		"""
@@ -303,7 +304,7 @@ def stitching(images,masks):
 		output = cv2.drawMatches(base_gray, base_features, curr, next_features, matches_gms, None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
 		src_pts = np.float32([ base_features[m.queryIdx].pt for m in matches_gms ]).reshape(-1, 2)
 		dst_pts = np.float32([ next_features[m.trainIdx].pt for m in matches_gms ]).reshape(-1, 2)
-		
+		"""
 		
 		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=5,maxIters=10000 ,refineIters=10000)
 		count=0
