@@ -392,10 +392,7 @@ def stitching(images,masks):
 			src1=np.array(src2)
 			dst1=np.array(dst2)
 			
-			
-			
-
-			
+		
 			src1.astype(np.float32)
 			dst1.astype(np.float32)
 			
@@ -406,11 +403,11 @@ def stitching(images,masks):
 			base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc),flags=flag)
 			mask_photo = cv2.warpAffine(mask_photo, transformation, (widthc, heightc),flags=flag)
 			base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc),flags=flag)
-			print(base_features)
+			
 
 		
 			img3 = cv2.drawMatches(base_gray,base_features,mod_photo,next_features,filtered_matches,None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)		
-			cv2.imwrite("image"+str(times)+".jpg",img3)
+			cv2.imwrite("image"+str(times)+".."+str(z)+".jpg",img3)
 
 
 		if times>0:
