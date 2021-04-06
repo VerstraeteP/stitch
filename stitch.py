@@ -380,13 +380,13 @@ def stitching(images,masks):
 				else:
 					src2.append(src1[index])
 					dst2.append(dst1[index])
-			"""
+			
 			distance = [x for x in distance if x !=20212]
 			matches = bf.match(base_descs,next_descs)
 			matches = sorted(matches, key = lambda x:x.distance)
 			maxindex-=len(indexd)
 			filtered_matches=matches[:maxindex]
-			"""
+			
 			
 					
 			src1=np.array(src2)
