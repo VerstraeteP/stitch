@@ -320,7 +320,7 @@ def stitching(images,masks):
 		sum=50
 		z=0
 
-		for z in range(100):
+		for z in range(1):
 			
 			
 			
@@ -350,7 +350,7 @@ def stitching(images,masks):
 				
 				
 				distance.append(dist)
-				
+				print(dist)
 				    
 				src1.append(src_pts[index])
 				dst1.append(dst_pts[index])
