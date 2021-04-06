@@ -22,7 +22,7 @@ def find_anomalies(data):
     # Set upper and lower limit to 3 standard deviation
     random_data_std = np.std(data)
     random_data_mean = np.mean(data)
-    anomaly_cut_off = random_data_std * 2
+    anomaly_cut_off = random_data_std * 1
     
     lower_limit  = random_data_mean - anomaly_cut_off 
     upper_limit = random_data_mean + anomaly_cut_off
@@ -205,9 +205,12 @@ def stitching(images,masks):
 		#base_features, base_descs = detector.detectAndCompute(base_gray,mask_photo)
 		
 			
-		base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
-		
-		next_features, next_descs = detector.detectAndCompute(curr,(base_mask))
+		#base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
+		base_features=goodFeaturesToTrack(base_gray, mask=mask_photo,minDistance=10)
+		base_features,base_descs=detector.compute(base_gray,base_features)
+		next_features=goodFeaturesToTrack(curr, mask=base_mask,minDistance=10)
+		next_features,base_descs=detector.compute(curr,next_features)
+		#next_features, next_descs = detector.detectAndCompute(curr,(base_mask))
 		
 
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
@@ -327,7 +330,7 @@ def stitching(images,masks):
 			bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 			matches = bf.match(base_descs,next_descs)
 			matches = sorted(matches, key = lambda x:x.distance)
-			filtered_matches=matches[:4]
+			filtered_matches=matches[:200]
 			
 			src_pts=[]
 			dst_pts=[]
@@ -341,9 +344,7 @@ def stitching(images,masks):
 			for index,k in enumerate(src_pts):
 				dist=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
 				sum+=dist
-				print("distance"+str(dist))
-				print(k)
-				print(dst_pts[index])
+				
 				
 				distance.append(dist)
 				
@@ -353,7 +354,7 @@ def stitching(images,masks):
 			
 			indexd=find_anomalies(distance)
 			
-			#print(sum)
+			print(sum)
 			for m in indexd:
 				
 				
