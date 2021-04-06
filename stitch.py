@@ -226,7 +226,7 @@ def stitching(images,masks):
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
 		filtered_matches=matches[:200]
-		
+		"""
 		data=[]
 		good_matches=[]
 		for k in filtered_matches:
@@ -286,7 +286,7 @@ def stitching(images,masks):
 		
 		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
-		"""
+		
 		model, inliers = ransac((src_pts, dst_pts),AffineTransform, min_samples=40,residual_threshold=8, max_trials=10000)
 		n_inliers = np.sum(inliers)
 		inlier_keypoints_left = [cv2.KeyPoint(point[0], point[1], 1) for point in src_pts[inliers]]
@@ -325,7 +325,7 @@ def stitching(images,masks):
 		sum=50
 		z=0
 
-		for z in range(1):
+		for z in range(4):
 			
 			
 			
