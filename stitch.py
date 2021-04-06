@@ -28,7 +28,7 @@ def find_anomalies(data):
     lower_limit  = random_data_mean - anomaly_cut_off 
     upper_limit = random_data_mean + anomaly_cut_off
     print("upper:"+str(upper_limit))
-    upper_limit=100
+   
    
     # Generate outliers
 	
