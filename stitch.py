@@ -348,7 +348,7 @@ def stitching(images,masks):
 				dist=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
 				sum+=dist
 				
-				print(dist)
+				
 				distance.append(dist)
 				
 				    
