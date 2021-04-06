@@ -108,7 +108,7 @@ def stitching(images,masks):
 	border=30
 	for cur_image in images[1:]:
 		cv2.imwrite("1.png",images[1])
-		cv2.imwrite("2.png",imgaes[0])
+		cv2.imwrite("2.png",images[0])
 		neg=False
 		base_msk=masks[teller]
 		base_msk[base_msk==0]=255
