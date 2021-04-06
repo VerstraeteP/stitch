@@ -27,7 +27,7 @@ def find_anomalies(data):
     
     lower_limit  = random_data_mean - anomaly_cut_off 
     upper_limit = random_data_mean + anomaly_cut_off
-    print("upper:"+str(upper_limit))
+   
    
    
     # Generate outliers
@@ -355,7 +355,7 @@ def stitching(images,masks):
 				
 				
 				distance.append(dist)
-				print(dist)
+				
 				    
 				src1.append(src_pts[index])
 				dst1.append(dst_pts[index])
