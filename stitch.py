@@ -26,7 +26,11 @@ def find_anomalies(data):
     
     lower_limit  = random_data_mean - anomaly_cut_off 
     upper_limit = random_data_mean + anomaly_cut_off
+    print(upper_limit)
     # Generate outliers
+	
+
+
     for index,outlier in enumerate(data):
         if outlier > upper_limit or outlier < lower_limit:
             anomalies.append(index)
@@ -216,7 +220,7 @@ def stitching(images,masks):
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
-		filtered_matches=matches[:200]
+		filtered_matches=matches[:20]
 		"""
 		data=[]
 		good_matches=[]
@@ -330,7 +334,7 @@ def stitching(images,masks):
 			bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 			matches = bf.match(base_descs,next_descs)
 			matches = sorted(matches, key = lambda x:x.distance)
-			filtered_matches=matches[:200]
+			filtered_matches=matches[:20]
 			
 			src_pts=[]
 			dst_pts=[]
@@ -345,7 +349,7 @@ def stitching(images,masks):
 				dist=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
 				sum+=dist
 				
-				
+				print(dist)
 				distance.append(dist)
 				
 				    
@@ -373,6 +377,7 @@ def stitching(images,masks):
 				distance[m]=20212
 			src2=[]
 			dst2=[]
+			
 			for index,k in enumerate(src1):
 				if k[0]==None and k[1]==None:
 					pass
