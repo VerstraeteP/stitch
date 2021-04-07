@@ -318,9 +318,9 @@ def stitching(images,masks):
 					base_features.append(base_featur[index])
 					next_features.append(next_featur[index])
 					filtered_matche.append(filtered_matches[index])
-		print(base_features)
-		print(next_features)
-		print(filtered_matche)
+		print(base_features.shape)
+		print(next_features.shape)
+		print(filtered_matche.shape)
 		output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matche, None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
 
 		count=0
