@@ -286,8 +286,8 @@ def stitching(images,masks):
 		
 		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
-		base_featur=[base_features[m.queryIdx] for m in filtered_matches]
-		next_featur=[next_features[m.trainIdx] for m in filtered_matches]
+		#base_featur=[base_features[m.queryIdx] for m in filtered_matches]
+		#next_featur=[next_features[m.trainIdx] for m in filtered_matches]
 		"""
 		model, inliers = ransac((src_pts, dst_pts),AffineTransform, min_samples=40,residual_threshold=8, max_trials=10000)
 		n_inliers = np.sum(inliers)
@@ -322,7 +322,7 @@ def stitching(images,masks):
 		#next_features=np.array(next_features)
 		filtered_matche=np.array(filtered_matche)
 		
-		output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matche, None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
+		output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
 
 		count=0
 		for k in status:
