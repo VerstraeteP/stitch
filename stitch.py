@@ -141,11 +141,7 @@ def stitching(images,masks):
 		starttime=time.time()
 		
 		cnt=cnt+1
-		#base_mask
-		for k,i in enumerate(mask_photo[:,:]):
-			if(i.any()):
-				start_mask=k
-				break
+		
 		
 		for k,i in enumerate(base_gray[baseline:,:]):
 			if(~i.any()):
