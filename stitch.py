@@ -105,7 +105,7 @@ def stitching(images,masks):
 	largest=0
 	times=0
 	baselineneg=600
-	border=30
+	border=5
 	for cur_image in images[1:]:
 		cv2.imwrite("1.png",images[1])
 		cv2.imwrite("2.png",images[0])
