@@ -321,9 +321,7 @@ def stitching(images,masks):
 		#base_features=np.array(base_features)
 		#next_features=np.array(next_features)
 		filtered_matche=np.array(filtered_matche)
-		print(base_features.shape)
-		print(next_features.shape)
-		print(filtered_matche.shape)
+		
 		output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matche, None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
 
 		count=0
