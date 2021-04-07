@@ -214,6 +214,7 @@ def stitching(images,masks):
 			neg=True
 		
 		mask_photo[mask_photo<255]=0
+		start_mask[start_mask:start_mask+100,:]=0
 		mask_photo[start_mask+200:,:]=0
 		base_mask[100:,:]=0
 		times+=1
