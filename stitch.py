@@ -123,14 +123,14 @@ def stitching(images,masks):
 		if len(base_msk.shape)==3:
 			base_msk=  cv2.cvtColor(base_msk, cv2.COLOR_BGR2GRAY)
 		"""
-		base_mask[:base_msk.shape[0],:base_msk.shape[1]]=base_msk
+	
 		if cnt==0:
-			#base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
+			base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 
 			mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
 		else:
-			pass
-			#base_mask[start_img+border:base_msk.shape[0]-border+start_img,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
+			
+			base_mask[start_img+border:base_msk.shape[0]-border+start_img,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 
 			
 		
@@ -215,7 +215,7 @@ def stitching(images,masks):
 		
 		mask_photo[mask_photo<255]=0
 		
-		base_mask[100:,:]=0
+		
 		times+=1
 		print(times)
 		
@@ -347,7 +347,7 @@ def stitching(images,masks):
 		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
 		base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))	
 		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
-		#base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		flag=cv2.INTER_LANCZOS4
 		maxindex=200
 		sum=50
