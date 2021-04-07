@@ -286,6 +286,8 @@ def stitching(images,masks):
 		
 		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
+		base_featur=[base_features[m.queryIdx] for m in filtered_matches]
+		next_featur=[next_features[m.trainIdx] for m in filtered_matches]
 		"""
 		model, inliers = ransac((src_pts, dst_pts),AffineTransform, min_samples=40,residual_threshold=8, max_trials=10000)
 		n_inliers = np.sum(inliers)
@@ -308,6 +310,14 @@ def stitching(images,masks):
 		"""
 		
 		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=5,maxIters=10000 ,refineIters=10000)
+		base_features=[]
+		next_features=[]
+		for index,k in enumerate(status):
+				if k==1:
+					base_features.append(base_featur[index])
+					next_features.append(next_featur[index])
+		output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
+
 		count=0
 		for k in status:
 			if k==1:
@@ -324,7 +334,7 @@ def stitching(images,masks):
 		maxindex=200
 		sum=50
 		z=0
-
+		"""
 		for z in range(4):
 			
 			
@@ -445,6 +455,7 @@ def stitching(images,masks):
 					
 				ttlchange+=ttldistance/tellers
 				ttlchangeteller+=1
+		"""
 		(ret,data_map) = cv2.threshold(cv2.cvtColor(mod_photo, cv2.COLOR_BGR2GRAY),0, 255,cv2.THRESH_BINARY)
 
 		contours, hierarchy = cv2.findContours(data_map, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -453,7 +464,7 @@ def stitching(images,masks):
 		#enlarged_base_img= cv2.bitwise_and(total_mask,total_mask, mask =np.bitwise_not(data_map))
 		enlarged_base_img1 = cv2.bitwise_and(base_gray,base_gray,mask =np.bitwise_not(data_map))
 		
-		cv2.imwrite("data_map.jpg",data_map)
+		cv2.imwrite("data_map.jpg",output)
 		mod_photo= cv2.bitwise_and(mod_photo,mod_photo,mask =(data_map))
 		mod_photo1= cv2.bitwise_and(base_msk,base_msk,mask =(base_msk))
 		final_img = cv2.add(mod_photo,enlarged_base_img1,dtype=cv2.CV_8U)
