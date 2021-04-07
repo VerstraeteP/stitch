@@ -315,11 +315,11 @@ def stitching(images,masks):
 		filtered_matche=[]
 		for index,k in enumerate(status):
 				if k==1:
-					base_features.append(base_featur[index])
-					next_features.append(next_featur[index])
+					#base_features.append(base_featur[index])
+					#next_features.append(next_featur[index])
 					filtered_matche.append(filtered_matches[index])
-		base_features=np.array(base_features)
-		next_features=np.array(next_features)
+		#base_features=np.array(base_features)
+		#next_features=np.array(next_features)
 		filtered_matche=np.array(filtered_matche)
 		print(base_features.shape)
 		print(next_features.shape)
