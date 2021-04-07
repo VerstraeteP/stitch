@@ -138,6 +138,12 @@ def stitching(images,masks):
 		starttime=time.time()
 		
 		cnt=cnt+1
+		#base_mask
+		for k,i in enumerate(mask_photo[:,:]):
+			if(i.any()):
+				start_mask=k
+				break
+		
 		for k,i in enumerate(base_gray[baseline:,:]):
 			if(~i.any()):
 				baseline=k+baseline
@@ -205,7 +211,7 @@ def stitching(images,masks):
 			neg=True
 		
 		mask_photo[mask_photo<255]=0
-		
+		mask_photo[start_mask+100:,:]=0
 		times+=1
 		print(times)
 		
