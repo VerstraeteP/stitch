@@ -308,6 +308,9 @@ def stitching(images,masks):
 		src_pts = np.float32([ base_features[m.queryIdx].pt for m in matches_gms ]).reshape(-1, 2)
 		dst_pts = np.float32([ next_features[m.trainIdx].pt for m in matches_gms ]).reshape(-1, 2)
 		"""
+		output = cv2.drawMatches(base_gray, base_features, cur_image, next_features, filtered_matches, None)
+		cv2.imwrite("before"+str(times)+".jpg",output)
+
 		
 		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=5,maxIters=10000 ,refineIters=10000)
 		#base_features=[]
