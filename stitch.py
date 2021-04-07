@@ -318,7 +318,7 @@ def stitching(images,masks):
 		cv2.imwrite("before"+str(times)+".jpg",output)
 
 		
-		transformation, status = cv2.estimateAffine3D(dst_pts, src_pts,ransacReprojThreshold=10,maxIters=1000000 ,refineIters=1000000)
+		transformation, status = cv2.estimateAffine3D(dst_pts, src_pts)
 		#base_features=[]
 		#next_features=[]
 		filtered_matche=[]
