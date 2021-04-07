@@ -319,7 +319,7 @@ def stitching(images,masks):
 					next_features.append(next_featur[index])
 					filtered_matche.append(filtered_matches[index])
 		base_features=np.array(base_features)
-		nest_features=np.array(next_features)
+		next_features=np.array(next_features)
 		filtered_matche=np.array(filtered_matche)
 		print(base_features.shape)
 		print(next_features.shape)
