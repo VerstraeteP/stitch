@@ -344,7 +344,7 @@ def stitching(images,masks):
 		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
 		base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))	
 		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
-		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+		#base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		flag=cv2.INTER_LANCZOS4
 		maxindex=200
 		sum=50
