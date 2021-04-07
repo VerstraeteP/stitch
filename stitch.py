@@ -212,7 +212,7 @@ def stitching(images,masks):
 		
 		mask_photo[mask_photo<255]=0
 		mask_photo[start_mask+100:,:]=0
-		base_mask[start_mask+100:,:]=0
+		base_mask[100:,:]=0
 		times+=1
 		print(times)
 		
