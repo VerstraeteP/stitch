@@ -312,11 +312,13 @@ def stitching(images,masks):
 		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=5,maxIters=10000 ,refineIters=10000)
 		base_features=[]
 		next_features=[]
+		filtered_matche
 		for index,k in enumerate(status):
 				if k==1:
 					base_features.append(base_featur[index])
 					next_features.append(next_featur[index])
-		output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
+					filtered_matche.append(filtered_matches[index])
+		output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matche, None,flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
 
 		count=0
 		for k in status:
