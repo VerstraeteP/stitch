@@ -106,69 +106,67 @@ def stitching(images,masks):
 	times=0
 	baselineneg=600
 	border=5
-  teller5=5
+
   
 	for cur_image in images[1:]:
-    best_transformation=[]
-    number_of_best=0
-    best=None
-    
-    if cnt==0:
-        
-        mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
-    
-    cnt=cnt+1
+		best_transformation=[]
+		number_of_best=0
+		best=None
+		if cnt==0:
+			mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
+
+		cnt=cnt+1
 
 
-    mask_photo[mask_photo<255]=0
-    base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
-    for k in range(number_of_best,number_of_best+5):
-      cur_image=images[k]
-      base_msk=masks[k]
-      base_msk[base_msk==0]=255	
-      base_msk[base_msk==1]=0
-      base_mask[:,:]=0
-      curr[:,:]=0	
-      curr[start_img:cur_image.shape[0]+start_img,:cur_image.shape[1]]=cur_image
-      base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
-     
+		mask_photo[mask_photo<255]=0
+		base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
+		for k in range(number_of_best,number_of_best+5):
+			      cur_image=images[k]
+			      base_msk=masks[k]
+			      base_msk[base_msk==0]=255	
+			      base_msk[base_msk==1]=0
+			      base_mask[:,:]=0
+			      curr[:,:]=0	
+			      curr[start_img:cur_image.shape[0]+start_img,:cur_image.shape[1]]=cur_image
+			      base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 
 
-      times+=1
 
-    
-      next_features, next_descs = detector.detectAndCompute(curr,(base_mask))
+			      times+=1
 
 
-      bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
-      matches = bf.match(base_descs,next_descs)
-      matches = sorted(matches, key = lambda x:x.distance)
-      filtered_matches=matches[:400]
+			      next_features, next_descs = detector.detectAndCompute(curr,(base_mask))
 
 
-      src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
-      dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
+			      bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+			      matches = bf.match(base_descs,next_descs)
+			      matches = sorted(matches, key = lambda x:x.distance)
+			      filtered_matches=matches[:400]
 
-      output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None)
-      cv2.imwrite("before"+str(times)+".jpg",output)
+
+			      src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
+			      dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
+
+			      output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None)
+			      cv2.imwrite("before"+str(times)+".jpg",output)
 
 
-      transformation, status = cv2.estimateAffine2D(dst_pts, src_pts)
-      mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
-      mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+			      transformation, status = cv2.estimateAffine2D(dst_pts, src_pts)
+			      mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
+			      mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 
-      next_features, next_descs = detector.detectAndCompute(mod_photo,(mask_photo))
-      matches = bf.match(base_descs,next_descs)
-      matches = sorted(matches, key = lambda x:x.distance)
-      src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
-      dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
-      dist=0
-      for index,k in enumerate(src_pts):
-        				dist+=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
-      if dist<best or best==None:
-          best=dist
-          best_transformation=transformation
-          number_of_best=times
+			      next_features, next_descs = detector.detectAndCompute(mod_photo,(mask_photo))
+			      matches = bf.match(base_descs,next_descs)
+			      matches = sorted(matches, key = lambda x:x.distance)
+			      src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
+			      dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
+			      dist=0
+			      for index,k in enumerate(src_pts):
+								dist+=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
+			      if dist<best or best==None:
+				  best=dist
+				  best_transformation=transformation
+				  number_of_best=times
            
       
       
