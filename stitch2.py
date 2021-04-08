@@ -110,7 +110,7 @@ def stitching(images,masks):
   
 	for cur_image in images[1:]:
 		best_transformation=[]
-		number_of_best=0
+		number_of_best=1
 		best=None
 		if cnt==0:
 			mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
