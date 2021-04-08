@@ -165,9 +165,9 @@ def stitching(images,masks):
 			           dist+=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
 			
 			      if dist<best or best==None:
-				  best=dist
-				  best_transformation=transformation
-				  number_of_best=times
+				   best=dist
+				   best_transformation=transformation
+				   number_of_best=times
            
       
       
