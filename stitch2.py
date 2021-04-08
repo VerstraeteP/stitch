@@ -111,6 +111,7 @@ def stitching(images,masks):
 
   
 	for cur_image in images[1:]:
+		times+=1
 		best_transformation=[]
 		number_of_best=1
 		best=None
@@ -140,7 +141,7 @@ def stitching(images,masks):
 
 
 
-			times+=1
+			
 
 
 			next_features, next_descs = detector.detectAndCompute(curr,(base_mask))
@@ -195,6 +196,7 @@ def stitching(images,masks):
 		base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))	
 		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+		cv2.imwrite("over"+str(times)+".jpg",mod_photo)
 		
 	
 		(ret,data_map) = cv2.threshold(cv2.cvtColor(mod_photo, cv2.COLOR_BGR2GRAY),0, 255,cv2.THRESH_BINARY)
