@@ -155,8 +155,7 @@ def stitching(images,masks):
 
 			src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
-			output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None)
-			cv2.imwrite("before"+str(times)+".jpg",output)
+			
 
 
 			transformation, status = cv2.estimateAffine2D(dst_pts, src_pts)
@@ -166,8 +165,11 @@ def stitching(images,masks):
 			next_features, next_descs = detector.detectAndCompute(mod_photo,(mask_photo))
 			matches = bf.match(base_descs,next_descs)
 			matches = sorted(matches, key = lambda x:x.distance)
-			src_pts  = np.float32([base_features[m.queryIdx].pt for m in matches]).reshape(-1,2)
-			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in matches]).reshape(-1,2)
+			filtered_matches=matches[:30]
+			output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None)
+			cv2.imwrite("before"+str(times)+".jpg",output)
+			src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
+			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 			dist=0
 			for index,k in enumerate(src_pts):
 				dist+=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
