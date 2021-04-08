@@ -97,7 +97,7 @@ def stitching(images,masks):
 	increase_mask=np.zeros((images[0].shape[0]*2,images[0].shape[1]*2), np.uint8)
 	increase_mask_x=np.zeros((images[0].shape[0]*2,images[0].shape[1]*2), np.uint8)
 	start_img=0
-	base_gray[:images[0].shape[0],500:images[0].shape[1]+500]=images[0]
+	base_gray[:images[0].shape[0],500:images[0].shape[1]+500]=images[2]
 	total_mask[:base_msk.shape[0],500:base_msk.shape[1]+500]=base_msk
 	heightc, widthc = curr.shape[:2]
 	baseline=0
