@@ -179,13 +179,15 @@ def stitching(images,masks):
 				number_of_best=times
 				best_mask=base_mask
 				best_curr=curr
+				best_msk =base_msk
            
       
       
 
 
 		transformation=best_transformation
-		base_mask=base_mask
+		base_mask=best_mask
+		base_msk=best_msk
 		curr=best_curr
 		Affinetransformations.append(transformation)
 		
