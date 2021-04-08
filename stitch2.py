@@ -162,7 +162,7 @@ def stitching(images,masks):
 			      dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 			      dist=0
 			      for index,k in enumerate(src_pts):
-								dist+=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
+					dist+=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
 			      if dist<best or best==None:
 				  best=dist
 				  best_transformation=transformation
