@@ -199,7 +199,6 @@ def stitching(images,masks):
 
 		enlarged_base_img1 = cv2.bitwise_and(base_gray,base_gray,mask =np.bitwise_not(data_map))
 		
-		cv2.imwrite("data_map"+str(times)+".jpg",output)
 		mod_photo= cv2.bitwise_and(mod_photo,mod_photo,mask =(data_map))
 		mod_photo1= cv2.bitwise_and(base_msk,base_msk,mask =(base_msk))
 		final_img = cv2.add(mod_photo,enlarged_base_img1,dtype=cv2.CV_8U)
