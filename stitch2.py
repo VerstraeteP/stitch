@@ -116,6 +116,8 @@ def stitching(images,masks):
 			mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
 
 		cnt=cnt+1
+		cv2.imwrite("mask.jpg",mask_photo)
+		cv2.imwrite("img.jpg",base_gray)
 
 
 		mask_photo[mask_photo<255]=0
@@ -142,6 +144,7 @@ def stitching(images,masks):
 			matches = bf.match(base_descs,next_descs)
 			matches = sorted(matches, key = lambda x:x.distance)
 			filtered_matches=matches[:400]
+			
 
 
 			src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
