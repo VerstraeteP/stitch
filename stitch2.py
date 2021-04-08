@@ -116,7 +116,7 @@ def stitching(images,masks):
 			mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
 
 		cnt=cnt+1
-		cv2.imwrite("mask.jpg",base_msk)
+		cv2.imwrite("mask.jpg",masks[1])
 		cv2.imwrite("img.jpg",base_gray)
 
 
