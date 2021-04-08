@@ -144,25 +144,25 @@ def stitching(images,masks):
 			filtered_matches=matches[:400]
 
 
-			 src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
-			 dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
-			 output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None)
-			 cv2.imwrite("before"+str(times)+".jpg",output)
+			src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
+			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
+			output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None)
+			cv2.imwrite("before"+str(times)+".jpg",output)
 
 
-			 transformation, status = cv2.estimateAffine2D(dst_pts, src_pts)
-			 mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
-			 mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+			transformation, status = cv2.estimateAffine2D(dst_pts, src_pts)
+			mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
+			mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 
-			 next_features, next_descs = detector.detectAndCompute(mod_photo,(mask_photo))
-			 matches = bf.match(base_descs,next_descs)
-			 matches = sorted(matches, key = lambda x:x.distance)
-			 src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
-			 dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
-			 dist=0
-			 for index,k in enumerate(src_pts):
-			        dist+=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
-		         if dist<best or best==None:
+			next_features, next_descs = detector.detectAndCompute(mod_photo,(mask_photo))
+			matches = bf.match(base_descs,next_descs)
+			matches = sorted(matches, key = lambda x:x.distance)
+			src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
+			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
+			dist=0
+			for index,k in enumerate(src_pts):
+			       dist+=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
+		        if dist<best or best==None:
 				best=dist
 				best_transformation=transformation
 				number_of_best=times
