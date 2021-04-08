@@ -121,11 +121,11 @@ def stitching(images,masks):
 		mask_photo[mask_photo<255]=0
 		base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
 		for k in range(number_of_best,number_of_best+5):
-			      cur_image=images[k]
-			      base_msk=masks[k]
-			      base_msk[base_msk==0]=255	
-			      base_msk[base_msk==1]=0
-			      base_mask[:,:]=0
+			cur_image=images[k]
+			base_msk=masks[k]
+			base_msk[base_msk==0]=255	
+			base_msk[base_msk==1]=0
+			base_mask[:,:]=0
 			      curr[:,:]=0	
 			      curr[start_img:cur_image.shape[0]+start_img,:cur_image.shape[1]]=cur_image
 			      base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
@@ -156,7 +156,7 @@ def stitching(images,masks):
 			      mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 
 			      next_features, next_descs = detector.detectAndCompute(mod_photo,(mask_photo))
-			      matches = bf.match(base_descs,next_descs)
+			matches = bf.match(base_descs,next_descs)
 			      matches = sorted(matches, key = lambda x:x.distance)
 			      src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 			      dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
