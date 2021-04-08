@@ -120,7 +120,7 @@ def stitching(images,masks):
 		cv2.imwrite("img.jpg",base_gray)
 
 
-		mask_photo[mask_photo<255]=0
+		
 		base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
 		for k in range(number_of_best,number_of_best+5):
 			cur_image=images[k]
