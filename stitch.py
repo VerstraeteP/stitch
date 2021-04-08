@@ -82,9 +82,9 @@ def stitching(images,masks):
 	detector = cv2.ORB_create()
 	Affinetransformations=[[[1 , 0 ,0],[0,1,0]]]
 	
-	base_msk= masks[0]
+	base_msk= masks[2]
 	cnt=0
-	teller=1
+	teller=3
 	next_mask= masks[1]
 	height, width = images[teller].shape[:2]
 	curr = np.zeros((height*2,width*2, 3), np.uint8)
@@ -106,7 +106,7 @@ def stitching(images,masks):
 	times=0
 	baselineneg=600
 	border=5
-	for cur_image in images[1:]:
+	for cur_image in images[3:]:
 		cv2.imwrite("1.png",images[1])
 		cv2.imwrite(str(times)+".png",masks[teller])
 		neg=False
