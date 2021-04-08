@@ -153,6 +153,8 @@ def stitching(images,masks):
 			matches = bf.match(base_descs,next_descs)
 			matches = sorted(matches, key = lambda x:x.distance)
 			filtered_matches=matches[:400]
+			output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None)
+			cv2.imwrite("output"+str(times)+".jpg",output)
 			
 
 
