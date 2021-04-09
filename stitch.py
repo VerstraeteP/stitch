@@ -244,7 +244,7 @@ def stitching(images,masks):
 		matches = bf.knnMatch(base_descs,next_descs,k=2)
 		filtered_matches=[]
 		for m,n in matches:
-    			if m.distance < 0.85*n.distance:
+    			if m.distance < 0.7*n.distance:
         			filtered_matches.append(m)
 		
 		filtered_matches = np.asarray(filtered_matches)		
