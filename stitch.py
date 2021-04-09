@@ -141,7 +141,7 @@ def stitching(images,masks):
 
 			
 		
-		cv2.imwrite("aftermask.jpg",base_mask)
+		cv2.imwrite("aftermask"+str(times)+".jpg",base_mask)
 		
 		
 		cv2.imwrite("mask.jpg",base_msk)
