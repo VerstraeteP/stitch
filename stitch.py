@@ -349,8 +349,8 @@ def stitching(images,masks):
 			
 			
 			
-			print(total_transformation)
-			print(transformation)
+			print(total_transformation.shape)
+			print(transformation.shape)
 			total_transformation=np.dot(total_transformation,transformation)
 		for index,k in enumerate(status):
 				if k==1:
