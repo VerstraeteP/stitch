@@ -367,27 +367,27 @@ def stitching(images,masks):
 			distance += math.sqrt((src_pts[k][0][0]-dst_pts[k][0][0])**2+(src_pts[k][0][1]-dst_pts[k][0][1])**2)
 		distance/=k
 		print(distance)
-		if  distance<2:
-			mod_photo=mod_photo_temp 
-			base_msk=base_msk_temp	
-			mask_photo=mask_photo_temp 
-			base_mask=base_mask_temp
-			(ret,data_map) = cv2.threshold(cv2.cvtColor(mod_photo, cv2.COLOR_BGR2GRAY),0, 255,cv2.THRESH_BINARY)
+		
+		mod_photo=mod_photo_temp 
+		base_msk=base_msk_temp	
+		mask_photo=mask_photo_temp 
+		base_mask=base_mask_temp
+		(ret,data_map) = cv2.threshold(cv2.cvtColor(mod_photo, cv2.COLOR_BGR2GRAY),0, 255,cv2.THRESH_BINARY)
 
-			contours, hierarchy = cv2.findContours(data_map, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-			contours1, hierarchy1 = cv2.findContours(base_msk, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-			cv2.drawContours(data_map, contours, -1, (0,255,255), 10)
-			#enlarged_base_img= cv2.bitwise_and(total_mask,total_mask, mask =np.bitwise_not(data_map))
-			enlarged_base_img1 = cv2.bitwise_and(base_gray,base_gray,mask =np.bitwise_not(data_map))
+		contours, hierarchy = cv2.findContours(data_map, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+		contours1, hierarchy1 = cv2.findContours(base_msk, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+		cv2.drawContours(data_map, contours, -1, (0,255,255), 10)
+		#enlarged_base_img= cv2.bitwise_and(total_mask,total_mask, mask =np.bitwise_not(data_map))
+		enlarged_base_img1 = cv2.bitwise_and(base_gray,base_gray,mask =np.bitwise_not(data_map))
 		
 		
-			mod_photo= cv2.bitwise_and(mod_photo,mod_photo,mask =(data_map))
-			mod_photo1= cv2.bitwise_and(base_msk,base_msk,mask =(base_msk))
-			final_img = cv2.add(mod_photo,enlarged_base_img1,dtype=cv2.CV_8U)
+		mod_photo= cv2.bitwise_and(mod_photo,mod_photo,mask =(data_map))
+		mod_photo1= cv2.bitwise_and(base_msk,base_msk,mask =(base_msk))
+		final_img = cv2.add(mod_photo,enlarged_base_img1,dtype=cv2.CV_8U)
 		
-			#total_mask= cv2.add(mod_photo1,enlarged_base_img,dtype=cv2.CV_8U)
+		#total_mask= cv2.add(mod_photo1,enlarged_base_img,dtype=cv2.CV_8U)
 		
-			base_gray=final_img
+		base_gray=final_img
 		
 			
 
