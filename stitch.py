@@ -38,7 +38,7 @@ def find_anomalies(data):
         if outlier > upper_limit or outlier < lower_limit:
             anomalies.append(index)
     return anomalies
-def prepare_data_and_stitch(images,fps,scalingfactor=5):
+def prepare_data_and_stitch(images,fps,scalingfactor=1):
 	
 	"""
 	calculates the mask of the images
@@ -244,7 +244,7 @@ def stitching(images,masks):
 		matches = bf.knnMatch(base_descs,next_descs,k=2)
 		filtered_matches=[]
 		for m,n in matches:
-    			if m.distance < 0.7*n.distance:
+    			if m.distance < 0.8*n.distance:
         			filtered_matches.append(m)
 		
 		filtered_matches = np.asarray(filtered_matches)		
