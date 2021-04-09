@@ -111,7 +111,7 @@ def stitching(images,masks):
 
 
   
-	for cur_image in images[1:2]:
+	for cur_image in images[1:]:
 		times+=1
 		best_transformation=[]
 		
