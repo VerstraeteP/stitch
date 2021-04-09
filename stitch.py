@@ -79,7 +79,7 @@ def stitching(images,masks):
 	ttlchange=0
 	ttlchangeteller=0
 	
-	detector = cv2.ORB_create()
+	detector = cv2.SIFT_create()
 	Affinetransformations=[[[1 , 0 ,0],[0,1,0]]]
 	
 	base_msk= masks[2]
@@ -227,12 +227,20 @@ def stitching(images,masks):
 		#next_features,base_descs=detector.compute(curr,next_features)
 		next_features, next_descs = detector.detectAndCompute(curr,(base_mask))
 		
-
+		"""
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
 		filtered_matches=matches[:200]
 		"""
+		bf = cv.BFMatcher()
+		matches = bf.knnMatch(base_descs,next_descs,k=2)
+		filtered_matches= []
+		for m,n in matches:
+    			if m.distance < 0.8*n.distance:
+        		filtered_matches.append([m])
+		"""
+		
 		data=[]
 		good_matches=[]
 		for k in filtered_matches:
@@ -319,7 +327,7 @@ def stitching(images,masks):
 
 		
 		#transformation, status = cv2.estimateAffine2D(dst_pts, src_pts)
-		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=4,maxIters=100000 ,refineIters=10000)
+		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=3,maxIters=1000 ,refineIters=10000)
 		#base_features=[]
 		#next_features=[]
 		filtered_matche=[]
@@ -495,7 +503,7 @@ def stitching(images,masks):
 		#enlarged_base_img= cv2.bitwise_and(total_mask,total_mask, mask =np.bitwise_not(data_map))
 		enlarged_base_img1 = cv2.bitwise_and(base_gray,base_gray,mask =np.bitwise_not(data_map))
 		
-		cv2.imwrite("data_map"+str(times)+".jpg",output)
+		
 		mod_photo= cv2.bitwise_and(mod_photo,mod_photo,mask =(data_map))
 		mod_photo1= cv2.bitwise_and(base_msk,base_msk,mask =(base_msk))
 		final_img = cv2.add(mod_photo,enlarged_base_img1,dtype=cv2.CV_8U)
