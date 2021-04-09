@@ -134,9 +134,10 @@ def stitching(images,masks):
 			print(k)
 			cur_image=images[k]
 			base_msk=masks[k]
-			cv2.imwrite("photo"+str(k)+".jpg",base_msk)
+			
 			base_msk[base_msk==0]=255	
 			base_msk[base_msk==1]=0
+			cv2.imwrite("photo"+str(k)+".jpg",base_msk)
 			base_mask[:,:]=0
 			curr[:,:]=0	
 			curr[start_img:cur_image.shape[0]+start_img,:cur_image.shape[1]]=cur_image
