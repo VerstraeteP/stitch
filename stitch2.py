@@ -111,7 +111,7 @@ def stitching(images,masks):
 		base_msk[base_msk==0]=255
 		
 		base_msk[base_msk==1]=0
-		cv2.imwrite("mask"+str(k)+".jpg",base_msk
+		cv2.imwrite("mask"+str(k)+".jpg",base_msk)
 		
 
 
