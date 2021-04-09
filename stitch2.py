@@ -132,8 +132,8 @@ def stitching(images,masks):
 		base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
 		for k in range(number_of_best+1,number_of_best+3):
 			print(k)
-			cur_image=images[number_of_best+k]
-			base_msk=masks[number_of_best+k]
+			cur_image=images[k]
+			base_msk=masks[k]
 			base_msk[base_msk==0]=255	
 			base_msk[base_msk==1]=0
 			base_mask[:,:]=0
