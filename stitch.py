@@ -68,7 +68,7 @@ def prepare_data_and_stitch(images,fps,scalingfactor=5):
 
 
 def stitching(images,masks):
-	
+	total_transformation=[[[1 , 0 ,0],[0,1,0]]]
 	evaluate=0
 	"""
 	Stitch given images together to one uniform image
@@ -118,10 +118,10 @@ def stitching(images,masks):
 		
 		curr[:,:]=0	
 		#curr[start_img:cur_image.shape[0]+start_img,:cur_image.shape[1]]=cur_image
-		curr[500:cur_image.shape[0]+500,:cur_image.shape[1]]=cur_image
+		curr[:cur_image.shape[0],:cur_image.shape[1]]=cur_image
 		
 		if cnt!=0:
-			curr = cv2.warpAffine(curr, transformation, (widthc, heightc))
+			curr = cv2.warpAffine(curr, total_transformation, (widthc, heightc))
 
 	
 		"""
@@ -137,7 +137,7 @@ def stitching(images,masks):
 			
 			#base_mask[start_img+border:base_msk.shape[0]-border+start_img,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 			base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
-			base_mask = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+			base_mask = cv2.warpAffine(base_mask, total_transformation, (widthc, heightc))
 
 			
 		
@@ -340,6 +340,7 @@ def stitching(images,masks):
 		#base_features=[]
 		#next_features=[]
 		filtered_matche=[]
+		total_transformation=np.dot(total_transformation,transformation)
 		for index,k in enumerate(status):
 				if k==1:
 					#base_features.append(base_featur[index])
