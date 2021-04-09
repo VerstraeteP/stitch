@@ -38,7 +38,7 @@ def find_anomalies(data):
         if outlier > upper_limit or outlier < lower_limit:
             anomalies.append(index)
     return anomalies
-def prepare_data_and_stitch(images,fps,scalingfactor=10):
+def prepare_data_and_stitch(images,fps,scalingfactor=2):
 	
 	"""
 	calculates the mask of the images
@@ -319,7 +319,7 @@ def stitching(images,masks):
 
 		
 		#transformation, status = cv2.estimateAffine2D(dst_pts, src_pts)
-		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=2,maxIters=10000 ,refineIters=10000)
+		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=4,maxIters=100000 ,refineIters=10000)
 		#base_features=[]
 		#next_features=[]
 		filtered_matche=[]
