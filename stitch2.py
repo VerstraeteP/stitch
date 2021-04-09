@@ -134,6 +134,7 @@ def stitching(images,masks):
 			print(k)
 			cur_image=images[k]
 			base_msk=masks[k]
+			cv2.imwrite("photo"+str(k)+".jpg",base_msk)
 			base_msk[base_msk==0]=255	
 			base_msk[base_msk==1]=0
 			base_mask[:,:]=0
@@ -165,7 +166,7 @@ def stitching(images,masks):
 			transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=50,maxIters=10000 ,refineIters=10000)
 			mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
 			mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
-			cv2.imwrite("photo"+str(k)+".jpg",mask_photo)
+			
 
 			next_features, next_descs = detector.detectAndCompute(mod_photo,(mask_photo))
 			matches = bf.match(base_descs,next_descs)
