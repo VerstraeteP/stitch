@@ -181,7 +181,7 @@ def stitching(images,masks):
 			if best==None or dist<best:
 				best=dist
 				best_transformation=transformation
-				number_of_best=k
+				number_of_best=k+number_of_best
 				best_mask=base_mask
 				best_curr=curr.copy()
 				best_msk =base_msk.copy()
