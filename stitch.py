@@ -341,23 +341,7 @@ def stitching(images,masks):
 		#next_features=[]
 		filtered_matche=[]
 		array=np.array([0,0,1])
-		if cnt==0:	
 		
-			total_transformation=transformation
-			total_transformation = np.vstack((total_transformation,array))
-		else:
-			
-			
-			total_transformation = np.vstack((total_transformation,array))
-
-			transformation = np.vstack((transformation,array))
-
-			print(total_transformation.shape)
-			print(transformation.shape)
-			total_transformation=np.dot(total_transformation,transformation)
-		total_transformation=total_transformation[:-1,:]
-		transformation=transformation[:-1,:]
-		print(transformation)
 
 		for index,k in enumerate(status):
 				if k==1:
@@ -415,6 +399,24 @@ def stitching(images,masks):
 		
 		base_gray=final_img
 		cnt=cnt+1
+		if cnt==0:	
+		
+			total_transformation=transformation
+			total_transformation = np.vstack((total_transformation,array))
+		else:
+			
+			
+			total_transformation = np.vstack((total_transformation,array))
+
+			transformation = np.vstack((transformation,array))
+
+			print(total_transformation.shape)
+			print(transformation.shape)
+			total_transformation=np.dot(total_transformation,transformation)
+		total_transformation=total_transformation[:1,:]
+		transformation=transformation[:1,:]
+		print(transformation)
+
 		
 			
 
