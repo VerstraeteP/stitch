@@ -170,7 +170,7 @@ def stitching(images,masks):
 			next_features, next_descs = detector.detectAndCompute(mod_photo,(mask_photo))
 			matches = bf.match(base_descs,next_descs)
 			matches = sorted(matches, key = lambda x:x.distance)
-			filtered_matches=matches[:30]
+			filtered_matches=matches[:80]
 			
 			src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
