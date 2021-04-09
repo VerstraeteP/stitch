@@ -171,7 +171,7 @@ def stitching(images,masks):
 			matches = sorted(matches, key = lambda x:x.distance)
 			filtered_matches=matches[:30]
 			output = cv2.drawMatches(base_gray, base_features, mod_photo, next_features, filtered_matches, None)
-			cv2.imwrite("output"+str(times)+str(k)+".jpg",output)
+			cv2.imwrite("output"+str(times)+".."+str(k)+".jpg",output)
 			src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 			dist=0
