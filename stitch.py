@@ -340,6 +340,7 @@ def stitching(images,masks):
 		#base_features=[]
 		#next_features=[]
 		filtered_matche=[]
+		transformation=np.squeeze(np.asarray(transformation))
 		total_transformation=np.dot(total_transformation,transformation)
 		for index,k in enumerate(status):
 				if k==1:
