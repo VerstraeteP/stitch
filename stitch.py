@@ -147,7 +147,7 @@ def stitching(images,masks):
 		cv2.imwrite("mask.jpg",base_msk)
 		starttime=time.time()
 		
-		cnt=cnt+1
+		
 		
 		
 		for k,i in enumerate(base_gray[baseline:,:]):
