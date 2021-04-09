@@ -175,7 +175,7 @@ def stitching(images,masks):
 			src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
 			dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 			dist=0
-			for index,k in enumerate(src_pts):
+			for index,l in enumerate(src_pts):
 				dist+=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
 			print(dist)
 			if best==None or dist<best:
