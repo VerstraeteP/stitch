@@ -356,7 +356,7 @@ def stitching(images,masks):
 		mask_photo_temp = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		base_mask_temp=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		
-		next_features, next_descs = detector.detectAndCompute(mod_photo,(mask_photo))
+		next_features, next_descs = detector.detectAndCompute(mod_photo_temp,(mask_photo_temp))
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
 		filtered_matches=matches[:200]
