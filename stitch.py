@@ -119,6 +119,7 @@ def stitching(images,masks):
 		curr[:,:]=0	
 		#curr[start_img:cur_image.shape[0]+start_img,:cur_image.shape[1]]=cur_image
 		curr[:cur_image.shape[0],:cur_image.shape[1]]=cur_image
+		
 		if cnt!=0:
 			curr = cv2.warpAffine(curr, transformation, (widthc, heightc))
 
@@ -134,7 +135,9 @@ def stitching(images,masks):
 			mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
 		else:
 			
-			base_mask[start_img+border:base_msk.shape[0]-border+start_img,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
+			#base_mask[start_img+border:base_msk.shape[0]-border+start_img,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
+			base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
+			base_mask = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 
 			
 		
