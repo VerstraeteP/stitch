@@ -340,15 +340,17 @@ def stitching(images,masks):
 		#base_features=[]
 		#next_features=[]
 		filtered_matche=[]
-		
+		array=np.array([0,0,1])
 		if cnt==0:	
 		
 			total_transformation=transformation
+			total_transformation = np.vstack((total_transformation,array))
 		else:
 			
 			
 			
-			
+			transformation = np.vstack((transformation,array))
+
 			print(total_transformation.shape)
 			print(transformation.shape)
 			total_transformation=np.dot(total_transformation,transformation)
