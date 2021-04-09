@@ -414,8 +414,8 @@ def stitching(images,masks):
 			print(total_transformation.shape)
 			print(transformation.shape)
 			total_transformation=np.dot(total_transformation,transformation)
-		total_transformation=total_transformation[:1,:]
-		transformation=transformation[:1,:]
+		total_transformation=total_transformation[:2,:]
+		transformation=transformation[:2,:]
 		print(transformation)
 		
 		
