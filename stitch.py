@@ -358,7 +358,7 @@ def stitching(images,masks):
 
 		
 		
-		output = cv2.drawMatches(base_gray, base_features, mod_photo, next_features, filtered_matches, None)
+		output = cv2.drawMatches(base_gray, base_features, mod_photo, next_features, filtered_matche, None)
 		cv2.imwrite("ransac"+str(times)+".jpg",output)
 		flag=cv2.INTER_LANCZOS4
 		maxindex=200
