@@ -68,7 +68,7 @@ def prepare_data_and_stitch(images,fps,scalingfactor=5):
 
 
 def stitching(images,masks):
-	
+	total_transformation=0
 	evaluate=0
 	"""
 	Stitch given images together to one uniform image
