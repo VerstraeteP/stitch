@@ -235,10 +235,12 @@ def stitching(images,masks):
 		"""
 		bf = cv2.BFMatcher()
 		matches = bf.knnMatch(base_descs,next_descs,k=2)
-		filtered_matches=np.array([])
+		filtered_matches=[]
 		for m,n in matches:
     			if m.distance < 0.70*n.distance:
-        			filtered_matches.append([m])
+        			filtered_matches.append(m)
+		
+		filtered_matches = np.asarray(filtered_matches)		
 		"""
 		
 		data=[]
