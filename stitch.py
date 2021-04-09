@@ -38,7 +38,7 @@ def find_anomalies(data):
         if outlier > upper_limit or outlier < lower_limit:
             anomalies.append(index)
     return anomalies
-def prepare_data_and_stitch(images,fps,scalingfactor=2):
+def prepare_data_and_stitch(images,fps,scalingfactor=5):
 	
 	"""
 	calculates the mask of the images
