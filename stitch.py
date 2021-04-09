@@ -399,6 +399,7 @@ def stitching(images,masks):
 		
 		base_gray=final_img
 		cnt=cnt+1
+		print(total_transformation)
 		if cnt==0:	
 		
 			total_transformation=transformation
@@ -407,7 +408,7 @@ def stitching(images,masks):
 			
 			
 			total_transformation = np.vstack((total_transformation,array))
-
+			print(total_transformation)
 			transformation = np.vstack((transformation,array))
 
 			print(total_transformation.shape)
