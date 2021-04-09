@@ -130,7 +130,7 @@ def stitching(images,masks):
 
 		
 		base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
-		for k in range(number_of_best+1,number_of_best+3):
+		for k in range(number_of_best+1,number_of_best+5):
 			print(k)
 			cur_image=images[k]
 			base_msk=masks[k]
@@ -178,11 +178,12 @@ def stitching(images,masks):
 			for index,l in enumerate(src_pts):
 				dist+=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
 			dist/=len(filtered_matches)
+			print(dist)
 			if best==None or dist<best:
 				best=dist
 				best_transformation=transformation
 				number_of_best=k
-				best_mask=base_mask
+				best_mask=base_mask.copy()
 				best_curr=curr.copy()
 				best_msk =base_msk.copy()
            
@@ -191,8 +192,7 @@ def stitching(images,masks):
 
 
 		transformation=best_transformation
-		print("best_transformation:")
-		print(transformation)
+		
 		print("beste:"+str(number_of_best))
 		cv2.imwrite("bestimage.jpg",best_curr)
 		base_mask=best_mask
