@@ -154,7 +154,7 @@ def stitching(images,masks):
 			matches = sorted(matches, key = lambda x:x.distance)
 			filtered_matches=matches[:400]
 			
-			output = cv2.drawMatches(base_gray, base_features, mod_photo, next_features, filtered_matches, None)
+			output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None)
 			cv2.imwrite("output"+str(times)+".."+str(k)+".jpg",output)
 
 
