@@ -348,12 +348,14 @@ def stitching(images,masks):
 		else:
 			
 			
-			
+			total_transformation = np.vstack((total_transformation,array))
+
 			transformation = np.vstack((transformation,array))
 
 			print(total_transformation.shape)
 			print(transformation.shape)
 			total_transformation=np.dot(total_transformation,transformation)
+		total_transformation=total_transformation[:-1,:]
 		for index,k in enumerate(status):
 				if k==1:
 					#base_features.append(base_featur[index])
