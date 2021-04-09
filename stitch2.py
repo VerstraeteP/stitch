@@ -220,7 +220,7 @@ def stitching(images,masks):
 		final_img = cv2.add(mod_photo,enlarged_base_img1,dtype=cv2.CV_8U)
 		
 		base_gray=final_img
-		cv2.imwrite("a"+str(times)+".jpg",base_gray)
+		cv2.imwrite("aaa"+str(times)+".jpg",base_gray)
 		if cnt>0:
 			for k, i in enumerate(data_map[:,:]):
 					if(i.any()):
