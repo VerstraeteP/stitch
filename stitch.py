@@ -68,7 +68,7 @@ def prepare_data_and_stitch(images,fps,scalingfactor=5):
 
 
 def stitching(images,masks):
-	total_transformation=np.array([[1 , 0 ,0],[0,1,0]])
+	
 	evaluate=0
 	"""
 	Stitch given images together to one uniform image
@@ -169,7 +169,7 @@ def stitching(images,masks):
 					baselineneg=k
 					break
 			
-		cnt=cnt+1
+		
 		
 		if (baselinex+int(cur_image.shape[1])/2)>base_gray.shape[1]:
 			print("increasing")
@@ -341,7 +341,11 @@ def stitching(images,masks):
 		#next_features=[]
 		filtered_matche=[]
 		transformation=np.squeeze(np.asarray(transformation))
-		total_transformation=np.dot(total_transformation,transformation)
+		if cnt==0:	
+		
+			total_transformation=transformation
+		else:
+			total_transformation=np.dot(total_transformation,transformation)
 		for index,k in enumerate(status):
 				if k==1:
 					#base_features.append(base_featur[index])
@@ -397,6 +401,7 @@ def stitching(images,masks):
 		#total_mask= cv2.add(mod_photo1,enlarged_base_img,dtype=cv2.CV_8U)
 		
 		base_gray=final_img
+		cnt=cnt+1
 		
 			
 
