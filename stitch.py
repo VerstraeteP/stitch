@@ -38,7 +38,7 @@ def find_anomalies(data):
         if outlier > upper_limit or outlier < lower_limit:
             anomalies.append(index)
     return anomalies
-def prepare_data_and_stitch(images,fps,scalingfactor=1):
+def prepare_data_and_stitch(images,fps,scalingfactor=10):
 	
 	"""
 	calculates the mask of the images
@@ -332,7 +332,6 @@ def stitching(images,masks):
 		#next_features=np.array(next_features)
 		filtered_matche=np.array(filtered_matche)
 		
-		output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matche, None)
 		count=0
 		for k in status:
 			if k==1:
@@ -345,6 +344,22 @@ def stitching(images,masks):
 		base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))	
 		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+		
+		next_features, next_descs = detector.detectAndCompute(mod_photo,(mask_photo))
+		matches = bf.match(base_descs,next_descs)
+		matches = sorted(matches, key = lambda x:x.distance)
+		filtered_matches=matches[:200]
+		src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,1,2)
+		dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,1,2)
+		distance=0
+		for k in range(len(src_pts)):
+			distance += math.sqrt((src_pts[k][0][0]-dst_pts[k][0][0])**2+(src_pts[k][0][1]-dst_pts[k][0][1])**2)
+		print(distance)
+
+		
+		
+		output = cv2.drawMatches(base_gray, base_features, mod_photo, next_features, filtered_matches, None)
+		cv2.imwrite("ransac"+str(times)+".jpg",output)
 		flag=cv2.INTER_LANCZOS4
 		maxindex=200
 		sum=50
