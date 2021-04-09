@@ -118,7 +118,7 @@ def stitching(images,masks):
 		
 		curr[:,:]=0	
 		#curr[start_img:cur_image.shape[0]+start_img,:cur_image.shape[1]]=cur_image
-		curr[:cur_image.shape[0]:,cur_image.shape[1]]=cur_image
+		curr[:cur_image.shape[0],:cur_image.shape[1]]=cur_image
 		if cnt!=0:
 			curr = cv2.warpAffine(curr, transformation, (widthc, heightc))
 
