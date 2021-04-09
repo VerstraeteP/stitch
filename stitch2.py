@@ -181,7 +181,7 @@ def stitching(images,masks):
 			if best==None or dist<best:
 				best=dist
 				best_transformation=transformation
-				number_of_best=times
+				number_of_best=k
 				best_mask=base_mask
 				best_curr=curr
 				best_msk =base_msk
@@ -191,6 +191,7 @@ def stitching(images,masks):
 
 
 		transformation=best_transformation
+		print("beste:"+str(number_of_best))
 		base_mask=best_mask
 		base_msk=best_msk
 		curr=best_curr
