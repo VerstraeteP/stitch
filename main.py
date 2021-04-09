@@ -2,7 +2,7 @@ from imutils.video import FileVideoStream
 import time
 import argparse
 
-from stitch2 import prepare_data_and_stitch
+from stitch import prepare_data_and_stitch
 from backgroundsubtraction import backgroundsubtraction
 import matplotlib.pyplot as plt
 from  calculate_positions import calculate_pos
