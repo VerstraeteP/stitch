@@ -327,7 +327,7 @@ def stitching(images,masks):
 
 		
 		#transformation, status = cv2.estimateAffine2D(dst_pts, src_pts)
-		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=3,maxIters=1000 ,refineIters=10000)
+		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=3,maxIters=10000 ,refineIters=10000)
 		#base_features=[]
 		#next_features=[]
 		filtered_matche=[]
@@ -349,10 +349,10 @@ def stitching(images,masks):
 		print("matches:"+ str(count))
 		Affinetransformations.append(transformation)
 		
-		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
-		base_msk = cv2.warpAffine(base_msk, transformation, (widthc, heightc))	
-		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
-		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+		mod_photo_temp = cv2.warpAffine(curr, transformation, (widthc, heightc))
+		base_msk_temp= cv2.warpAffine(base_msk, transformation, (widthc, heightc))	
+		mask_photo_temp = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+		base_mask_temp=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 		
 		next_features, next_descs = detector.detectAndCompute(mod_photo,(mask_photo))
 		matches = bf.match(base_descs,next_descs)
@@ -363,16 +363,35 @@ def stitching(images,masks):
 		distance=0
 		for k in range(len(src_pts)):
 			distance += math.sqrt((src_pts[k][0][0]-dst_pts[k][0][0])**2+(src_pts[k][0][1]-dst_pts[k][0][1])**2)
+		distance/=k
 		print(distance)
+		if  distance<2:
+			mod_photo=mod_photo_temp 
+			base_msk=base_msk_temp	
+			mask_photo=mask_photo_temp 
+			base_mask=base_mask_temp
+			(ret,data_map) = cv2.threshold(cv2.cvtColor(mod_photo, cv2.COLOR_BGR2GRAY),0, 255,cv2.THRESH_BINARY)
+
+			contours, hierarchy = cv2.findContours(data_map, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+			contours1, hierarchy1 = cv2.findContours(base_msk, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+			cv2.drawContours(data_map, contours, -1, (0,255,255), 10)
+			#enlarged_base_img= cv2.bitwise_and(total_mask,total_mask, mask =np.bitwise_not(data_map))
+			enlarged_base_img1 = cv2.bitwise_and(base_gray,base_gray,mask =np.bitwise_not(data_map))
+		
+		
+			mod_photo= cv2.bitwise_and(mod_photo,mod_photo,mask =(data_map))
+			mod_photo1= cv2.bitwise_and(base_msk,base_msk,mask =(base_msk))
+			final_img = cv2.add(mod_photo,enlarged_base_img1,dtype=cv2.CV_8U)
+		
+			#total_mask= cv2.add(mod_photo1,enlarged_base_img,dtype=cv2.CV_8U)
+		
+			base_gray=final_img
+		
+			
 
 		
 		
-		output = cv2.drawMatches(base_gray, base_features, mod_photo, next_features, filtered_matche, None)
-		cv2.imwrite("ransac"+str(times)+".jpg",output)
-		flag=cv2.INTER_LANCZOS4
-		maxindex=200
-		sum=50
-		z=0
+		
 		"""
 		for z in range(4):
 			
@@ -495,22 +514,7 @@ def stitching(images,masks):
 				ttlchange+=ttldistance/tellers
 				ttlchangeteller+=1
 		"""
-		(ret,data_map) = cv2.threshold(cv2.cvtColor(mod_photo, cv2.COLOR_BGR2GRAY),0, 255,cv2.THRESH_BINARY)
-
-		contours, hierarchy = cv2.findContours(data_map, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-		contours1, hierarchy1 = cv2.findContours(base_msk, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-		cv2.drawContours(data_map, contours, -1, (0,255,255), 10)
-		#enlarged_base_img= cv2.bitwise_and(total_mask,total_mask, mask =np.bitwise_not(data_map))
-		enlarged_base_img1 = cv2.bitwise_and(base_gray,base_gray,mask =np.bitwise_not(data_map))
 		
-		
-		mod_photo= cv2.bitwise_and(mod_photo,mod_photo,mask =(data_map))
-		mod_photo1= cv2.bitwise_and(base_msk,base_msk,mask =(base_msk))
-		final_img = cv2.add(mod_photo,enlarged_base_img1,dtype=cv2.CV_8U)
-		
-		#total_mask= cv2.add(mod_photo1,enlarged_base_img,dtype=cv2.CV_8U)
-		
-		base_gray=final_img
 		if cnt>0:
 			for k, i in enumerate(data_map[:,:]):
 					if(i.any()):
