@@ -111,7 +111,7 @@ def stitching(images,masks):
 
 
   
-	for cur_image in images[1:]:
+	for cur_image in images[1:3]:
 		times+=1
 		best_transformation=[]
 		
@@ -177,7 +177,7 @@ def stitching(images,masks):
 			dist=0
 			for index,k in enumerate(src_pts):
 				dist+=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
-			#print(dist)
+			print(dist)
 			if best==None or dist<best:
 				best=dist
 				best_transformation=transformation
