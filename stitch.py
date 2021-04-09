@@ -80,7 +80,7 @@ def stitching(images,masks):
 	ttlchangeteller=0
 	
 	detector = cv2.SIFT_create()
-	Affinetransformations=[[[1 , 0 ,0],[0,1,0]]]
+	Affinetransformations=[[1 , 0 ,0],[0,1,0]]
 	
 	base_msk= masks[2]
 	cnt=0
