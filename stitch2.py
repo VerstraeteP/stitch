@@ -195,6 +195,7 @@ def stitching(images,masks):
 		print("best_transformation:")
 		print(transformation)
 		print("beste:"+str(number_of_best))
+		cv2.imwrite("bestimage.jpg",best_curr)
 		base_mask=best_mask
 		base_msk=best_msk
 		curr=best_curr
