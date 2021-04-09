@@ -233,7 +233,7 @@ def stitching(images,masks):
 		matches = sorted(matches, key = lambda x:x.distance)
 		filtered_matches=matches[:200]
 		"""
-		bf = cv.BFMatcher()
+		bf = cv2.BFMatcher()
 		matches = bf.knnMatch(base_descs,next_descs,k=2)
 		filtered_matches= []
 		for m,n in matches:
