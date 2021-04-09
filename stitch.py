@@ -238,7 +238,7 @@ def stitching(images,masks):
 		filtered_matches= []
 		for m,n in matches:
     			if m.distance < 0.8*n.distance:
-        		filtered_matches.append([m])
+        			filtered_matches.append([m])
 		"""
 		
 		data=[]
