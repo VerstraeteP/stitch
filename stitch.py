@@ -319,7 +319,7 @@ def stitching(images,masks):
 
 		
 		#transformation, status = cv2.estimateAffine2D(dst_pts, src_pts)
-		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=2,maxIters=100 ,refineIters=10000)
+		transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=2,maxIters=10000 ,refineIters=10000)
 		#base_features=[]
 		#next_features=[]
 		filtered_matche=[]
