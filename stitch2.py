@@ -107,7 +107,12 @@ def stitching(images,masks):
 	baselineneg=600
 	border=5
 	number_of_best=0
-	
+	for k,base_msk in enumerate(masks):
+		base_msk[base_msk==0]=255
+		
+		base_msk[base_msk==1]=0
+		cv2.imwrite("mask"+str(k)+".jpg",base_msk
+		
 
 
   
