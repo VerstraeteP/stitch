@@ -184,8 +184,8 @@ def stitching(images,masks):
 				best_transformation=transformation
 				number_of_best=k
 				best_mask=base_mask
-				best_curr=curr
-				best_msk =base_msk
+				best_curr=curr.copy()
+				best_msk =base_msk.copy()
            
       
       
