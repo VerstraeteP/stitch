@@ -38,7 +38,7 @@ def find_anomalies(data):
         if outlier > upper_limit or outlier < lower_limit:
             anomalies.append(index)
     return anomalies
-def prepare_data_and_stitch(images,fps,scalingfactor=3):
+def prepare_data_and_stitch(images,fps,scalingfactor=1):
 	
 	"""
 	calculates the mask of the images
@@ -130,7 +130,7 @@ def stitching(images,masks):
 
 		
 		base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
-		for k in range(number_of_best+1,number_of_best+3):
+		for k in range(number_of_best+1,number_of_best+2):
 			print(k)
 			base_msk=0
 			cur_image=images[k]
