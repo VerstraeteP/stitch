@@ -398,7 +398,7 @@ def stitching(images,masks):
 		#total_mask= cv2.add(mod_photo1,enlarged_base_img,dtype=cv2.CV_8U)
 		
 		base_gray=final_img
-		cnt=cnt+1
+		
 		print(total_transformation)
 		if cnt==0:	
 		
@@ -417,7 +417,9 @@ def stitching(images,masks):
 		total_transformation=total_transformation[:1,:]
 		transformation=transformation[:1,:]
 		print(transformation)
-
+		
+		
+		cnt=cnt+1
 		
 			
 
