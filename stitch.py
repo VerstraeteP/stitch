@@ -112,7 +112,7 @@ def stitching(images,masks):
 		neg=False
 		base_msk=masks[teller]
 		base_msk[base_msk==0]=255
-		
+		print(total_transformation)
 		base_msk[base_msk==1]=0
 		base_mask[:,:]=0
 		
