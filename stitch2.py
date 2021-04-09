@@ -177,7 +177,7 @@ def stitching(images,masks):
 			dist=0
 			for index,l in enumerate(src_pts):
 				dist+=math.sqrt((src_pts[index][0]-dst_pts[index][0])**2+(src_pts[index][1]-dst_pts[index][1])**2)
-			
+			dist/=len(filtered_matches)
 			if best==None or dist<best:
 				best=dist
 				best_transformation=transformation
