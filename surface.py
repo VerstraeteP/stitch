@@ -153,7 +153,7 @@ def predict_surface(img):
 						     best_ind=d
 			if lastone:
 					d=len(indexen)-1
-					dist=	abs(x[d]-(prev_x_max-prev_x_min)/2))
+					dist=	abs(x[d]-(prev_x_max-prev_x_min)/2)
 					if best==None or dist<best:
 						     best=dist
 						     best_ind=d
