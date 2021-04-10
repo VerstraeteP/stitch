@@ -120,6 +120,8 @@ def predict_surface(img):
 		#maskoutput=outputs['instances'].pred_masks.to("cpu")[0][:2]
 		maskoutput=0
 		indexen=[]
+		y=[]
+		x=[]
 		prev_x_min=0
 		prev_x_max=k.shape[1]
 		for index,k in enumerate(outputs['instances'].pred_boxes.to("cpu")):
@@ -127,13 +129,35 @@ def predict_surface(img):
 			middle=coordinates[2]-coordinates[0]
 			
 			if middle>prev_x_min and middle<prev_x_max:
-				
+				y.append(coordinates[3]-coordinates[1])
+				x.append(coordinates[2]-coordinates[0])
 				indexen.append(index)
-				prev_x_min=coordinates[0]
-				prev_x_max=coordinates[2]
+				#prev_x_min=coordinates[0]
+				#prev_x_max=coordinates[2]
 
-		print(indexen)
+		
+		
 		if len(indexen)>1:
+			best=None
+			best_ind=0
+			lastone=False
+			for d,k in enumerate(indexen[:len(indexen)-1):
+				if abs(x[d]-x[d+1])>((prev_x_max-prev_x_min)/2):
+					if d==len(indexen)-1:
+						     lastone= True
+					dist=	abs(x[d]-(prev_x_max-prev_x_min)/2))
+					if best==None or dist<best:
+						     best=dist
+						     best_ind=d
+			if lastone:
+					d=len(indexen)-1
+					dist=	abs(x[d]-(prev_x_max-prev_x_min)/2))
+					if best==None or dist<best:
+						     best=dist
+						     best_ind=d
+						     	
+			indexen=[best_ind]			     
+		print(indexen)				     
 			cv2.imwrite("pred"+str(teller)+".jpg",v)
 		for index,k in enumerate(outputs['instances'].pred_masks.to("cpu").numpy()):
 			if indexen.count(index)==1:
