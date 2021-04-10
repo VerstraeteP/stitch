@@ -122,6 +122,7 @@ def predict_surface(img):
 		indexen=[]
 		y=[]
 		x=[]
+		coordinaten=[]
 		prev_x_min=0
 		prev_x_max=k.shape[1]
 		for index,k in enumerate(outputs['instances'].pred_boxes.to("cpu")):
@@ -132,6 +133,7 @@ def predict_surface(img):
 				y.append(coordinates[3]-coordinates[1])
 				x.append(coordinates[2]-coordinates[0])
 				indexen.append(index)
+				coordinaten.append(coordinates)
 				#prev_x_min=coordinates[0]
 				#prev_x_max=coordinates[2]
 
@@ -145,7 +147,7 @@ def predict_surface(img):
 				if abs(x[d]-x[d+1])>((prev_x_max-prev_x_min)/2):
 					if d==len(indexen)-1:
 						     lastone= True
-					dist=	abs(x[d]-(prev_x_max-prev_x_min)/2))
+					dist=abs(x[d]-(prev_x_max-prev_x_min)/2)
 					if best==None or dist<best:
 						     best=dist
 						     best_ind=d
@@ -156,7 +158,9 @@ def predict_surface(img):
 						     best=dist
 						     best_ind=d
 						     	
-			indexen=[best_ind]			     
+			indexen=[best_ind]
+		prev_x_min=coordinaten[best_ind][0]
+		prev_x_max=coordinaten[best_ind][2]
 		print(indexen)				     
 			cv2.imwrite("pred"+str(teller)+".jpg",v)
 		for index,k in enumerate(outputs['instances'].pred_masks.to("cpu").numpy()):
