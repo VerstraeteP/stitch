@@ -112,7 +112,7 @@ def stitching(images,masks):
 		neg=False
 		base_msk=masks[teller]
 		base_msk[base_msk==0]=255
-		print(total_transformation)
+	
 		base_msk[base_msk==1]=0
 		base_mask[:,:]=0
 		
@@ -136,6 +136,7 @@ def stitching(images,masks):
 			
 			#base_mask[start_img+border:base_msk.shape[0]-border+start_img,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 			
+			print(Affinetransformations)
 			base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 			for k in Affinetransformations[1:]:
 				print("transformation")
