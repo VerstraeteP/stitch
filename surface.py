@@ -120,7 +120,8 @@ def predict_surface(img):
 		#maskoutput=outputs['instances'].pred_masks.to("cpu")[0][:2]
 		maskoutput=0
 		
-		
+		for k in outputs['instances'].pred_boxes.to("cpu").numpy():
+			print(k)
 
 		
 		for k in outputs['instances'].pred_masks.to("cpu").numpy():
