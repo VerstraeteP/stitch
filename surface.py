@@ -138,10 +138,10 @@ def predict_surface(img):
 				#prev_x_max=coordinates[2]
 
 		
-		
+		best_ind=0
 		if len(indexen)>1:
 			best=None
-			best_ind=0
+			
 			lastone=False
 			for d,k in enumerate(indexen[:len(indexen)-1]):
 				if abs(x[d]-x[d+1])>((prev_x_max-prev_x_min)/2):
