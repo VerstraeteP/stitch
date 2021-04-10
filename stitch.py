@@ -118,7 +118,7 @@ def stitching(images,masks):
 		
 		curr[:,:]=0	
 		#curr[start_img:cur_image.shape[0]+start_img,:cur_image.shape[1]]=cur_image
-		curr[500:cur_image.shape[0]+500,:cur_image.shape[1]]=cur_image
+		curr[300:cur_image.shape[0]+300,:cur_image.shape[1]]=cur_image
 		
 		
 
