@@ -123,7 +123,7 @@ def predict_surface(img):
 		prev_x_min=0
 		prev_x_max=k.shape[1]
 		for index,k in enumerate(outputs['instances'].pred_boxes.to("cpu")):
-			coordinates=k.numpy())
+			coordinates=k.numpy()
 			middle=coordinates[0]-coordinates[2]
 			if middle>prev_x_min and middle<prev_x_max:
 				
