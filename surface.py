@@ -87,7 +87,7 @@ def predict_surface(img):
 	"""
 	
 	cfg.MODEL.WEIGHTS = os.path.join(cfg.OUTPUT_DIR, "model_final.pth")  
-	cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.3  # set a custom testing threshold
+	cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7 # set a custom testing threshold
 	predictor = DefaultPredictor(cfg)
 	#dataset_dicts = get_balloon_dicts("balloon/train")
 	dataset_dicts="surface_img/val"
