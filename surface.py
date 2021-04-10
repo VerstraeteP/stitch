@@ -159,10 +159,12 @@ def predict_surface(img):
 						     best_ind=d
 						     	
 			indexen=[best_ind]
+			print(indexen)
+			cv2.imwrite("pred"+str(teller)+".jpg",v)
 		prev_x_min=coordinaten[best_ind][0]
 		prev_x_max=coordinaten[best_ind][2]
-		print(indexen)				     
-			cv2.imwrite("pred"+str(teller)+".jpg",v)
+						     
+			
 		for index,k in enumerate(outputs['instances'].pred_masks.to("cpu").numpy()):
 			if indexen.count(index)==1:
 				maskoutput+=k
