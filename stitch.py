@@ -340,7 +340,7 @@ def stitching(images,masks):
 		#base_features=[]
 		#next_features=[]
 		filtered_matche=[]
-		array=np.array([0,0,1])
+		array=np.array([0,0,0])
 		
 
 		for index,k in enumerate(status):
