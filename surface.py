@@ -133,7 +133,7 @@ def predict_surface(img):
 				prev_x_max=coordinates[2]
 
 		print(indexen)
-		if len(indexen)>0:
+		if len(indexen)>1:
 			cv2.imwrite("pred"+str(teller)+".jpg",v)
 		for index,k in enumerate(outputs['instances'].pred_masks.to("cpu").numpy()):
 			if indexen.count(index)==1:
