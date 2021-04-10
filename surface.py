@@ -141,7 +141,7 @@ def predict_surface(img):
 			best=None
 			best_ind=0
 			lastone=False
-			for d,k in enumerate(indexen[:len(indexen)-1]:
+			for d,k in enumerate(indexen[:len(indexen)-1]):
 				if abs(x[d]-x[d+1])>((prev_x_max-prev_x_min)/2):
 					if d==len(indexen)-1:
 						     lastone= True
