@@ -38,7 +38,7 @@ def find_anomalies(data):
         if outlier > upper_limit or outlier < lower_limit:
             anomalies.append(index)
     return anomalies
-def prepare_data_and_stitch(images,fps,scalingfactor=1):
+def prepare_data_and_stitch(images,fps,scalingfactor=10):
 	
 	"""
 	calculates the mask of the images
@@ -138,6 +138,7 @@ def stitching(images,masks):
 			
 			base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 			for k in Affinetransformations:
+				print(k)
 				base_mask = cv2.warpAffine(base_mask, k, (widthc, heightc))
 				curr = cv2.warpAffine(curr, k, (widthc, heightc))
 
