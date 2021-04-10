@@ -11,7 +11,7 @@ from importlib import reload
 
 def main():
 	
-	for file in glob.glob("./drive/MyDrive/videos/2019/zBrabantsepijl_1_Zaventem.mp4"):
+	for file in glob.glob("./drive/MyDrive/videos/2019/Giro_3_Orbetello.mp4"):
 		
 		
 			outfiles=[]
