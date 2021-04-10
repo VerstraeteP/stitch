@@ -119,14 +119,22 @@ def predict_surface(img):
 		
 		#maskoutput=outputs['instances'].pred_masks.to("cpu")[0][:2]
 		maskoutput=0
-		
-		for k in outputs['instances'].pred_boxes.to("cpu"):
-			print(k.numpy())
-			print("next")
+		indexen=[]
+		prev_x_min=0
+		prev_x_max=k.shape[1]
+		for index,k in enumerate(outputs['instances'].pred_boxes.to("cpu")):
+			coordinates=k.numpy())
+			middle=coordinates[0]-coordinates[2]
+			if middle>prev_x_min and middle<prev_x_max:
+				
+				indexen.append(index)
+				prev_x_min=coordinates[0]
+				prev_x_max=coordinates[2]
 
 		
-		for k in outputs['instances'].pred_masks.to("cpu").numpy():
-			maskoutput+=k
+		for index,k in enumerate(outputs['instances'].pred_masks.to("cpu").numpy()):
+			if indexen.count(index)==1:
+				maskoutput+=k
 	
 		maskoutput=maskoutput*255
 		maskoutput+=background
@@ -136,6 +144,8 @@ def predict_surface(img):
 		img_res = cv2.bitwise_and(mask,mask, mask = maskoutput)
   
 		data.append(img_res)
+		
+		
 	return data
     
     
