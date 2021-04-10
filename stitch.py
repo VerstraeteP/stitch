@@ -138,7 +138,7 @@ def stitching(images,masks):
 			
 			print(Affinetransformations)
 			base_mask[border:base_msk.shape[0]-border,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
-			for k in Affinetransformations[1:]:
+			for k in Affinetransformations[2:]:
 				print("transformation")
 				print(k)
 				base_mask = cv2.warpAffine(base_mask, k, (widthc, heightc))
