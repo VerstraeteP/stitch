@@ -104,7 +104,7 @@ def predict_surface(img):
 	
 		
 		
-	for k in img:
+	for teller,k in enumerate(img):
 		
 		minimum=None
 		predictor = DefaultPredictor(cfg)
@@ -113,7 +113,7 @@ def predict_surface(img):
 		v = Visualizer(k[:, :, ::-1], metadata=surface_metadata, scale=0.5)
 		out=v.draw_instance_predictions(outputs["instances"].to("cpu"))
 		v=out.get_image()[:, :, ::-1]
-		
+		cv2.imwrite("pred"+str(teller)+".jpg",v)
 		
 		
 		
