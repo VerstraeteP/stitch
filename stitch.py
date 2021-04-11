@@ -145,10 +145,9 @@ def stitching(images,masks):
 
 			
 		
-		cv2.imwrite("aftermask"+str(times)+".jpg",base_mask)
 		
 		
-		cv2.imwrite("mask.jpg",base_msk)
+		
 		starttime=time.time()
 		
 		
@@ -336,7 +335,7 @@ def stitching(images,masks):
 		dst_pts = np.float32([ next_features[m.trainIdx].pt for m in matches_gms ]).reshape(-1, 2)
 		"""
 		output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None)
-		cv2.imwrite("before"+str(times)+".jpg",output)
+		
 
 		
 		#transformation, status = cv2.estimateAffine2D(dst_pts, src_pts)
