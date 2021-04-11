@@ -11,9 +11,9 @@ from importlib import reload
 
 def main():
 	
-	for file in glob.glob("./drive/MyDrive/videos/2019/Giro_3_Orbetello.mp4"):
+	for file in glob.glob("./drive/MyDrive/videos/2019/*.mp4"):
 		
-		
+		try:
 			outfiles=[]
 			print(file)
 			
@@ -37,7 +37,8 @@ def main():
 			with open("./drive/MyDrive/dataset/json/"+str(jaartal)+"/"+filename+".txt", 'w') as outfile:
 				json.dump(outfiles, outfile)
 			
-		
+		except:
+			print("mislukt")
 			
 		
 main()
