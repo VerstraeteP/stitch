@@ -105,7 +105,7 @@ def predict_surface(img):
 		
 		
 	for teller,k in enumerate(img):
-		print(teller)
+		
 		minimum=None
 		predictor = DefaultPredictor(cfg)
 		outputs = predictor(k)
