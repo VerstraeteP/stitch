@@ -11,6 +11,8 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	dictrenner=dict()
 	renner=[]
 	pos_renners=[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+	Affinetransform=np.asarray(Affinetransform)
+
 	print(len(Affinetransform))
 	print(len(total_transform))
 	print(Affinetransform[0])
