@@ -13,7 +13,8 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	pos_renners=[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
 	print(len(Affinetransform))
 	print(len(total_transform))
-	      
+	print(Affinetranform[0])
+	print(total_transform[0])
 	dictrenner={"fps":fps,"fps_scaled":fps_scaled}
 	h=50000
 	w=50000
@@ -31,7 +32,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 				
 				if index>2:
 				
-					l=cv2.warpAffine(pts,total_transform[index],(h,w))
+					l=cv2.warpAffine(pts,total_transform[index-2],(h,w))
 					l=cv2.warpAffine(l,transformation,(h,w))
 				else:
 					l=cv2.warpAffine(pts,transformation,(h,w))	
