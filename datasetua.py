@@ -39,6 +39,7 @@ def main():
 			
 		except:
 			print("mislukt")
+			continue
 			
 		
 main()
