@@ -345,6 +345,7 @@ def stitching(images,masks):
 		dst_pts = np.float32([ next_features[m.trainIdx].pt for m in matches_gms ]).reshape(-1, 2)
 		"""
 		output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None)
+		cv2.imwrite("matches"+str(times)+".jpg",output)
 		
 
 		
