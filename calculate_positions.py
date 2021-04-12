@@ -26,7 +26,8 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 		for k in track[index]:
 			if int(k[4])<=aantalrenners:
 				
-				pts =np.array([[[k[0]+(k[2]-k[0])/2,k[1]+(k[3]-k[1])/2]]], dtype = "float32")
+				pts =np.array([[[(k[0]+(k[2]-k[0])/2)+300,(k[1]+(k[3]-k[1])/2)+300]]], dtype = "float32")
+				
 				bnd_right =np.array([[[k[0],k[1]]]], dtype = "float32")
 				bnd_left= np.array([[[k[2],k[3]]]],dtype= "float32")
 				
