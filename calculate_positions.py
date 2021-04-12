@@ -14,7 +14,9 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	Affinetransform=np.asarray(Affinetransform)
 	print(total_transform)
 	print("kkk")
-
+	print(len(total_transform))
+	print(len(Affinetransform))
+	 
 	dictrenner={"fps":fps,"fps_scaled":fps_scaled}
 	w,h=afbeelding.shape[:2]
 	for index in range(len(Affinetransform)):
