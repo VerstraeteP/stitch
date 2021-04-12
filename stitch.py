@@ -59,10 +59,10 @@ def prepare_data_and_stitch(images,fps,scalingfactor=2):
 	
 	masks=predict_surface(process_images)
 	
-	stitchimage,transform,mask=stitching(process_images,masks)
+	stitchimage,transform,mask,totaltransform=stitching(process_images,masks)
 	renners=predict_renner(process_images,masks)
 	
-	return stitchimage,transform,renners,fps_scaled,fps,mask
+	return stitchimage,transform,renners,fps_scaled,fps,mask,total_transform
 	
 
 
