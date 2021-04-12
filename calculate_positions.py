@@ -13,7 +13,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	pos_renners=[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
 	print(len(Affinetransform))
 	print(len(total_transform))
-	print(Affinetranform[0])
+	print(Affinetransform[0])
 	print(total_transform[0])
 	dictrenner={"fps":fps,"fps_scaled":fps_scaled}
 	h=50000
