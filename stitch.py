@@ -142,6 +142,16 @@ def stitching(images,masks):
 			print(total_transformation)
 			base_mask = cv2.warpAffine(base_mask, total_transformation, (widthc, heightc))
 			curr = cv2.warpAffine(curr, total_transformation, (widthc, heightc))
+			base_mask = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+			curr = cv2.warpAffine(curr, transformation, (widthc, heightc))
+			total_transformation = np.vstack((total_transformation,array))
+			
+			transformation = np.vstack((transformation,array))
+
+			
+			total_transformation=np.dot(total_transformation,transformation)
+			total_transformation=total_transformation[:2,:]
+			transformation=transformation[:2,:]
 
 			
 		
@@ -407,16 +417,9 @@ def stitching(images,masks):
 		
 			total_transformation=transformation
 			total_transformation = np.vstack((total_transformation,array))
-		else:
+		
 			
 			
-			total_transformation = np.vstack((total_transformation,array))
-			print(total_transformation)
-			transformation = np.vstack((transformation,array))
-
-			print(total_transformation.shape)
-			print(transformation.shape)
-			total_transformation=np.dot(total_transformation,transformation)
 		total_transformation=total_transformation[:2,:]
 		transformation=transformation[:2,:]
 		print(transformation)
