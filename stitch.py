@@ -62,7 +62,7 @@ def prepare_data_and_stitch(images,fps,scalingfactor=2):
 	stitchimage,transform,mask,totaltransform=stitching(process_images,masks)
 	renners=predict_renner(process_images,masks)
 	
-	return stitchimage,transform,renners,fps_scaled,fps,mask,total_transform
+	return stitchimage,transform,renners,fps_scaled,fps,mask,totaltransform
 	
 
 
