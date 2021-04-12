@@ -33,7 +33,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 				if index>2:
 					
 
-					l=cv2.warpAffine(pts,total_transform[index],(h,w))
+					l=cv2.warpAffine(pts,total_transform[index-2],(h,w))
 					l=cv2.warpAffine(l,Affinetransform[index-1],(h,w))
 					l=cv2.warpAffine(l,Affinetransform[index],(h,w))
 				else:
