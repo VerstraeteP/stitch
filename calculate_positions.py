@@ -11,14 +11,16 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	dictrenner=dict()
 	renner=[]
 	pos_renners=[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
-	
+	print(len(Affinetransform))
+	print(len(total_transform))
+	      
 	dictrenner={"fps":fps,"fps_scaled":fps_scaled}
 	
 	for index in range(len(Affinetransform)):
 		track.append(mot_tracker1.update(np.array(renners[index])))
 		
-		transformation=np.vstack((Affinetransform[index],[0,0,1]))
-		
+		#transformation=np.vstack((Affinetransform[index],[0,0,1]))
+		transformation=Affinetransform[index]
 		for k in track[index]:
 			if int(k[4])<=aantalrenners:
 				
@@ -26,16 +28,20 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 				bnd_right =np.array([[[k[0],k[1]]]], dtype = "float32")
 				bnd_left= np.array([[[k[2],k[3]]]],dtype= "float32")
 				
+				if index>2:
+				
+					l=cv2.AffineTransform(pts,total_transform[index])
+					l=cv2.AffineTransform(l,transformation)
+				else:
+					l=cv2.AffineTransform(pts,transformation)	
+				#right=cv2.perspectiveTransform(bnd_right,transformation)
+				#left=cv2.perspectiveTransform(bnd_left,transformation)
 				
 				
-				l=cv2.perspectiveTransform(pts,transformation)
-				right=cv2.perspectiveTransform(bnd_right,transformation)
-				left=cv2.perspectiveTransform(bnd_left,transformation)
-				
-				
-				l= l.astype(int)
-				right= right.astype(int)
-				left= left.astype(int)
+				#l= l.astype(int)
+				l= l.astype(float)
+				#right= right.astype(int)
+				#left= left.astype(int)
 				#pos_renners[int(k[4])].append(l[0][0].tolist())
 				dictrenner1= {"frame_id":index, "position" : l[0][0].tolist()}
 				renner.append({"id":k[4],"position":l[0][0].tolist()})
