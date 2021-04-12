@@ -78,10 +78,9 @@ def stitching(images,masks):
 	"""
 	ttlchange=0
 	ttlchangeteller=0
-	
 	detector = cv2.SIFT_create()
 	Affinetransformations=[[1 , 0 ,0],[0,1,0]]
-	
+	total_affine=[]
 	base_msk= masks[2]
 	cnt=0
 	teller=3
@@ -426,6 +425,7 @@ def stitching(images,masks):
 		total_transformation=total_transformation[:2,:]
 		transformation=transformation[:2,:]
 		print(transformation)
+		total_affine.append(total_transformation)
 		
 		
 		cnt=cnt+1
@@ -571,7 +571,7 @@ def stitching(images,masks):
 	
 		
 		
-	return base_gray,Affinetransformations,total_mask
+	return base_gray,Affinetransformations,total_mask,total_affine
 			
 
 		
