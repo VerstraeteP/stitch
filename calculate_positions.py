@@ -18,7 +18,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	for index in range(len(Affinetransform)):
 		track.append(mot_tracker1.update(np.array(renners[index])))
 		print(total_transform[index-1])
-		print(Affinetransform[index]
+		print(Affinetransform[index])
 		#transformation=np.vstack((Affinetransform[index],[0,0,1]))
 		transformation=Affinetransform[index]
 		for k in track[index]:
