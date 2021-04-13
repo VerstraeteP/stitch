@@ -42,8 +42,8 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 				#left=cv2.perspectiveTransform(bnd_left,transformation)
 				
 				
-				#l= l.astype(int)
-				l= l.astype(float)
+				l= l.astype(int)
+				#l= l.astype(float)
 				#right= right.astype(int)
 				#left= left.astype(int)
 				#pos_renners[int(k[4])].append(l[0][0].tolist())
