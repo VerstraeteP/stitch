@@ -15,7 +15,10 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	
 	 
 	dictrenner={"fps":fps,"fps_scaled":fps_scaled}
-	w,h=afbeelding.shape[:2]
+	for k in total_transform:
+		k= np.vstack((k,[0,0,1]))
+	for k in Affinetransform:
+		k= np.vstack((k,[0,0,1]))	
 	for index in range(len(Affinetransform)):
 		track.append(mot_tracker1.update(np.array(renners[index])))
 		
@@ -33,11 +36,11 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 				if index>2:
 					
 
-					l=cv2.warpAffine(pts,total_transform[index-2],(h,w))
-					l=cv2.warpAffine(l,Affinetransform[index-1],(h,w))
-					l=cv2.warpAffine(l,Affinetransform[index],(h,w))
+					l=cv2.perspectiveTransform(pts,total_transform[index-2])
+					l=cv2.perspectiveTransform(l,Affinetransform[index-1])
+					l=cv2.perspectiveTransform(l,Affinetransform[index])
 				else:
-					l=cv2.warpAffine(pts,Affinetransform[index],(h,w))	
+					l=cv2.perspectiveTransform(pts,Affinetransform[index])	
 				#right=cv2.perspectiveTransform(bnd_right,transformation)
 				#left=cv2.perspectiveTransform(bnd_left,transformation)
 				
