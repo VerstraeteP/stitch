@@ -34,10 +34,15 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 				bnd_left= np.array([[[k[2],k[3]]]],dtype= "float32")
 				
 				if index>2:
-					
+					prev=np.vstack((Affinetransform[index-1],[0,0,1]))
+					total=np.vstack((total_transform[index-2],[0,0,1]))
+					total[0][2]=0
+					total[1][2]=0
+					prev[0][2]=0
+					prev[1][2]=0
 
-					l=cv2.perspectiveTransform(pts,np.vstack((total_transform[index-2],[0,0,1])))
-					l=cv2.perspectiveTransform(l,np.vstack((Affinetransform[index-1],[0,0,1])))
+					l=cv2.perspectiveTransform(pts,total)
+					l=cv2.perspectiveTransform(l,prev)
 					l=cv2.perspectiveTransform(l,np.vstack((Affinetransform[index],[0,0,1])))
 				else:
 					l=cv2.perspectiveTransform(pts,np.vstack((Affinetransform[index],[0,0,1])))	
