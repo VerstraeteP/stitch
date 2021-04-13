@@ -573,7 +573,8 @@ def stitching(images,masks):
 		
 	
 		
-		
+	print(Affinetransformations)
+	print(total_affine)
 	return base_gray,Affinetransformations,total_mask,total_affine
 			
 
