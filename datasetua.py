@@ -11,8 +11,8 @@ from importlib import reload
 
 def main():
 	
-	for file in glob.glob("./drive/MyDrive/videos/2019/*.mp4"):
-		try:
+	for file in glob.glob("./drive/MyDrive/videos/2019/kort_1_p.mp4"):
+		
 			outfiles=[]
 			print(file)
 			
@@ -37,8 +37,6 @@ def main():
 				json.dump(outfiles, outfile)
 			
 		
-		except;
-			print("misluk")
-			continue
+		
 		
 main()
