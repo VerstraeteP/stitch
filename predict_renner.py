@@ -3,7 +3,7 @@ import os
 import random
 import matplotlib.pyplot as plt
 import cv2
-
+from keras import backend as K
 import numpy as np
 from detectron2.data import DatasetCatalog, MetadataCatalog
 from detectron2.model_zoo import model_zoo
@@ -122,5 +122,6 @@ def predict_renner(images,masks):
 		predicted_renners.append(center)
 		
 	
+	K.clear_session()
 	return predicted_renners
 
