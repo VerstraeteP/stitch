@@ -55,6 +55,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 				
 				
 				l= l.astype(int)
+				print(l)
 				#l= l.astype(float)
 				#right= right.astype(int)
 				#left= left.astype(int)
