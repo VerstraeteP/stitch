@@ -53,7 +53,7 @@ def prepare_data_and_stitch(images,fps,scalingfactor=2):
 		if i % scalingfactor ==0:
 			process_images.append(data)
 	process_images.append(images[-1])
-	print(len(process_images))
+	
 	process_images.reverse()
 	fps_scaled=scalingfactor
 	
@@ -106,8 +106,7 @@ def stitching(images,masks):
 	baselineneg=600
 	border=5
 	for cur_image in images[3:]:
-		cv2.imwrite("1.png",images[1])
-		cv2.imwrite(str(times)+".png",masks[teller])
+		
 		neg=False
 		base_msk=masks[teller]
 		base_msk[base_msk==0]=255
@@ -143,7 +142,7 @@ def stitching(images,masks):
 			tran=transformation.copy()
 			tran[0][2]=0
 			tran[1][2]=0
-			print(total_transformation)
+			
 			base_mask = cv2.warpAffine(base_mask, total_transformation, (widthc, heightc))
 			curr = cv2.warpAffine(curr, total_transformation, (widthc, heightc))
 			base_mask = cv2.warpAffine(base_mask, tran, (widthc, heightc))
@@ -193,7 +192,7 @@ def stitching(images,masks):
 		
 		
 		if (baselinex+int(cur_image.shape[1])/2)>base_gray.shape[1]:
-			print("increasing")
+			
 			base_gray = np.append(base_gray,increase,axis=1)
 			total_mask = np.append(total_mask,increase_mask,axis=1)
 			mask_photo= np.append(mask_photo,increase_mask,axis=1)
@@ -215,7 +214,7 @@ def stitching(images,masks):
 			heightc, widthc = curr.shape[:2]
 		
 		if (baselineneg-cur_image.shape[1]/2)<0:
-			print("neg")
+			
 			base_gray = np.append(base_gray,increase,axis=1)
 			total_mask = np.append(total_mask,increase_mask,axis=1)
 			mask_photo= np.append(mask_photo,increase_mask,axis=1)
@@ -323,7 +322,9 @@ def stitching(images,masks):
 		filter_matches = bf.match(base_descs,next_descs)
 		copy=base_gray.copy()
 		img3e = cv2.drawKeypoints(copy, base_features,copy, color=(255, 0, 0))
-		cv2.imwrite("before.jpg",img3)
+		cv2.
+		
+		("before.jpg",img3)
 		cv2.imwrite("after.jpg",img3e)
 		print(len(filtered_matches))
 		"""
@@ -353,7 +354,7 @@ def stitching(images,masks):
 		dst_pts = np.float32([ next_features[m.trainIdx].pt for m in matches_gms ]).reshape(-1, 2)
 		"""
 		output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None)
-		cv2.imwrite("matches"+str(times)+".jpg",output)
+		
 		
 
 		
@@ -379,8 +380,8 @@ def stitching(images,masks):
 		for k in status:
 			if k==1:
 				count+=1
-		print("before:"+str(src_pts.shape))
-		print("matches:"+ str(count))
+		
+		
 		Affinetransformations.append(transformation)
 		
 		mod_photo_temp = cv2.warpAffine(curr, transformation, (widthc, heightc))
@@ -398,7 +399,7 @@ def stitching(images,masks):
 		for k in range(len(src_pts)):
 			distance += math.sqrt((src_pts[k][0][0]-dst_pts[k][0][0])**2+(src_pts[k][0][1]-dst_pts[k][0][1])**2)
 		distance/=k
-		print(distance)
+		
 		
 		mod_photo=mod_photo_temp 
 		base_msk=base_msk_temp	
@@ -421,7 +422,7 @@ def stitching(images,masks):
 		
 		base_gray=final_img
 		
-		print(total_transformation)
+		
 		if cnt==0:	
 		
 			total_transformation=transformation
@@ -574,8 +575,7 @@ def stitching(images,masks):
 		
 	
 		
-	print(Affinetransformations)
-	print(total_affine)
+	
 	return base_gray,Affinetransformations,total_mask,total_affine
 			
 
