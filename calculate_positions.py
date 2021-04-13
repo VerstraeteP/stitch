@@ -36,11 +36,11 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 				if index>2:
 					
 
-					l=cv2.perspectiveTransform(pts,total_transform[index-2])
-					l=cv2.perspectiveTransform(l,Affinetransform[index-1])
-					l=cv2.perspectiveTransform(l,Affinetransform[index])
+					l=cv2.perspectiveTransform(pts,np.vstack((total_transform[index-2],[0,0,1])))
+					l=cv2.perspectiveTransform(l,np.vstack((Affinetransform[index-1],[0,0,1])))
+					l=cv2.perspectiveTransform(l,np.vstack((Affinetransform[index],[0,0,1])))
 				else:
-					l=cv2.perspectiveTransform(pts,Affinetransform[index])	
+					l=cv2.perspectiveTransform(pts,np.vstack((Affinetransform[index],[0,0,1])))	
 				#right=cv2.perspectiveTransform(bnd_right,transformation)
 				#left=cv2.perspectiveTransform(bnd_left,transformation)
 				
