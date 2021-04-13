@@ -37,7 +37,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 					l=cv2.warpAffine(l,Affinetransform[index-1],(h,w))
 					l=cv2.warpAffine(l,Affinetransform[index],(h,w))
 				else:
-					l=cv2.perspectiveTransform(pts,Affinetransform[index])	
+					l=cv2.warpAffine(pts,Affinetransform[index])	
 				#right=cv2.perspectiveTransform(bnd_right,transformation)
 				#left=cv2.perspectiveTransform(bnd_left,transformation)
 				
@@ -71,7 +71,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 				pass
 			else:
 				for index,l in enumerate(k):
-					
+					print(l)
 					if index == len(k) -1:
 						break
 					
