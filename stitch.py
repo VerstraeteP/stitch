@@ -23,7 +23,7 @@ def prepare_data_and_stitch(images,fps,scalingfactor=2):
 	"""
 	print(scalingfactor)
 	process_images=[]
-	
+	print(images.shape[2])
 	for i, data in enumerate(images):
 		if i % scalingfactor ==0:
 			process_images.append(data)
@@ -65,7 +65,7 @@ def stitching(images,masks):
 	height, width = images[teller].shape[:2]
 	curr = np.zeros((height*2,width*2, 3), np.uint8)
 	
-
+	
 	base_gray=np.zeros((height*2,width*2, 3), np.uint8)
 	total_mask=np.zeros((height*2,width*2), np.uint8)
 	base_mask= np.zeros((height*2,width*2), np.uint8)
