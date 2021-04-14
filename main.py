@@ -26,7 +26,7 @@ def start(video):
 	processing_video_time=time.time()-start_process_video
 	
 	print(len(frame_list))
-	scalingfactor=int(len(frame_list)/400)
+	scalingfactor=int(len(frame_list)/300)
 	if scalingfactor==0:
 		scalingfactor=1
 	print(scalingfactor)
