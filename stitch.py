@@ -34,7 +34,8 @@ def prepare_data_and_stitch(images,fps,scalingfactor=2):
 	
 	masks=predict_surface(process_images)
 	
-	stitchimage,transform,mask,totaltransform=stitching(process_images,masks)
+	stitchimage,transform,mask,totaltransform,teller=stitching(process_images,masks)
+	process_images[:teller]
 	renners=predict_renner(process_images,masks)
 	
 	return stitchimage,transform,renners,fps_scaled,fps,mask,totaltransform
@@ -298,7 +299,7 @@ def stitching(images,masks):
 
 		
 	cv2.imwrite("mask.jpg",total_mask)
-	return base_gray,Affinetransformations,total_mask,total_affine
+	return base_gray,Affinetransformations,total_mask,total_affine,teller
 			
 
 		
