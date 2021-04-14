@@ -1,7 +1,7 @@
 from imutils.video import FileVideoStream
 import time
 import argparse
-
+import math
 from stitch import prepare_data_and_stitch
 from backgroundsubtraction import backgroundsubtraction
 import matplotlib.pyplot as plt
