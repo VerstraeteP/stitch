@@ -51,6 +51,7 @@ def stitching(images,masks):
 	:param masks: set of mask associated with the images
 	:return: stitched image, Affinetransform
 	"""
+	cur_image=images.pop(0)
 	ttlchange=0
 	ttlchangeteller=0
 	detector = cv2.SIFT_create()
@@ -73,7 +74,7 @@ def stitching(images,masks):
 	increase_mask=np.zeros((images[0].shape[0]*2,images[0].shape[1]*2), np.uint8)
 	increase_mask_x=np.zeros((images[0].shape[0]*2,images[0].shape[1]*2), np.uint8)
 	start_img=0
-	base_gray[:images[0].shape[0],500:images[0].shape[1]+500]=images.pop(0)
+	base_gray[:images[0].shape[0],500:images[0].shape[1]+500]=cur_image
 	total_mask[:base_msk.shape[0],500:base_msk.shape[1]+500]=base_msk
 	heightc, widthc = curr.shape[:2]
 	baseline=0
