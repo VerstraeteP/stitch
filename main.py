@@ -24,10 +24,12 @@ def start(video):
 	start_process_video=time.time()
 	frame_list,number_list,fps=process_video(video)
 	processing_video_time=time.time()-start_process_video
-	print(processing_video_time)
 	
+	print(frame_list)
+	scalingfactor=len(frame_list)%400
+	print(scalingsfactor)
 	start_stitching_time=time.time()
-	stitched_image,affinetransformation,renners,fps_scaled,fps,mask,total_transform=prepare_data_and_stitch(frame_list,fps)
+	stitched_image,affinetransformation,renners,fps_scaled,fps,mask,total_transform=prepare_data_and_stitch(frame_list,fps,scalingsfactor)
 	stitching_time=time.time()-start_stitching_time
 	stitched=stitched_image.copy()
 	#cv2.imwrite("solution32.jpg",stitched_image) 
