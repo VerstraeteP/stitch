@@ -258,7 +258,7 @@ def stitching(images,masks):
 		contours, hierarchy = cv2.findContours(data_map, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 		contours1, hierarchy1 = cv2.findContours(base_msk, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 		cv2.drawContours(data_map, contours, -1, (0,255,255), 10)
-		#enlarged_base_img= cv2.bitwise_and(total_mask,total_mask, mask =np.bitwise_not(data_map))
+		enlarged_base_img= cv2.bitwise_and(total_mask,total_mask, mask =np.bitwise_not(data_map))
 		enlarged_base_img1 = cv2.bitwise_and(base_gray,base_gray,mask =np.bitwise_not(data_map))
 		
 		
@@ -291,12 +291,12 @@ def stitching(images,masks):
 						break
 	
 		"""
-		
+		total_mask= cv2.add(mod_photo1,enlarged_base_img,dtype=cv2.CV_8U)
 		teller=teller+1
 		
 	
 		
-	
+	cv2.imwrite("mask.jpg",total_mask)
 	return base_gray,Affinetransformations,total_mask,total_affine
 			
 
