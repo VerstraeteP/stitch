@@ -26,7 +26,9 @@ def start(video):
 	processing_video_time=time.time()-start_process_video
 	
 	print(len(frame_list))
-	scalingfactor=len(frame_list)/400
+	scalingfactor=int(len(frame_list)/400)
+	if scalingfactor==0:
+		scalingfactor=1
 	print(scalingfactor)
 	start_stitching_time=time.time()
 	stitched_image,affinetransformation,renners,fps_scaled,fps,mask,total_transform=prepare_data_and_stitch(frame_list,fps,scalingfactor)
