@@ -65,8 +65,7 @@ def stitching(images,masks):
 	next_mask= masks[1]
 	height, width = images[teller].shape[:2]
 	curr = np.zeros((height*2,width*2, 3), np.uint8)
-	sift_curr = np.zeros((height*2,width*2, 3), np.uint8)
-	sift_mask=np.zeros((height*2,width*2), np.uint8)
+	
 
 	base_gray=np.zeros((height*2,width*2, 3), np.uint8)
 	total_mask=np.zeros((height*2,width*2), np.uint8)
@@ -126,8 +125,7 @@ def stitching(images,masks):
 			base_mask = cv2.warpAffine(base_mask, tran, (widthc, heightc))
 			curr = cv2.warpAffine(curr, tran, (widthc, heightc))
 			total_transformation = np.vstack((total_transformation,array))
-			sift_curr[100,cur_image.shape[0]+400:100,cur_image.shape[0]+400]=curr
-			sift_mask[100,base_mask.shape[0]+400:100,base_mask.shape[0]+400]=base_mask
+			
 
 			
 			trans = np.vstack((tran,array))
@@ -220,7 +218,7 @@ def stitching(images,masks):
 		#base_features,base_descs=detector.compute(base_gray,base_features)
 		#next_features=goodFeaturesToTrack(curr, mask=base_mask,minDistance=10)
 		#next_features,base_descs=detector.compute(curr,next_features)
-		next_features, next_descs = detector.detectAndCompute(sift_curr,(sift_mask))
+		next_features, next_descs = detector.detectAndCompute(urr,(base_mask))
 		
 		"""
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
