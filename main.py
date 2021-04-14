@@ -25,7 +25,7 @@ def start(video):
 	frame_list,number_list,fps=process_video(video)
 	processing_video_time=time.time()-start_process_video
 	
-	print(frame_list)
+	print(len(frame_list))
 	scalingfactor=len(frame_list)%400
 	print(scalingsfactor)
 	start_stitching_time=time.time()
