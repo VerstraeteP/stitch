@@ -218,7 +218,7 @@ def stitching(images,masks):
 		#base_features,base_descs=detector.compute(base_gray,base_features)
 		#next_features=goodFeaturesToTrack(curr, mask=base_mask,minDistance=10)
 		#next_features,base_descs=detector.compute(curr,next_features)
-		next_features, next_descs = detector.detectAndCompute(urr,(base_mask))
+		next_features, next_descs = detector.detectAndCompute(curr,(base_mask))
 		
 		"""
 		bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
