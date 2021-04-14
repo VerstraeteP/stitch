@@ -128,7 +128,7 @@ def predict_surface(img):
 		if len(outputs['instances'].pred_boxes==0):
 			pass
 		else:
-				for index,k in enumerate(outputs['instances'].pred_boxes.to("cpu")):
+			for index,k in enumerate(outputs['instances'].pred_boxes.to("cpu")):
 				coordinates=k.numpy()
 				middle=coordinates[2]-coordinates[0]
 
