@@ -37,8 +37,7 @@ def main():
 				json.dump(outfiles, outfile)
 			
 		except IndexError as e:
-
-    			print(e)
+			print(e)
 			continue
 		
 main()
