@@ -126,7 +126,8 @@ def predict_surface(img):
 		prev_x_min=0
 		prev_x_max=k.shape[1]
 		if len(outputs['instances'].pred_boxes)==0:
-			maskoutput=np.zeros(k.shape[0],k.shape[1])
+			maskoutput=np.zeros((k.shape[0],k.shape[1]), np.uint8)
+			
 		else:
 			for index,k in enumerate(outputs['instances'].pred_boxes.to("cpu")):
 				coordinates=k.numpy()
