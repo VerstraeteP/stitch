@@ -180,7 +180,7 @@ def predict_surface(img):
 		cv2.imwrite("vooraf"+str(teller)+".jpg",img_res)
 		kernel = np.ones((9,1), np.uint8)
 		
-		img_res = cv2.erode(img_res, kernel, iterations=9)
+		img_res = cv2.dilate(img_res, kernel, iterations=9)
 		cv2.imwrite("mask"+str(teller)+".jpg",img_res)
   
 		data.append(img_res)
