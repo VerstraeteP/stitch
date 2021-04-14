@@ -34,11 +34,11 @@ def prepare_data_and_stitch(images,fps,scalingfactor=2):
 	
 	masks=predict_surface(process_images)
 	
-	stitchimage,transform,mask,totaltransform,teller=stitching(process_images,masks)
+	stitchimage,transform,mask,totaltransform,teller,indexen=stitching(process_images,masks)
 	process_images[:teller-1]
 	renners=predict_renner(process_images,masks)
 	
-	return stitchimage,transform,renners,fps_scaled,fps,mask,totaltransform
+	return stitchimage,transform,renners,fps_scaled,fps,mask,totaltransform,indexen
 	
 
 
@@ -85,6 +85,7 @@ def stitching(images,masks):
 	baselineneg=600
 	border=5
 	vergroot=0
+	indexen=[]
 	lengte=len(images)
 	for cur_image in images[1:]:
 		print(vergroot)
@@ -185,6 +186,7 @@ def stitching(images,masks):
 
 			if (baselineneg-cur_image.shape[1]/2)<0:
 				vergroot+=1
+				indexen.append(teller)
 				base_gray = np.append(base_gray,increase,axis=1)
 				total_mask = np.append(total_mask,increase_mask,axis=1)
 				mask_photo= np.append(mask_photo,increase_mask,axis=1)
@@ -298,7 +300,7 @@ def stitching(images,masks):
 
 
 		
-	return base_gray,Affinetransformations,total_mask,total_affine,teller
+	return base_gray,Affinetransformations,total_mask,total_affine,teller,indexen
 			
 
 		
