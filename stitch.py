@@ -87,6 +87,7 @@ def stitching(images,masks):
 	vergroot=0
 	lengte=len(images)
 	for ml in range(lengte):
+		print(vergroot)
 		if vergroot<25:
 			neg=False
 			base_msk=masks.pop(0)
