@@ -52,15 +52,15 @@ def stitching(images,masks):
 	:param masks: set of mask associated with the images
 	:return: stitched image, Affinetransform
 	"""
-	cur_image=images.pop(0)
+	cur_image=images[0]
 	ttlchange=0
 	ttlchangeteller=0
 	detector = cv2.SIFT_create()
 	Affinetransformations=[[[1 , 0 ,500],[0,1,0]]]
 	total_affine=[]
-	base_msk= masks.pop(0)
+	base_msk= masks[0]
 	cnt=0
-	teller=3
+	teller=1
 	
 	height, width = images[teller].shape[:2]
 	curr = np.zeros((height*2,width*2, 3), np.uint8)
@@ -86,11 +86,11 @@ def stitching(images,masks):
 	border=5
 	vergroot=0
 	lengte=len(images)
-	for ml in range(lengte):
+	for cur_image in images[1:]:
 		print(vergroot)
 		if vergroot<23:
 			neg=False
-			base_msk=masks.pop(0)
+			base_msk=masks[teller]
 			base_msk[base_msk==0]=255
 
 			base_msk[base_msk==1]=0
@@ -98,7 +98,7 @@ def stitching(images,masks):
 
 			curr[:,:]=0	
 			#curr[start_img:cur_image.shape[0]+start_img,:cur_image.shape[1]]=cur_image
-			curr[300:cur_image.shape[0]+300,300:cur_image.shape[1]+300]=images.pop(0)
+			curr[300:cur_image.shape[0]+300,300:cur_image.shape[1]+300]=cur_image
 
 
 
