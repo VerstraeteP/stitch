@@ -3,17 +3,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import glob
 import os
-import time
+
 import math
-from cv2.xfeatures2d import matchGMS
-from scc import ssc
-from skimage.measure import ransac
-from skimage.transform import ProjectiveTransform, AffineTransform
+
 import sys
 from surface import predict_surface
 from predict_renner import predict_renner
-from random import shuffle
-from kdt import KDT_NMS
+
+
 import matplotlib.pyplot as plt
 
 def prepare_data_and_stitch(images,fps,scalingfactor=2):
