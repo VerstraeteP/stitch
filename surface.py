@@ -174,7 +174,7 @@ def predict_surface(img):
 		maskoutput=maskoutput*255
 		kernel = np.ones((9,1), np.uint8)
 		maskoutput = maskoutput.astype(np.uint8)
-		maskoutput = cv2.dilate(maskoutput, kernel, iterations=2)
+		maskoutput = cv2.dilate(maskoutput, kernel, iterations=4)
 		maskoutput+=background
 		
 		maskoutput = maskoutput.astype(np.uint8)
