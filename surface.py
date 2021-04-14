@@ -125,7 +125,7 @@ def predict_surface(img):
 		coordinaten=[]
 		prev_x_min=0
 		prev_x_max=k.shape[1]
-		if len(outputs['instances'].pred_boxes==0):
+		if len(outputs['instances'].pred_boxes)==0:
 			pass
 		else:
 			for index,k in enumerate(outputs['instances'].pred_boxes.to("cpu")):
