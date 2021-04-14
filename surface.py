@@ -177,10 +177,13 @@ def predict_surface(img):
 		maskoutput = maskoutput.astype(np.uint8)
 		mask = np.ones((k.shape[0], k.shape[1]), dtype=np.uint8) 
 		img_res = cv2.bitwise_and(mask,mask, mask = maskoutput)
+		img_res[img_res==0]=255
+
+		img_res[img_res==1]=0
 		cv2.imwrite("vooraf"+str(teller)+".jpg",img_res)
 		kernel = np.ones((9,1), np.uint8)
 		
-		img_res = cv2.dilate(img_res, kernel, iterations=9)
+		img_res = cv2.erode(img_res, kernel, iterations=9)
 		cv2.imwrite("mask"+str(teller)+".jpg",img_res)
   
 		data.append(img_res)
