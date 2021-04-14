@@ -364,7 +364,7 @@ def stitching(images,masks):
 		#next_features=[]
 		filtered_matche=[]
 		array=np.array([0,0,1])
-		
+		"""
 
 		for index,k in enumerate(status):
 				if k==1:
@@ -381,14 +381,14 @@ def stitching(images,masks):
 			if k==1:
 				count+=1
 		
-		
+		"""
 		Affinetransformations.append(transformation)
 		
-		mod_photo_temp = cv2.warpAffine(curr, transformation, (widthc, heightc))
-		base_msk_temp= cv2.warpAffine(base_msk, transformation, (widthc, heightc))	
-		mask_photo_temp = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
-		base_mask_temp=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
-		
+		mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
+		base_msk= cv2.warpAffine(base_msk, transformation, (widthc, heightc))	
+		mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+		base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
+		"""
 		next_features, next_descs = detector.detectAndCompute(mod_photo_temp,(mask_photo_temp))
 		matches = bf.match(base_descs,next_descs)
 		matches = sorted(matches, key = lambda x:x.distance)
@@ -405,6 +405,7 @@ def stitching(images,masks):
 		base_msk=base_msk_temp	
 		mask_photo=mask_photo_temp 
 		base_mask=base_mask_temp
+		""""
 		(ret,data_map) = cv2.threshold(cv2.cvtColor(mod_photo, cv2.COLOR_BGR2GRAY),0, 255,cv2.THRESH_BINARY)
 
 		contours, hierarchy = cv2.findContours(data_map, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
