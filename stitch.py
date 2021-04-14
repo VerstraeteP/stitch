@@ -88,7 +88,7 @@ def stitching(images,masks):
 	lengte=len(images)
 	for cur_image in images[1:]:
 		print(vergroot)
-		if vergroot<23:
+		if vergroot<20:
 			neg=False
 			base_msk=masks[teller]
 			base_msk[base_msk==0]=255
