@@ -172,6 +172,9 @@ def predict_surface(img):
 				maskoutput+=k
 	
 		maskoutput=maskoutput*255
+		kernel = np.ones((9,1), np.uint8)
+		
+		maskoutput = cv2.erode(maskoutput, kernel, iterations=2)
 		maskoutput+=background
 		
 		maskoutput = maskoutput.astype(np.uint8)
@@ -181,10 +184,8 @@ def predict_surface(img):
 
 		img_res[img_res==1]=0
 		cv2.imwrite("vooraf"+str(teller)+".jpg",img_res)
-		kernel = np.ones((9,1), np.uint8)
 		
-		img_res = cv2.erode(img_res, kernel, iterations=2)
-		cv2.imwrite("mask"+str(teller)+".jpg",img_res)
+		
   
 		data.append(img_res)
 		
