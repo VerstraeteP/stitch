@@ -180,7 +180,11 @@ def predict_surface(img):
   
 		data.append(img_res)
 		
-		
+	del(indexen)
+	del(y)
+	del(x)
+	del(files)
+	DatasetCatalog.clear()
 	return data
     
     
