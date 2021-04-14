@@ -23,7 +23,7 @@ def prepare_data_and_stitch(images,fps,scalingfactor=2):
 	"""
 	print(scalingfactor)
 	process_images=[]
-	print(images[0].shape[2])
+	print(images[0].shape[:2])
 	for i, data in enumerate(images):
 		if i % scalingfactor ==0:
 			process_images.append(data)
