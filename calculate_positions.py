@@ -15,7 +15,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	print("kk")
 	print(Affinetransform)
 	print(total_transform)
-	 
+	print(len(renners))
 	dictrenner={"fps":fps,"fps_scaled":fps_scaled}
 	for k in total_transform:
 		k= np.vstack((k,[0,0,1]))
