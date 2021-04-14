@@ -170,6 +170,7 @@ def stitching(images,masks):
 			
 	
 		if (baseline+cur_image.shape[0])>=base_gray.shape[0]:
+			print("vergroot")
 			mask_photo= np.append(mask_photo,increase_mask_x,axis=0)
 			base_gray = np.append(base_gray,increasex,axis=0)
 			base_mask= np.append(base_mask,increase_mask_x,axis=0)
