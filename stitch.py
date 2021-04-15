@@ -34,11 +34,11 @@ def prepare_data_and_stitch(images,fps,scalingfactor=2):
 	
 	masks=predict_surface(process_images)
 	
-	stitchimage,transform,mask,totaltransform,teller,indexen=stitching(process_images,masks)
+	stitchimage,transform,mask,totaltransform,teller,indexen,width=stitching(process_images,masks)
 	process_images[:teller-1]
 	renners=predict_renner(process_images,masks)
 	
-	return stitchimage,transform,renners,fps_scaled,fps,mask,totaltransform,indexen
+	return stitchimage,transform,renners,fps_scaled,fps,mask,totaltransform,indexen,width
 	
 
 
