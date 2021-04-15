@@ -25,7 +25,8 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	offset=300+len(indexen)*640
 	for index in range(len(Affinetransform)):
 		track.append(mot_tracker1.update(np.array(renners[index])))
-		
+		if indexen.count(index)==1:
+			offset-=640
 		
 
 		#transformation=Affinetransform[index]
@@ -37,8 +38,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 				bnd_left= np.array([[[k[2],k[3]]]],dtype= "float32")
 				
 				if index>=2:
-					if indexen.count(index)==1:
-						offset-=640
+					
 					pts =np.array([[[(k[0]+(k[2]-k[0])/2)+offset,(k[1]+(k[3]-k[1])/2)+offset]]], dtype = "float32")
 					
 						
