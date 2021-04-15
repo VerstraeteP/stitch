@@ -39,7 +39,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 				
 				if index>=2:
 					
-					pts =np.array([[[(k[0]+(k[2]-k[0])/2)+offset,(k[1]+(k[3]-k[1])/2)+offset]]], dtype = "float32")
+					pts =np.array([[[(k[0]+(k[2]-k[0])/2)+300,(k[1]+(k[3]-k[1])/2)+offset]]], dtype = "float32")
 					
 						
 					prev=np.vstack((Affinetransform[index-1],[0,0,1]))
