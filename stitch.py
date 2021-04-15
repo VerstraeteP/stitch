@@ -186,6 +186,7 @@ def stitching(images,masks):
 
 			if (baselineneg-cur_image.shape[1]/2)<0:
 				vergroot+=1
+				print(base_gray.shape[:2])
 				indexen.append(teller)
 				base_gray = np.append(base_gray,increase,axis=1)
 				total_mask = np.append(total_mask,increase_mask,axis=1)
@@ -207,6 +208,7 @@ def stitching(images,masks):
 				heightc, widthc = curr.shape[:2]
 				baselineneg+=increase.shape[1]
 				neg=True
+				print(base_gray.shape[:2])
 
 			mask_photo[mask_photo<255]=0
 
