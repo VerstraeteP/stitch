@@ -82,6 +82,7 @@ def stitching(images,masks):
 	baselinex=500
 	largest=0
 	times=0
+	width=images[0].shape[1]
 	baselineneg=600
 	border=5
 	vergroot=0
@@ -302,7 +303,7 @@ def stitching(images,masks):
 
 
 		
-	return base_gray,Affinetransformations,total_mask,total_affine,teller,indexen
+	return base_gray,Affinetransformations,total_mask,total_affine,teller,indexen,width
 			
 
 		
