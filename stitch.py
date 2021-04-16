@@ -61,10 +61,10 @@ def stitching(images,masks):
 	base_msk= masks[0]
 	cnt=0
 	teller=1
-	
 	height, width = images[teller].shape[:2]
 	curr = np.zeros((height*2,width*2, 3), np.uint8)
 	
+
 	
 	base_gray=np.zeros((height*2,width*2, 3), np.uint8)
 	total_mask=np.zeros((height*2,width*2), np.uint8)
