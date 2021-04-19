@@ -15,10 +15,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	line=[[0,0],[width,0]]
 	linearray=[]
 	dictrenner={"fps":fps,"fps_scaled":fps_scaled}
-	for k in total_transform:
-		k= np.vstack((k,[0,0,1]))
-	for k in Affinetransform:
-		k= np.vstack((k,[0,0,1]))
+	
 	print(indexen)
 	offset=300+len(indexen)*width
 	for index in range(len(Affinetransform)):
