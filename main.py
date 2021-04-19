@@ -36,12 +36,12 @@ def start(video):
 	stitched=stitched_image.copy()
 	#cv2.imwrite("solution32.jpg",stitched_image) 
 	#print(stitching_time) 
-	solution,renner=calculate_pos(renners,affinetransformation,args.renners,stitched,fps_scaled,fps,total_transform,indexen,width)
+	solution,renner,transformaties=calculate_pos(renners,affinetransformation,args.renners,stitched,fps_scaled,fps,total_transform,indexen,width)
 	#cv2.imwrite("lines32.png",solution)
 	#with open('positions32.txt', 'w') as outfile:
     	#	json.dump(renner, outfile)
 	cv2.imwrite("solution.jpg",solution)
-	return stitched_image,solution,renner,mask 
+	return stitched_image,solution,renner,mask,transformaties
 
 def process_video(file_name,n=1):
 	"""
