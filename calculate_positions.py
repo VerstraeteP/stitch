@@ -15,7 +15,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	line=[[0,0],[width,0]]
 	linearray=[]
 	dictrenner={"fps":fps,"fps_scaled":fps_scaled}
-	
+	transformaties={}
 	print(indexen)
 	offset=300+len(indexen)*width
 	for index in range(len(Affinetransform)):
@@ -109,7 +109,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 		
 		dictrenner[index]={"positions":renner}
 		renner=[]
-		
+	transformaties={Affinetransform}
 	colors=[[0,0,0],[0,255,255],[255,255,2],[255,1,2],[132,125,25],[255,125,0],[255,0,255],[0,0,0],[0,255,0],[255,125,2],[255,1,2],[125,125,125],[255,125,0],[255,0,255],[0,0,0],[0,0,0],[0,255,255],[255,255,2],[255,1,2],[132,125,25],[255,125,0],[255,0,255],[0,0,0],[0,255,0],[255,125,2],[255,1,2],[125,125,125],[255,125,0],[255,0,255],[0,0,0],[0,255,255],[255,255,2],[255,1,2],[132,125,25],[255,125,0],[255,0,255],[0,0,0],[0,255,0],[255,125,2],[255,1,2],[125,125,125],[255,125,0],[255,0,255]]
 	for k in linearray:
 		cv2.line(afbeelding, (int(k[0][0]),int(k[0][1])), (int(k[1][0]),int(k[1][1])), color, 2)
@@ -130,5 +130,5 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 					cv2.circle(afbeelding, (int(l[0]),int(l[1])), 3, (0,0,255), 2)
 					
 				cnt=cnt+1
-	return afbeelding,dictrenner
+	return afbeelding,dictrenner,transformaties
 	
