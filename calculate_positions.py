@@ -12,7 +12,8 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	renner=[]
 	pos_renners=[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
 	Affinetransform=np.asarray(Affinetransform)
-	
+	line=[[0,0][width,0]]
+	linearray=[]
 	dictrenner={"fps":fps,"fps_scaled":fps_scaled}
 	for k in total_transform:
 		k= np.vstack((k,[0,0,1]))
@@ -24,6 +25,35 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 		track.append(mot_tracker1.update(np.array(renners[index])))
 		if indexen.count(index)==1:
 			offset-=width
+		
+		if index>=2:
+					
+			line =np.array([[line[0][0]+offset,line[0][1]+300],line[1][0]+offset,line[1][1]+300]], dtype = "float32")
+					
+						
+			prev=np.vstack((Affinetransform[index-1],[0,0,1]))
+			total=np.vstack((total_transform[index-2],[0,0,1]))
+			total[0][2]=0
+			total[1][2]=0
+			prev[0][2]=0
+			prev[1][2]=0
+			print(total)
+			print(prev)
+			line=cv2.perspectiveTransform(line,total)
+			line=cv2.perspectiveTransform(line,prev)
+			line=cv2.perspectiveTransform(line,np.vstack((Affinetransform[index],[0,0,1])))
+		if index==0:
+		
+			line =np.array([[line[0][0]+offset,line[0][1]+300],line[1][0]+offset,line[1][1]+300]], dtype = "float32")
+			line=cv2.perspectiveTransform(line,np.vstack((Affinetransform[index],[0,0,1])))
+		if index==1:
+		
+			line =np.array([[line[0][0]+offset,line[0][1]+300],line[1][0]+offset,line[1][1]+300]], dtype = "float32")
+			line=cv2.perspectiveTransform(line,np.vstack((Affinetransform[index],[0,0,1])))
+		
+		
+		linearray.append(line)
+		
 		
 
 		#transformation=Affinetransform[index]
@@ -84,7 +114,9 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 		renner=[]
 		
 	colors=[[0,0,0],[0,255,255],[255,255,2],[255,1,2],[132,125,25],[255,125,0],[255,0,255],[0,0,0],[0,255,0],[255,125,2],[255,1,2],[125,125,125],[255,125,0],[255,0,255],[0,0,0],[0,0,0],[0,255,255],[255,255,2],[255,1,2],[132,125,25],[255,125,0],[255,0,255],[0,0,0],[0,255,0],[255,125,2],[255,1,2],[125,125,125],[255,125,0],[255,0,255],[0,0,0],[0,255,255],[255,255,2],[255,1,2],[132,125,25],[255,125,0],[255,0,255],[0,0,0],[0,255,0],[255,125,2],[255,1,2],[125,125,125],[255,125,0],[255,0,255]]
-	
+	for k in linearray:
+		cv2.line(afbeelding, (int(k[0][0]),int(k[0][1])), (int(k[1][0]),int(k[1][1])), color, 2)
+
 	
 	for k in pos_renners:
 			
