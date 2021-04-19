@@ -41,6 +41,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 		
 			line =np.array([[[line[0][0]+offset,line[0][1]+300],[line[1][0]+offset,line[1][1]+300]]], dtype = "float32")
 			line=cv2.perspectiveTransform(line,np.vstack((Affinetransform[index],[0,0,1])))
+			print(line)
 		if index==1:
 		
 			line =np.array([[[line[0][0]+offset,line[0][1]+300],[line[1][0]+offset,line[1][1]+300]]], dtype = "float32")
@@ -88,7 +89,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 				
 				
 				l= l.astype(int)
-				print(l)
+				
 				#l= l.astype(float)
 				#right= right.astype(int)
 				#left= left.astype(int)
