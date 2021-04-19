@@ -25,7 +25,7 @@ def main():
 			aankomstplaats=wedstrijd.split('_')[2].split('.')[0]
 			
 			jsonfinal={"Metadata":{"Name":wedstrijdnaam,"Year":jaartal,"Stage":rit,"City":aankomstplaats}}
-			stitch,line,renner,mask=start(file)
+			stitch,line,renner,mask,transformaties=start(file)
 			
 			
 			cv2.imwrite("./drive/MyDrive/dataset/stitch/"+str(jaartal)+"/"+filename+".jpg",stitch)
@@ -35,6 +35,8 @@ def main():
 			outfiles.append(renner)
 			with open("./drive/MyDrive/dataset/json/"+str(jaartal)+"/"+filename+".txt", 'w') as outfile:
 				json.dump(outfiles, outfile)
+			with open("./drive/MyDrive/dataset/transformaties/"+str(jaartal)+"/"+filename+".txt", 'w') as outfile:
+				json.dump(transformaties, outfile)
 			
 		except IndexError as e:
 			print(e)
