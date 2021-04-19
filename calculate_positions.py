@@ -16,7 +16,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	linearray=[]
 	dictrenner={"fps":fps,"fps_scaled":fps_scaled}
 	transformaties={}
-	print(indexen)
+
 	offset=300+len(indexen)*width
 	for index in range(len(Affinetransform)):
 		track.append(mot_tracker1.update(np.array(renners[index])))
@@ -33,8 +33,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 			total[1][2]=0
 			prev[0][2]=0
 			prev[1][2]=0
-			print(total)
-			print(prev)
+			
 			line=cv2.perspectiveTransform(line,total)
 			line=cv2.perspectiveTransform(line,prev)
 			line=cv2.perspectiveTransform(line,np.vstack((Affinetransform[index],[0,0,1])))
@@ -71,8 +70,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 					total[1][2]=0
 					prev[0][2]=0
 					prev[1][2]=0
-					print(total)
-					print(prev)
+					
 					l=cv2.perspectiveTransform(pts,total)
 					l=cv2.perspectiveTransform(l,prev)
 					l=cv2.perspectiveTransform(l,np.vstack((Affinetransform[index],[0,0,1])))
