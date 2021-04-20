@@ -25,7 +25,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 		
 		if index>=2:
 					
-			line =np.array([[[line[0][0][0]+offset,line[0][0][1]+300],[line[0][1][0]+offset,line[0][1][1]+300]]], dtype = "float32")
+			line =np.array([[[line[0][0][0],line[0][0][1]+300],[line[0][1][0],line[0][1][1]+300]]], dtype = "float32")
 						
 			prev=np.vstack((Affinetransform[index-1],[0,0,1]))
 			total=np.vstack((total_transform[index-2],[0,0,1]))
@@ -37,6 +37,9 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 			line=cv2.perspectiveTransform(line,total)
 			line=cv2.perspectiveTransform(line,prev)
 			line=cv2.perspectiveTransform(line,np.vstack((Affinetransform[index],[0,0,1])))
+			line[0][0][0]+=offset
+			line[0][1][0]+=offset
+			
 		if index==0:
 		
 			line =np.array([[[line[0][0][0]+500,line[0][0][1]+300],[line[0][1][0]+500,line[0][1][1]+300]]], dtype = "float32")
@@ -44,8 +47,10 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 			print(line)
 		if index==1:
 		
-			line =np.array([[[line[0][0][0]+offset,line[0][0][1]+300],[line[0][1][0]+offset,line[0][1][1]+300]]], dtype = "float32")
+			line =np.array([[[line[0][0][0],line[0][0][1]+300],[line[0][1][0],line[0][1][1]+300]]], dtype = "float32")
 			line=cv2.perspectiveTransform(line,np.vstack((Affinetransform[index],[0,0,1])))
+			line[0][0][0]+=offset
+			line[0][1][0]+=offset
 		
 		
 		linearray.append(line)
