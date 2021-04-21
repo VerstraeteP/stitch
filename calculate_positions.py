@@ -3,7 +3,7 @@ import numpy as np
 from sort import *
 import json
 from json import JSONEncoder
-def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fps,total_transform,indexen,width):
+def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fps,total_transform,indexen,width,baseline):
 	cnt=0
 	aantalrenners=5
 	mot_tracker1=Sort(max_age=25, min_hits=1, iou_threshold=0.005)
@@ -19,11 +19,13 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	transformaties={}
 	print(len(indexen))
 	print(indexen)
-	offset=(len(indexen))*width
+	for k in baseline:
+		offset+=k
 	for index in range(len(Affinetransform)):
 		track.append(mot_tracker1.update(np.array(renners[index])))
 		if indexen.count(index-1)==1:
-			offset-=width
+			k=baseline.pop(len(baseline)-1)
+			offset-=k
 		"""
 		if index>=2:
 					
