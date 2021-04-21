@@ -62,7 +62,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 			line[0][1][0]+=offset
 		
 		
-		linearray.append(l)
+		linearray.append(line)
 		
 		
 
