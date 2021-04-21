@@ -30,34 +30,39 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 		
 		if index>=2:
 					
-			line =np.array([[[line[0][0][0],line[0][0][1]+300],[line[0][1][0],line[0][1][1]+300]]], dtype = "float32")
+			line =np.array([[[line[0][0][0]+300,line[0][0][1]+300],[line[0][1][0]+300,line[0][1][1]+300]]], dtype = "float32")
 						
-			
+			prev=np.vstack((Affinetransform[index-1],[0,0,1]))
 			total=np.vstack((total_transform[index-2],[0,0,1]))
 			total[0][2]=0
 			total[1][2]=0
+			prev[0][2]=0
+			prev[1][2]=0
 			
-			
-			line=cv2.perspectiveTransform(line,total)
-			
-			line=cv2.perspectiveTransform(line,np.vstack((Affinetransform[index],[0,0,1])))
-			line[0][0][0]+=offset
+			copy=Affinetransform[index].copy()
+			l=cv2.perspectiveTransform(line,total)
+			l=cv2.perspectiveTransform(l,prev)
+			l=cv2.perspectiveTransform(l,np.vstack((copy,[0,0,1])))
+			l[0][0][0]+=offset
+			l[0][1][0]+=offset
 			
 			
 		if index==0:
 		
-			line =np.array([[[line[0][0][0]+500,line[0][0][1]+300],[line[0][1][0]+500,line[0][1][1]+300]]], dtype = "float32")
+			line =np.array([[[line[0][0][0]+500,line[0][0][1]],[line[0][1][0]+500,line[0][1][1]]]], dtype = "float32")
 			line=cv2.perspectiveTransform(line,np.vstack((Affinetransform[index],[0,0,1])))
-			print(line)
+			
 		if index==1:
 		
-			line =np.array([[[line[0][0][0],line[0][0][1]+300],[line[0][1][0],line[0][1][1]+300]]], dtype = "float32")
-			line=cv2.perspectiveTransform(line,np.vstack((Affinetransform[index],[0,0,1])))
-			line[0][0][0]+=offset
-			line[0][1][0]+=offset
+			line =np.array([[[line[0][0][0]+300,line[0][0][1]+300],[line[0][1][0]+300,line[0][1][1]+300]]], dtype = "float32")
+			copy=Affinetransform[index].copy()
+
+			l=cv2.perspectiveTransform(pts,np.vstack((copy,[0,0,1])))
+			l[0][0][0]+=offset
+			l[0][1][0]+=offset
 		
 		
-		linearray.append(line)
+		linearray.append(l)
 		
 		
 
@@ -122,7 +127,9 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 		renner=[]
 	transformaties=Affinetransform.tolist()
 	colors=[[0,0,0],[0,255,255],[255,255,2],[255,1,2],[132,125,25],[255,125,0],[255,0,255],[0,0,0],[0,255,0],[255,125,2],[255,1,2],[125,125,125],[255,125,0],[255,0,255],[0,0,0],[0,0,0],[0,255,255],[255,255,2],[255,1,2],[132,125,25],[255,125,0],[255,0,255],[0,0,0],[0,255,0],[255,125,2],[255,1,2],[125,125,125],[255,125,0],[255,0,255],[0,0,0],[0,255,255],[255,255,2],[255,1,2],[132,125,25],[255,125,0],[255,0,255],[0,0,0],[0,255,0],[255,125,2],[255,1,2],[125,125,125],[255,125,0],[255,0,255]]
-	
+	for k in linearray[0]:
+		cv2.line(afbeelding, (int(k[0][0][0]),int(k[0][0][1])), (int(k[0][1][0]),int(k[0][1][1])), colors[5], 4)
+
 	
 	for k in pos_renners:
 			
