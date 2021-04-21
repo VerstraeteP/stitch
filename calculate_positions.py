@@ -50,14 +50,14 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 		if index==0:
 		
 			line =np.array([[[line[0][0][0]+500,line[0][0][1]],[line[0][1][0]+500,line[0][1][1]]]], dtype = "float32")
-			line=cv2.perspectiveTransform(line,np.vstack((Affinetransform[index],[0,0,1])))
+			l=cv2.perspectiveTransform(line,np.vstack((Affinetransform[index],[0,0,1])))
 			
 		if index==1:
 		
 			line =np.array([[[line[0][0][0]+300,line[0][0][1]+300],[line[0][1][0]+300,line[0][1][1]+300]]], dtype = "float32")
 			copy=Affinetransform[index].copy()
 
-			l=cv2.perspectiveTransform(pts,np.vstack((copy,[0,0,1])))
+			l=cv2.perspectiveTransform(line,np.vstack((copy,[0,0,1])))
 			l[0][0][0]+=offset
 			l[0][1][0]+=offset
 		
