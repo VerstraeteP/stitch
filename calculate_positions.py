@@ -27,7 +27,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 		if indexen.count(index-1)==1:
 			k=baseline.pop(len(baseline)-1)
 			offset-=k
-		
+		"""
 		if index>=2:
 					
 			line =np.array([[[line[0][0][0]+300,line[0][0][1]+300],[line[0][1][0]+300,line[0][1][1]+300]]], dtype = "float32")
@@ -63,7 +63,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 		
 		
 		linearray.append(l)
-		
+		"""
 		
 
 		#transformation=Affinetransform[index]
@@ -126,10 +126,12 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 		dictrenner[index]={"positions":renner}
 		renner=[]
 	transformaties=Affinetransform.tolist()
+	
 	colors=[[0,0,0],[0,255,255],[255,255,2],[255,1,2],[132,125,25],[255,125,0],[255,0,255],[0,0,0],[0,255,0],[255,125,2],[255,1,2],[125,125,125],[255,125,0],[255,0,255],[0,0,0],[0,0,0],[0,255,255],[255,255,2],[255,1,2],[132,125,25],[255,125,0],[255,0,255],[0,0,0],[0,255,0],[255,125,2],[255,1,2],[125,125,125],[255,125,0],[255,0,255],[0,0,0],[0,255,255],[255,255,2],[255,1,2],[132,125,25],[255,125,0],[255,0,255],[0,0,0],[0,255,0],[255,125,2],[255,1,2],[125,125,125],[255,125,0],[255,0,255]]
+	"""
 	for k in linearray:
 		cv2.line(afbeelding, (int(k[0][0][0]),int(k[0][0][1])), (int(k[0][1][0]),int(k[0][1][1])), colors[5], 4)
-
+	"""
 	
 	for k in pos_renners:
 			
