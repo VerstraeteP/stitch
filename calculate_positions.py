@@ -5,6 +5,7 @@ import json
 from json import JSONEncoder
 def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fps,total_transform,indexen,width):
 	cnt=0
+	aantalrenners=5
 	mot_tracker1=Sort(max_age=25, min_hits=1, iou_threshold=0.005)
 	track=[]
 	rennerspositie={}
@@ -20,7 +21,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	offset=len(indexen)*width
 	for index in range(len(Affinetransform)):
 		track.append(mot_tracker1.update(np.array(renners[index])))
-		if indexen.count(index)==1:
+		if indexen.count(index-1)==1:
 			offset-=width
 		"""
 		if index>=2:
@@ -74,7 +75,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 					total[1][2]=0
 					prev[0][2]=0
 					prev[1][2]=0
-					
+					print("k")
 					l=cv2.perspectiveTransform(pts,total)
 					l=cv2.perspectiveTransform(l,prev)
 					l=cv2.perspectiveTransform(l,np.vstack((Affinetransform[index],[0,0,1])))
