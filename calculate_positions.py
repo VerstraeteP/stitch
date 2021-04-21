@@ -67,7 +67,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 				
 				if index>=2:
 					
-					pts =np.array([[[(k[0]+(k[2]-k[0])/2),(k[1]+(k[3]-k[1])/2)+300]]], dtype = "float32")
+					pts =np.array([[[((k[0]+(k[2]-k[0])/2)+300),((k[1]+(k[3]-k[1])/2))+300]]], dtype = "float32")
 					
 						
 					prev=np.vstack((Affinetransform[index-1],[0,0,1]))
@@ -87,10 +87,10 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 
 					l=cv2.perspectiveTransform(pts,np.vstack((Affinetransform[index],[0,0,1])))
 				if index==1:
-					pts =np.array([[[(k[0]+(k[2]-k[0])/2+300),(k[1]+(k[3]-k[1])/2)+300]]], dtype = "float32")
+					pts =np.array([[[((k[0]+(k[2]-k[0])/2)+300),(k[1]+(k[3]-k[1])/2)+300]]], dtype = "float32")
 
 					l=cv2.perspectiveTransform(pts,np.vstack((Affinetransform[index],[0,0,1])))
-					pts[0][0][0]+=offset+500
+					pts[0][0][0]+=offset
 					
 				#right=cv2.perspectiveTransform(bnd_right,transformation)
 				#left=cv2.perspectiveTransform(bnd_left,transformation)
