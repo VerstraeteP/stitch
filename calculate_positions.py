@@ -18,7 +18,8 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	dictrenner={"fps":fps,"fps_scaled":fps_scaled}
 	transformaties={}
 	print(len(indexen))
-	offset=(len(indexen)-len(indexen))*width
+	print(indexen)
+	offset=(len(indexen))*width
 	for index in range(len(Affinetransform)):
 		track.append(mot_tracker1.update(np.array(renners[index])))
 		if indexen.count(index-1)==1:
