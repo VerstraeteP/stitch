@@ -13,7 +13,7 @@ from predict_renner import predict_renner
 
 import matplotlib.pyplot as plt
 
-def prepare_data_and_stitch(images,fps,scalingfactor=40):
+def prepare_data_and_stitch(images,fps,scalingfactor):
 	
 	"""
 	calculates the mask of the images
