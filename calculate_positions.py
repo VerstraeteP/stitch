@@ -27,15 +27,14 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 					
 			line =np.array([[[line[0][0][0],line[0][0][1]+300],[line[0][1][0],line[0][1][1]+300]]], dtype = "float32")
 						
-			prev=np.vstack((Affinetransform[index-1],[0,0,1]))
+			
 			total=np.vstack((total_transform[index-2],[0,0,1]))
 			total[0][2]=0
 			total[1][2]=0
-			prev[0][2]=0
-			prev[1][2]=0
+			
 			
 			line=cv2.perspectiveTransform(line,total)
-			line=cv2.perspectiveTransform(line,prev)
+			
 			line=cv2.perspectiveTransform(line,np.vstack((Affinetransform[index],[0,0,1])))
 			line[0][0][0]+=offset
 			
