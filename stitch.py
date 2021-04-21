@@ -63,7 +63,7 @@ def stitching(images,masks):
 	teller=1
 	height, width = images[teller].shape[:2]
 	curr = np.zeros((height*2,width*2, 3), np.uint8)
-	baseline=[]
+	baselines=[]
 
 	
 	base_gray=np.zeros((height*2,width*2, 3), np.uint8)
@@ -189,7 +189,7 @@ def stitching(images,masks):
 				vergroot+=1
 				print(base_gray.shape[:2])
 				indexen.append(teller)
-				baseline.append(baselineneg)
+				baselines.append(baselineneg)
 				base_gray = np.append(base_gray,increase,axis=1)
 				total_mask = np.append(total_mask,increase_mask,axis=1)
 				mask_photo= np.append(mask_photo,increase_mask,axis=1)
@@ -304,7 +304,7 @@ def stitching(images,masks):
 
 
 		
-	return base_gray,Affinetransformations,total_mask,total_affine,teller,indexen,width,baseline
+	return base_gray,Affinetransformations,total_mask,total_affine,teller,indexen,width,baselines
 			
 
 		
