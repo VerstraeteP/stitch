@@ -19,6 +19,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	transformaties={}
 	print(len(indexen))
 	print(indexen)
+	offset=0
 	for k in baseline:
 		offset+=k
 	for index in range(len(Affinetransform)):
