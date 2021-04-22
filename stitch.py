@@ -22,14 +22,14 @@ def prepare_data_and_stitch(images,fps,scalingfactor):
 	:return: images,masks
 	"""
 	
-	print(scalingfactor)
+	
 	process_images=[]
-	print(images[0].shape[:2])
+	
 	for i, data in enumerate(images):
 		if i % scalingfactor ==0:
 			process_images.append(data)
 	process_images.append(images[-1])
-	print(len(process_images))
+	
 	del(images)
 	process_images.reverse()
 	fps_scaled=scalingfactor
@@ -91,7 +91,7 @@ def stitching(images,masks):
 	indexen=[]
 	lengte=len(images)
 	for cur_image in images[1:]:
-		print(vergroot)
+		
 		if vergroot<20:
 			neg=False
 			base_msk=masks[teller]
@@ -189,7 +189,7 @@ def stitching(images,masks):
 
 			if (baselineneg-cur_image.shape[1]/2)<0:
 				vergroot+=1
-				print(base_gray.shape[:2])
+				
 				indexen.append(teller)
 				baselines.append(baselineneg)
 				base_gray = np.append(base_gray,increase,axis=1)
@@ -212,14 +212,13 @@ def stitching(images,masks):
 				heightc, widthc = curr.shape[:2]
 				baselineneg+=increase.shape[1]
 				neg=True
-				print(base_gray.shape[:2])
+				
 
 			mask_photo[mask_photo<255]=0
 
 
 			times+=1
-			print(times)
-
+			
 
 
 
