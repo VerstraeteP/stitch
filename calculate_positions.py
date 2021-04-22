@@ -17,8 +17,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	linearray=[]
 	dictrenner={"fps":fps,"fps_scaled":fps_scaled}
 	transformaties={}
-	print(len(indexen))
-	print(indexen)
+	
 	offset=0
 	for k in baseline:
 		offset+=k
@@ -84,7 +83,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 					total[1][2]=0
 					prev[0][2]=0
 					prev[1][2]=0
-					print("k")
+					
 					copy=Affinetransform[index].copy()
 					l=cv2.perspectiveTransform(pts,total)
 					l=cv2.perspectiveTransform(l,prev)
