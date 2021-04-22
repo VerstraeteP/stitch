@@ -3,7 +3,7 @@ import numpy as np
 from sort import *
 import json
 from json import JSONEncoder
-def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fps,total_transform,indexen,width,baseline):
+def calculate_pos(renners,Affinetransform,aantalrenners=10,afbeelding,fps_scaled,fps,total_transform,indexen,width,baseline):
 	cnt=0
 	
 	mot_tracker1=Sort(max_age=25, min_hits=1, iou_threshold=0.005)
