@@ -21,6 +21,7 @@ def prepare_data_and_stitch(images,fps,scalingfactor):
 	:parm scalingfactor: the amount of images that has to be used in the stitching
 	:return: images,masks
 	"""
+	scalingfactor=20
 	print(scalingfactor)
 	process_images=[]
 	print(images[0].shape[:2])
