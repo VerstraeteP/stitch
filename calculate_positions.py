@@ -6,7 +6,7 @@ from json import JSONEncoder
 def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fps,total_transform,indexen,width,baseline):
 	cnt=0
 	
-	mot_tracker1=Sort(max_age=500, min_hits=1, iou_threshold=0.05)#thresh 0.005
+	mot_tracker1=Sort(max_age=500, min_hits=1, iou_threshold=0.005)#thresh 0.005
 	track=[]
 	rennerspositie={}
 	dictrenner=dict()
