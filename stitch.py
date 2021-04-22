@@ -29,6 +29,7 @@ def prepare_data_and_stitch(images,fps,scalingfactor):
 		if i % scalingfactor ==0:
 			process_images.append(data)
 	process_images.append(images[-1])
+	print(len(process_images))
 	del(images)
 	process_images.reverse()
 	fps_scaled=scalingfactor
