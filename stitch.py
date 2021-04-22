@@ -22,7 +22,7 @@ def prepare_data_and_stitch(images,fps,scalingfactor):
 	:return: images,masks
 	"""
 	
-	
+	scalingsfactor=20
 	process_images=[]
 	
 	for i, data in enumerate(images):
