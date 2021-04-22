@@ -91,10 +91,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 					l=cv2.perspectiveTransform(l,np.vstack((copy,[0,0,1])))
 					l[0][0][0]+=offset
 					
-				if index==0:
-					pts =np.array([[[(k[0]+(k[2]-k[0])/2+500),(k[1]+(k[3]-k[1])/2)]]], dtype = "float32")
-
-					l=cv2.perspectiveTransform(pts,np.vstack((Affinetransform[index],[0,0,1])))
+				
 				if index==1:
 					pts =np.array([[[((k[0]+(k[2]-k[0])/2)+300),(k[1]+(k[3]-k[1])/2)+300]]], dtype = "float32")
 					copy=Affinetransform[index].copy()
@@ -104,23 +101,25 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 					
 				#right=cv2.perspectiveTransform(bnd_right,transformation)
 				#left=cv2.perspectiveTransform(bnd_left,transformation)
-				
-				
-				l= l.astype(int)
-				
-				#l= l.astype(float)
-				#right= right.astype(int)
-				#left= left.astype(int)
-				#pos_renners[int(k[4])].append(l[0][0].tolist())
-				dictrenner1= {"frame_id":index, "position" : l[0][0].tolist()}
-				renner.append({"id":k[4],"position":l[0][0].tolist()})
-				
-				
-				if (int(k[4])) in rennerspositie:
-					rennerspositie[(int(k[4]))].append(dictrenner1)
+				if index==0:
+					pass
 				else:
-					rennerspositie[(int(k[4]))] = [dictrenner1]
-				pos_renners[int(k[4])].append(l[0][0].tolist())
+				
+					l= l.astype(int)
+
+					#l= l.astype(float)
+					#right= right.astype(int)
+					#left= left.astype(int)
+					#pos_renners[int(k[4])].append(l[0][0].tolist())
+					dictrenner1= {"frame_id":index, "position" : l[0][0].tolist()}
+					renner.append({"id":k[4],"position":l[0][0].tolist()})
+
+
+					if (int(k[4])) in rennerspositie:
+						rennerspositie[(int(k[4]))].append(dictrenner1)
+					else:
+						rennerspositie[(int(k[4]))] = [dictrenner1]
+					pos_renners[int(k[4])].append(l[0][0].tolist())
 		
 		
 		dictrenner[index]={"positions":renner}
