@@ -37,7 +37,7 @@ def prepare_data_and_stitch(images,fps,scalingfactor):
 	masks=predict_surface(process_images)
 	
 	stitchimage,transform,mask,totaltransform,teller,indexen,width,baselines=stitching(process_images,masks)
-	#process_images[:teller-1]
+	process_images[:teller-1]
 	renners=predict_renner(process_images,masks)
 	
 	return stitchimage,transform,renners,fps_scaled,fps,mask,totaltransform,indexen,width,baselines
@@ -92,7 +92,7 @@ def stitching(images,masks):
 	lengte=len(images)
 	for cur_image in images[1:]:
 		
-		if vergroot>=0:
+		if vergroot<20:
 			neg=False
 			base_msk=masks[teller]
 			base_msk[base_msk==0]=255
