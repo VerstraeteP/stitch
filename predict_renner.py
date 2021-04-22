@@ -83,7 +83,7 @@ cfg.OUTPUT_DIR="./drive/MyDrive/renner"
 
 # cfg already contains everything we've set previously. Now we changed it a little bit for inference:
 cfg.MODEL.WEIGHTS = os.path.join(cfg.OUTPUT_DIR, "model_final.pth")  # path to the model we just trained
-cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.3 #0.7  # set a custom testing threshold
+cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.1 #0.7  # set a custom testing threshold
 predictor = DefaultPredictor(cfg)
 #dataset_dicts = get_balloon_dicts("balloon/train")
 dataset_dicts="surface_img/val"
@@ -97,7 +97,7 @@ def predict_renner(images,masks):
 	for k,img in enumerate(images):
 		image=img.copy()
 		
-		image[masks[k] == 255] = 0
+		#image[masks[k] == 255] = 0
 		
 		
 		outputs = predictor(img)  # format is documented at https://detectron2.readthedocs.io/tutorials/models.html#model-output-format
