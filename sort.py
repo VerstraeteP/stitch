@@ -207,6 +207,8 @@ class Sort(object):
     self.frame_count = 0
   def reset_count(self):
     KalmanBoxTracker.count = 0
+    
+    
   def update(self, dets=np.empty((0, 5))):
     """
     Params:
