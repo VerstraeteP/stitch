@@ -83,7 +83,7 @@ cfg.OUTPUT_DIR="./drive/MyDrive/renner"
 
 # cfg already contains everything we've set previously. Now we changed it a little bit for inference:
 cfg.MODEL.WEIGHTS = os.path.join(cfg.OUTPUT_DIR, "model_final.pth")  # path to the model we just trained
-cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.3 #0.7  # set a custom testing threshold
+cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7 #0.7  # set a custom testing threshold
 predictor = DefaultPredictor(cfg)
 #dataset_dicts = get_balloon_dicts("balloon/train")
 dataset_dicts="surface_img/val"
