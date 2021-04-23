@@ -41,7 +41,8 @@ def linear_assignment(cost_matrix):
     from scipy.optimize import linear_sum_assignment
     x, y = linear_sum_assignment(cost_matrix)
     return np.array(list(zip(x, y)))
-
+def reset_count(self):
+      KalmanBoxTracker.count = 0
 
 def iou_batch(bb_test, bb_gt):
   """
