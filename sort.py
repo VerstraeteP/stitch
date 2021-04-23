@@ -283,7 +283,7 @@ if __name__ == '__main__':
     plt.ion()
     fig = plt.figure()
     ax1 = fig.add_subplot(111, aspect='equal')
-
+  shutil.rmtree('output') 
   if not os.path.exists('output'):
     os.makedirs('output')
   pattern = os.path.join(args.seq_path, phase, '*', 'det', 'det.txt')
