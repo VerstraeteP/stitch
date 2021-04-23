@@ -93,7 +93,7 @@ files=sorted(glob.glob("balloon/val/*.jpg"))
 def predict_renner(images,masks):
 	teller=0
 	predicted_renners=[]
-	
+	counter=0
 	for k,img in enumerate(images):
 		image=img.copy()
 		
@@ -105,8 +105,8 @@ def predict_renner(images,masks):
 		v= Visualizer(img[:, :, ::-1], metadata=balloon_metadata, scale=0.5)
 		out=v.draw_instance_predictions(outputs["instances"].to("cpu"))
 		v=out.get_image()[:, :, ::-1]
-		cv2.imwrite(str(teller)+".jpg",v)
-		
+		cv2.imwrite("image"+str(counter)+".jpg",v)
+		counter+=1
 		
 		
 		for k in range(len(outputs['instances'])):
