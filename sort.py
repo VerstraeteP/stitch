@@ -42,8 +42,7 @@ def linear_assignment(cost_matrix):
     x, y = linear_sum_assignment(cost_matrix)
     return np.array(list(zip(x, y)))
 
-def reset_count(self):
-    KalmanBoxTracker.count = 0
+
 def iou_batch(bb_test, bb_gt):
   """
   From SORT: Computes IUO between two bboxes in the form [x1,y1,x2,y2]
@@ -206,7 +205,8 @@ class Sort(object):
     self.iou_threshold = iou_threshold
     self.trackers = []
     self.frame_count = 0
-
+  def reset_count(self):
+    KalmanBoxTracker.count = 0
   def update(self, dets=np.empty((0, 5))):
     """
     Params:
