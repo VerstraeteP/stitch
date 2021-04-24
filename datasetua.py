@@ -38,8 +38,9 @@ def main():
 			with open("./drive/MyDrive/dataset/transformaties/"+str(jaartal)+"/"+filename+".txt", 'w') as outfile:
 				json.dump(transformaties, outfile)
 		except:
-			continue
 			print("fail")
+			continue
+			
 	for file in glob.glob("./drive/MyDrive/videos/2017/*.mp4"):
 		try:
 			outfiles=[]
