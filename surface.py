@@ -164,7 +164,7 @@ def predict_surface(img):
 							     best_ind=d
 
 				indexen=[best_ind]
-			print("10")
+			
 
 				prev_x_min=coordinaten[best_ind][0]
 				prev_x_max=coordinaten[best_ind][2]
