@@ -55,7 +55,7 @@ def get_surface_dicts(img_dir):
 	return dataset_dicts
 	
 def predict_surface(img):
-	print("5")
+	
 	for d in ["train", "val"]:
 			DatasetCatalog.clear()
 			DatasetCatalog.register("surface_" + d, lambda d=d: get_surface_dicts("surface/" + d))
@@ -99,13 +99,13 @@ def predict_surface(img):
 	middle=[img[0].shape[0]/2,img[0].shape[1]/2]
 	background=backgroundsubtraction(img)
 	cv2.imwrite("background.jpg",background)
-	print("7")
+	
 	#print(background.shape)
 	
 		
 		
 	for teller,k in enumerate(img):
-		print(teller)
+		
 		minimum=None
 		predictor = DefaultPredictor(cfg)
 		outputs = predictor(k)
@@ -132,9 +132,8 @@ def predict_surface(img):
 			for index,k in enumerate(outputs['instances'].pred_boxes.to("cpu")):
 				coordinates=k.numpy()
 				middle=coordinates[2]-coordinates[0]
-				print(middle)
-				print(prev_x_max)
-				print("8")
+				
+				
 
 				if middle>=prev_x_min and middle<=prev_x_max:
 					y.append(coordinates[3]-coordinates[1])
@@ -144,7 +143,7 @@ def predict_surface(img):
 					#prev_x_min=coordinates[0]
 					#prev_x_max=coordinates[2]
 
-			print("9")
+			
 			best_ind=0
 			if len(indexen)>1:
 				best=None
@@ -166,12 +165,11 @@ def predict_surface(img):
 							     best_ind=d
 
 				indexen=[best_ind]
-			print("10")
-			print(best_ind)
-			print(coordinaten)
+			
+			
 			prev_x_min=coordinaten[best_ind][0]
 			prev_x_max=coordinaten[best_ind][2]
-			print("11")			     
+						     
 			
 		for index,k in enumerate(outputs['instances'].pred_masks.to("cpu").numpy()):
 			if indexen.count(index)==1:
