@@ -168,7 +168,7 @@ def predict_surface(img):
 
 			prev_x_min=coordinaten[best_ind][0]
 			prev_x_max=coordinaten[best_ind][2]
-						     
+			pritn("11")			     
 			
 		for index,k in enumerate(outputs['instances'].pred_masks.to("cpu").numpy()):
 			if indexen.count(index)==1:
