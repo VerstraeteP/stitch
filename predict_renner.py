@@ -92,9 +92,11 @@ files=sorted(glob.glob("balloon/val/*.jpg"))
 
 def predict_renner(images,masks):
 	teller=0
+	print("4")
 	predicted_renners=[]
 	counter=0
 	for k,img in enumerate(images):
+		print(k)
 		image=img.copy()
 		
 		image[masks[k] == 255] = 0
