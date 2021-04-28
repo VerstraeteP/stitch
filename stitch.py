@@ -24,12 +24,12 @@ def prepare_data_and_stitch(images,fps,scalingfactor):
 	
 	
 	process_images=[]
-	
+	print("2")
 	for i, data in enumerate(images):
 		if i % scalingfactor ==0:
 			process_images.append(data)
 	process_images.append(images[-1])
-	
+	print("3")
 	del(images)
 	process_images.reverse()
 	fps_scaled=scalingfactor
