@@ -132,6 +132,7 @@ def predict_surface(img):
 			for index,k in enumerate(outputs['instances'].pred_boxes.to("cpu")):
 				coordinates=k.numpy()
 				middle=coordinates[2]-coordinates[0]
+				print("8")
 
 				if middle>prev_x_min and middle<prev_x_max:
 					y.append(coordinates[3]-coordinates[1])
