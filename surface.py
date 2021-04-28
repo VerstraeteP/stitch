@@ -55,7 +55,7 @@ def get_surface_dicts(img_dir):
 	return dataset_dicts
 	
 def predict_surface(img):
-	
+	print("5")
 	for d in ["train", "val"]:
 			DatasetCatalog.clear()
 			DatasetCatalog.register("surface_" + d, lambda d=d: get_surface_dicts("surface/" + d))
@@ -99,13 +99,13 @@ def predict_surface(img):
 	middle=[img[0].shape[0]/2,img[0].shape[1]/2]
 	background=backgroundsubtraction(img)
 	cv2.imwrite("background.jpg",background)
-	
+	print("7")
 	#print(background.shape)
 	
 		
 		
 	for teller,k in enumerate(img):
-		
+		print(teller)
 		minimum=None
 		predictor = DefaultPredictor(cfg)
 		outputs = predictor(k)
