@@ -136,7 +136,7 @@ def predict_surface(img):
 				print(prev_x_max)
 				print("8")
 
-				if middle>=prev_x_min and middle=<prev_x_max:
+				if middle>=prev_x_min and middle<=prev_x_max:
 					y.append(coordinates[3]-coordinates[1])
 					x.append(coordinates[2]-coordinates[0])
 					indexen.append(index)
