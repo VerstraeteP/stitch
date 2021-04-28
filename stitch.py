@@ -33,7 +33,7 @@ def prepare_data_and_stitch(images,fps,scalingfactor):
 	del(images)
 	process_images.reverse()
 	fps_scaled=scalingfactor
-	
+	print("4")
 	masks=predict_surface(process_images)
 	
 	stitchimage,transform,mask,totaltransform,teller,indexen,width,baselines=stitching(process_images,masks)
