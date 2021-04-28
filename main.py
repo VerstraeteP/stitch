@@ -31,7 +31,7 @@ def start(video):
 		scalingfactor=1
 	print(scalingfactor)
 	start_stitching_time=time.time()
-	print("1")
+	
 	stitched_image,affinetransformation,renners,fps_scaled,fps,mask,total_transform,indexen,width,baseline=prepare_data_and_stitch(frame_list,fps,scalingfactor)
 	stitching_time=time.time()-start_stitching_time
 	stitched=stitched_image.copy()
