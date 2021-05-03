@@ -96,7 +96,7 @@ def predict_renner(images,masks):
 	predicted_renners=[]
 	counter=0
 	for k,img in enumerate(images):
-		print(k)
+		
 		image=img.copy()
 		
 		image[masks[k] == 255] = 0
