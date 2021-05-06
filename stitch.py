@@ -102,7 +102,7 @@ def stitching(images,masks):
 
 			curr[:,:]=0	
 			#curr[start_img:cur_image.shape[0]+start_img,:cur_image.shape[1]]=cur_image
-			curr[300:cur_image.shape[0]+300,300:cur_image.shape[1]+300]=cur_image
+			curr[200:cur_image.shape[0]+200,200:cur_image.shape[1]+200]=cur_image
 
 
 
@@ -110,14 +110,14 @@ def stitching(images,masks):
 
 
 			if cnt==0:
-				base_mask[300+border:300+base_msk.shape[0]-border,300+border:300+base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
+				base_mask[200+border:200+base_msk.shape[0]-border,200+border:200+base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 
 				mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
 			else:
 
 				#base_mask[start_img+border:base_msk.shape[0]-border+start_img,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 
-				base_mask[300+border:300+base_msk.shape[0]-border,300+border:300+base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
+				base_mask[200+border:200+base_msk.shape[0]-border,200+border:200+base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 				total_transformation=total_transformation[:2,:]
 				transformation=transformation[:2,:]
 				total_transformation[0][2]=0
