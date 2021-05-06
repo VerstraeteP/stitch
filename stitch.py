@@ -64,7 +64,7 @@ def stitching(images,masks):
 	cnt=0
 	teller=1
 	height, width = images[teller].shape[:2]
-	curr = np.zeros((height*2,width*2, 3), np.uint8)
+	curr = np.zeros((height*2,width*3, 3), np.uint8)
 	baselines=[]
 
 	
