@@ -57,7 +57,7 @@ def stitching(images,masks):
 	cur_image=images[0]
 	ttlchange=0
 	ttlchangeteller=0
-	detector = cv2.SIFT_create()
+	detector = cv2.SIFT_create(contrastThreshold = 0.01)
 	Affinetransformations=[[[1 , 0 ,500],[0,1,0]]]
 	total_affine=[]
 	base_msk= masks[0]
