@@ -81,7 +81,7 @@ def stitching(images,masks):
 	total_mask[:base_msk.shape[0],500:base_msk.shape[1]+500]=base_msk
 	heightc, widthc = curr.shape[:2]
 	baseline=0
-	baselinex=501
+	baselinex=500
 	largest=0
 	times=0
 	width=images[0].shape[1]
@@ -150,6 +150,7 @@ def stitching(images,masks):
 					break
 
 			transpose=base_gray[:baseline,baselinex+1:]
+			print(transpose.shape)
 			tranposes=np.transpose(transpose,(1, 0, 2))
 			for k,i in enumerate(tranposes):
 				if(~i.any()):
