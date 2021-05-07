@@ -150,12 +150,12 @@ def stitching(images,masks):
 					break
 
 			transpose=base_gray[:baseline,baselinex+1:]
-			print(transpose.shape)
+			
 			tranposes=np.transpose(transpose,(1, 0, 2))
 			for k,i in enumerate(tranposes):
 				if(~i.any()):
 					baselinex=k+baselinex
-					print(baselinex)
+				
 					break
 			transpose=base_gray[:baseline,:baselineneg]
 			tranposes=np.transpose(transpose,(1, 0, 2))
@@ -169,7 +169,7 @@ def stitching(images,masks):
 
 			if (baselinex+int(cur_image.shape[1])/2)>base_gray.shape[1]:
 				vergroot+=1
-				print(larger)
+				
 				base_gray = np.append(base_gray,increase,axis=1)
 				total_mask = np.append(total_mask,increase_mask,axis=1)
 				mask_photo= np.append(mask_photo,increase_mask,axis=1)
