@@ -64,18 +64,18 @@ def stitching(images,masks):
 	cnt=0
 	teller=1
 	height, width = images[teller].shape[:2]
-	curr = np.zeros((height*2,width*2, 3), np.uint8)
+	curr = np.zeros((height*2,width*3, 3), np.uint8)
 	baselines=[]
 
 	
-	base_gray=np.zeros((height*2,width*2, 3), np.uint8)
-	total_mask=np.zeros((height*2,width*2), np.uint8)
-	base_mask= np.zeros((height*2,width*2), np.uint8)
-	mask_photo= np.zeros((height*2,width*2), np.uint8)
-	increase=np.zeros((images[0].shape[0]*2,images[0].shape[1]*2,3), np.uint8)
-	increasex=np.zeros((images[0].shape[0]*2,images[0].shape[1]*2,3), np.uint8)
-	increase_mask=np.zeros((images[0].shape[0]*2,images[0].shape[1]*2), np.uint8)
-	increase_mask_x=np.zeros((images[0].shape[0]*2,images[0].shape[1]*2), np.uint8)
+	base_gray=np.zeros((height*2,width*3, 3), np.uint8)
+	total_mask=np.zeros((height*2,width*3), np.uint8)
+	base_mask= np.zeros((height*2,width*3), np.uint8)
+	mask_photo= np.zeros((height*2,width*3), np.uint8)
+	increase=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3,3), np.uint8)
+	increasex=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3,3), np.uint8)
+	increase_mask=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3), np.uint8)
+	increase_mask_x=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3), np.uint8)
 	start_img=0
 	base_gray[:images[0].shape[0],500:images[0].shape[1]+500]=cur_image
 	total_mask[:base_msk.shape[0],500:base_msk.shape[1]+500]=base_msk
@@ -146,6 +146,7 @@ def stitching(images,masks):
 			for k,i in enumerate(base_gray[baseline:,:]):
 				if(~i.any()):
 					baseline=k+baseline
+					
 					break
 
 			transpose=base_gray[:baseline,baselinex+1:]
@@ -153,6 +154,7 @@ def stitching(images,masks):
 			for k,i in enumerate(tranposes):
 				if(~i.any()):
 					baselinex=k+baselinex
+					print(baselinex)
 					break
 			transpose=base_gray[:baseline,:baselineneg]
 			tranposes=np.transpose(transpose,(1, 0, 2))
@@ -166,6 +168,7 @@ def stitching(images,masks):
 
 			if (baselinex+int(cur_image.shape[1])/2)>base_gray.shape[1]:
 				vergroot+=1
+				print(larger)
 				base_gray = np.append(base_gray,increase,axis=1)
 				total_mask = np.append(total_mask,increase_mask,axis=1)
 				mask_photo= np.append(mask_photo,increase_mask,axis=1)
