@@ -81,7 +81,7 @@ def stitching(images,masks):
 	total_mask[:base_msk.shape[0],500:base_msk.shape[1]+500]=base_msk
 	heightc, widthc = curr.shape[:2]
 	baseline=0
-	baselinex=500
+	baselinex=501
 	largest=0
 	times=0
 	width=images[0].shape[1]
