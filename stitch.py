@@ -223,7 +223,7 @@ def stitching(images,masks):
 
 			times+=1
 			cv2.imwrite("mask"+str(teller)+".jpg",base_mask)
-			
+			print(times)
 
 
 
