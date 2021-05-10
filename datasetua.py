@@ -38,7 +38,8 @@ def main():
 			with open("./drive/MyDrive/dataset/transformaties/"+str(jaartal)+"/"+filename+".txt", 'w') as outfile:
 				json.dump(transformaties, outfile)
 		
-		except:
+		except Exception as e:
+			print(e)
 			continue
 	
 main()
