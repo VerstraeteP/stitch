@@ -74,7 +74,8 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 				
 				
 				if index>=2:
-					
+					bounding1=np.array([[[k[0],k[1]]]], dtype = "float32")
+					bounding2=np.array([[[k[2],k[3]]]], dtype = "float32")
 					pts =np.array([[[((k[0]+(k[2]-k[0])/2)+300),((k[1]+(k[3]-k[1])/2))+300]]], dtype = "float32")
 					
 						
@@ -87,17 +88,32 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 					
 					copy=Affinetransform[index].copy()
 					l=cv2.perspectiveTransform(pts,total)
+					bounding1=cv2.perspectiveTransform(bouding1,total)
+					bounding2=cv2.perspectiveTransform(bouding2,total)
+
 					l=cv2.perspectiveTransform(l,prev)
+					bounding1=cv2.perspectiveTransform(bounding1,prev)
+					bounding2=cv2.perspectiveTransform(bounding2,prev)
 					l=cv2.perspectiveTransform(l,np.vstack((copy,[0,0,1])))
+					bounding1=cv2.perspectiveTransform(bounding1,np.vstack((copy,[0,0,1])))
+					bounding2=cv2.perspectiveTransform(bounding2,np.vstack((copy,[0,0,1])))
 					l[0][0][0]+=offset
+					bounding1[0][0][0]+=offset
+					bounding2[0][0][0]+=offset
 					
 				
 				if index==1:
+					bounding1=np.array([[[k[0],k[1]]]], dtype = "float32")
+					bounding2=np.array([[[k[2],k[3]]]], dtype = "float32")
 					pts =np.array([[[((k[0]+(k[2]-k[0])/2)+300),(k[1]+(k[3]-k[1])/2)+300]]], dtype = "float32")
 					copy=Affinetransform[index].copy()
 
 					l=cv2.perspectiveTransform(pts,np.vstack((copy,[0,0,1])))
+					bounding1=cv2.perspectiveTransform(bounding1,np.vstack((copy,[0,0,1])))
+					bounding2=cv2.perspectiveTransform(bounding2,np.vstack((copy,[0,0,1])))
 					l[0][0][0]+=offset
+					bounding1[0][0][0]+=offset
+					bounding2[0][0][0]+=offset
 					
 				#right=cv2.perspectiveTransform(bnd_right,transformation)
 				#left=cv2.perspectiveTransform(bnd_left,transformation)
@@ -112,7 +128,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 					#left= left.astype(int)
 					#pos_renners[int(k[4])].append(l[0][0].tolist())
 					dictrenner1= {"frame_id":index, "position" : l[0][0].tolist()}
-					renner.append({"id":k[4],"position":l[0][0].tolist()})
+					renner.append({"id":k[4],"position":l[0][0].tolist(),"boundingbox":[bounding1[0][0].tolist(),bounding2[0][0].tolist()]})
 
 
 					if (int(k[4])) in rennerspositie:
