@@ -88,8 +88,8 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 					
 					copy=Affinetransform[index].copy()
 					l=cv2.perspectiveTransform(pts,total)
-					bounding1=cv2.perspectiveTransform(bouding1,total)
-					bounding2=cv2.perspectiveTransform(bouding2,total)
+					bounding1=cv2.perspectiveTransform(bounding1,total)
+					bounding2=cv2.perspectiveTransform(bounding2,total)
 
 					l=cv2.perspectiveTransform(l,prev)
 					bounding1=cv2.perspectiveTransform(bounding1,prev)
