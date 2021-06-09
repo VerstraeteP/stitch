@@ -309,7 +309,7 @@ def stitching(images,masks):
 				teller=teller+1
 		except:
 				print("break")
-				breakk
+				break
 				teller-=1
 
 
