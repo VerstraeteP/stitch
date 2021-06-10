@@ -280,9 +280,10 @@ def stitching(images,masks):
 				mod_photo1= cv2.bitwise_and(base_msk,base_msk,mask =(base_msk))
 				final_img = cv2.add(mod_photo,enlarged_base_img1,dtype=cv2.CV_8U)
 
+				
+				if cnt>0:
+					prev_base_gray=base_gray
 				base_gray=final_img
-
-
 				if cnt==0:	
 
 					total_transformation=transformation
@@ -309,7 +310,8 @@ def stitching(images,masks):
 				teller=teller+1
 		except:
 				print("break")
-				cv2.imwrite("endimage.jpg",base_gray)
+				base_gray=prev_base_gray
+				cv2.imwrite("endimage.jpg",prev_base_gray)
 				break
 				
 
