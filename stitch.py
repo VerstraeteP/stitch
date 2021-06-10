@@ -313,7 +313,7 @@ def stitching(images,masks):
 				break
 				
 
-
+	print("return")
 		
 	return base_gray,Affinetransformations,total_mask,total_affine,teller,indexen,width,baselines
 			
