@@ -222,7 +222,7 @@ def stitching(images,masks):
 
 
 				times+=1
-				cv2.imwrite("mask"+str(teller)+".jpg",base_mask)
+				
 				print(times)
 
 
@@ -254,7 +254,7 @@ def stitching(images,masks):
 				dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 
 				output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None)
-				cv2.imwrite(str(teller)+".jpg",output)
+				
 
 				transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=5,maxIters=10000 ,refineIters=1000)
 				filtered_matche=[]
@@ -310,7 +310,7 @@ def stitching(images,masks):
 		except:
 				print("break")
 				break
-				teller-=1
+				cv2.imwrite("endimage.jpg",base_gray)
 
 
 		
