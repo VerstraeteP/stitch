@@ -12,7 +12,7 @@ from importlib import reload
 def main():
 	
 	for file in glob.glob("./drive/MyDrive/videos/2021/*.mp4"):
-		try:
+		
 			outfiles=[]
 			print(file)
 			
@@ -38,8 +38,5 @@ def main():
 			with open("./drive/MyDrive/dataset/transformaties/"+str(jaartal)+"/"+filename+".txt", 'w') as outfile:
 				json.dump(transformaties, outfile)
 		
-		except Exception as e:
-			print(e)
-			continue
 	
 main()
