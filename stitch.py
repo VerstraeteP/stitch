@@ -281,11 +281,13 @@ def stitching(images,masks):
 				final_img = cv2.add(mod_photo,enlarged_base_img1,dtype=cv2.CV_8U)
 
 				
-				if cnt>0:
+				if cnt%5==0:
+					prev_prev_base_gray= prev_base_gray
 					prev_base_gray=base_gray
+					
 				base_gray=final_img
 				if cnt==0:	
-
+					prev_base_gray= base_gray
 					total_transformation=transformation
 					total_transformation = np.vstack((total_transformation,array))
 
@@ -310,8 +312,11 @@ def stitching(images,masks):
 				teller=teller+1
 		except:
 				print("break")
-				base_gray=prev_base_gray
+				ret= 5+cnt%5
+				base_gray=prev_prev_base_gray
 				cv2.imwrite("endimage.jpg",prev_base_gray)
+				teller-=ret
+				Affinetransformations[:len(Affinetransformations-ret]
 				break
 				
 
