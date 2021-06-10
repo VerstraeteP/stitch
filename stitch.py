@@ -280,7 +280,7 @@ def stitching(images,masks):
 				mod_photo1= cv2.bitwise_and(base_msk,base_msk,mask =(base_msk))
 				final_img = cv2.add(mod_photo,enlarged_base_img1,dtype=cv2.CV_8U)
 
-				
+				print(cnt%5)
 				if cnt%5==0:
 					prev_prev_base_gray= prev_base_gray
 					prev_base_gray=base_gray
