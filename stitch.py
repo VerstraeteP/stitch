@@ -309,8 +309,9 @@ def stitching(images,masks):
 				teller=teller+1
 		except:
 				print("break")
-				break
 				cv2.imwrite("endimage.jpg",base_gray)
+				break
+				
 
 
 		
