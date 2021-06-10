@@ -319,6 +319,9 @@ def stitching(images,masks):
 				cv2.imwrite("endimage.jpg",prev_base_gray)
 				teller-=ret
 				Affinetransformations[:len(Affinetransformations)-ret]
+				print(len(Affinetransformations))
+				print(teller)
+				
 				break
 				
 
