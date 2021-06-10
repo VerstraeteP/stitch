@@ -281,9 +281,7 @@ def stitching(images,masks):
 				final_img = cv2.add(mod_photo,enlarged_base_img1,dtype=cv2.CV_8U)
 
 				print(cnt%5)
-				if cnt%5==0:
-					prev_prev_base_gray= prev_base_gray
-					prev_base_gray=base_gray
+				
 					
 				base_gray=final_img
 				if cnt==0:	
@@ -291,6 +289,9 @@ def stitching(images,masks):
 					prev_prev_base_gray=base_gray
 					total_transformation=transformation
 					total_transformation = np.vstack((total_transformation,array))
+				elif cnt%5==0:
+					prev_prev_base_gray= prev_base_gray
+					prev_base_gray=base_gray
 
 
 
