@@ -25,6 +25,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	for k in baseline:
 		offset+=k
 	for index in range(len(Affinetransform)):
+		print(np.array(renners[index]))
 		track.append(mot_tracker1.update(np.array(renners[index])))
 		if indexen.count(index-1)==1:
 			k=baseline.pop(len(baseline)-1)
