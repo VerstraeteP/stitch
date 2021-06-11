@@ -4,7 +4,9 @@ from sort import *
 import json
 from json import JSONEncoder
 def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fps,total_transform,indexen,width,baseline):
-	cnt=0
+	teller=0
+	console.log(teller)
+	teller+=1
 	mot_tracker1=Sort(max_age=500000, min_hits=3, iou_threshold=0.005)#thresh 0.005
 	mot_tracker1.reset_count()
 
