@@ -8,7 +8,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	print(teller)
 	teller+=1
 	mot_tracker1=Sort(max_age=500000, min_hits=3, iou_threshold=0.005)#thresh 0.005
-	mot_tracker1.reset_count()
+	#mot_tracker1.reset_count()
 
 	track=[]
 	rennerspositie={}
