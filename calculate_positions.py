@@ -78,7 +78,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 		renner.append({"id":"null","position":"null","boundingbox":"null"})
 	else:
 		for k in track[index]:
-		if int(k[4])<=aantalrenners:
+			if int(k[4])<=aantalrenners:
 
 
 
