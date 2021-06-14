@@ -142,7 +142,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 							rennerspositie[(int(k[4]))] = [dictrenner1]
 						pos_renners[int(k[4])].append(l[0][0].tolist())
 			else:
-				renner.append({"id":null,"position":null,"boundingbox":null})
+				renner.append({"id":"null","position":"null","boundingbox":"null"})
 				
 		
 		dictrenner[index]={"positions":renner}
