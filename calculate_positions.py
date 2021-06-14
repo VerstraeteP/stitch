@@ -73,12 +73,12 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 
 
 			#transformation=Affinetransform[index]
-			if len(track[index])==0:
+	if len(track[index])==0:
 				
-				renner.append({"id":"null","position":"null","boundingbox":"null"})
-			else:
-				for k in track[index]:
-					if int(k[4])<=aantalrenners:
+		renner.append({"id":"null","position":"null","boundingbox":"null"})
+	else:
+		for k in track[index]:
+		if int(k[4])<=aantalrenners:
 
 
 
@@ -146,8 +146,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 							else:
 								rennerspositie[(int(k[4]))] = [dictrenner1]
 							pos_renners[int(k[4])].append(l[0][0].tolist())
-		else:
-				renner.append({"id":"null","position":"null","boundingbox":"null"})
+		
 				
 		
 		dictrenner[index]={"positions":renner}
