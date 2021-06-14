@@ -312,6 +312,7 @@ def stitching(images,masks):
 				"""
 				total_mask= cv2.add(mod_photo1,enlarged_base_img,dtype=cv2.CV_8U)
 				teller=teller+1
+				cv2.imwrite("img"+str(teller)+".jpg", base_gray)
 		except:
 				print("break")
 				ret= 5+cnt%5
