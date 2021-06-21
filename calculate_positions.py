@@ -20,7 +20,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	linearray=[]
 	dictrenner={"fps":fps,"fps_scaled":fps_scaled}
 	transformaties={}
-	
+	teller=-1
 	offset=0
 	for k in baseline:
 		offset+=k
@@ -30,6 +30,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 		print(index)
 		if len(np.array(renners[index]))!=0:
 			track.append(mot_tracker1.update(np.array(renners[index])))
+			teller+=1
 			if indexen.count(index-1)==1:
 				k=baseline.pop(len(baseline)-1)
 				offset-=k
@@ -73,11 +74,11 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 
 
 			#transformation=Affinetransform[index]
-	if len(track[index])==0:
+	if len(track[teller])==0:
 				
 		renner.append({"id":"null","position":"null","boundingbox":"null"})
 	else:
-		for k in track[index]:
+		for k in track[teller]:
 			if int(k[4])<=aantalrenners:
 
 
