@@ -159,7 +159,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	for k in linearray:
 		cv2.line(afbeelding, (int(k[0][0][0]),int(k[0][0][1])), (int(k[0][1][0]),int(k[0][1][1])), colors[5], 4)
 	"""
-	
+	cnt=0
 	for k in pos_renners:
 			
 			color=colors[cnt]
