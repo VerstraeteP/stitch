@@ -25,7 +25,10 @@ def main():
 			aankomstplaats=wedstrijd.split('_')[2].split('.')[0]
 			
 			jsonfinal={"Metadata":{"Name":wedstrijdnaam,"Year":jaartal,"Stage":rit,"City":aankomstplaats}}
-			stitch,line,renner,mask,transformaties=start(file)
+			stitch,line,renner,mask,transformaties,renners=start(file)
+			json_format = json.dumps(renners)
+			with open("./drive/MyDrive/dataset/boundingbox/"+str(jaartal)+"/"+filename+".txt", 'w') as outfile:
+				json.dump(json_format, outfile)
 			
 			
 			cv2.imwrite("./drive/MyDrive/dataset/stitch/"+str(jaartal)+"/"+filename+".jpg",stitch)
