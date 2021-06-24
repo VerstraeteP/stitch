@@ -40,7 +40,7 @@ def prepare_data_and_stitch(images,fps,scalingfactor):
 	process_images[:teller-1]
 	renners=predict_renner(process_images,masks)
 	
-	return stitchimage,transform,renners,fps_scaled,fps,mask,totaltransform,indexen,width,baselines
+	return stitchimage,transform,renners,fps_scaled,fps,mask,totaltransform,indexen,width,baselines,teller
 	
 
 
