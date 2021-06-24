@@ -223,7 +223,7 @@ def stitching(images,masks):
 
 				times+=1
 				
-				print(times)
+				
 
 
 
@@ -280,7 +280,7 @@ def stitching(images,masks):
 				mod_photo1= cv2.bitwise_and(base_msk,base_msk,mask =(base_msk))
 				final_img = cv2.add(mod_photo,enlarged_base_img1,dtype=cv2.CV_8U)
 
-				print(cnt%5)
+				
 				
 					
 				base_gray=final_img
@@ -314,19 +314,18 @@ def stitching(images,masks):
 				teller=teller+1
 				
 		except:
-				print("break")
+				
 				ret= 5+cnt%5
 				base_gray=prev_prev_base_gray
 				cv2.imwrite("endimage.jpg",prev_base_gray)
 				teller-=ret
 				Affinetransformations=Affinetransformations[:len(Affinetransformations)-ret]
-				print(len(Affinetransformations))
-				print(teller)
+				
 				
 				break
 				
 
-	print("return")
+	
 		
 	return base_gray,Affinetransformations,total_mask,total_affine,teller,indexen,width,baselines
 			
