@@ -12,7 +12,7 @@ from detectron2.utils.visualizer import Visualizer, ColorMode
 from detectron2.engine import DefaultTrainer, DefaultPredictor, launch
 from detectron2.config import get_cfg
 import glob
-print("stictch")
+
 # The following is modification of Detectron2 Beginner's Tutorial.
 # Cf https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5
 
@@ -92,7 +92,7 @@ files=sorted(glob.glob("balloon/val/*.jpg"))
 
 def predict_renner(images,masks):
 	teller=0
-	print("4")
+	
 	predicted_renners=[]
 	counter=0
 	for k,img in enumerate(images):
