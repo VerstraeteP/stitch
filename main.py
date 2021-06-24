@@ -42,7 +42,7 @@ def start(video):
 	#with open('positions32.txt', 'w') as outfile:
     	#	json.dump(renner, outfile)
 	cv2.imwrite("solution.jpg",solution)
-	return stitched_image,solution,renner,mask,transformaties
+	return stitched_image,solution,renner,mask,transformaties,renners
 
 def process_video(file_name,n=1):
 	"""
