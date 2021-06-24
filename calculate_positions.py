@@ -27,7 +27,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	
 	for index in range(len(Affinetransform[:counter+1])):
 		
-		#if len(np.array(renners[index]))!=0:
+		if len(np.array(renners[index]))!=0:
 			track.append(mot_tracker1.update(np.array(renners[index])))
 			teller+=1
 			if indexen.count(index-1)==1:
@@ -72,11 +72,11 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 			"""
 
 
-			#transformation=Affinetransform[index]
-		#if len(track[teller])==0:
+			transformation=Affinetransform[index]
+		if len(track[teller])==0:
 
-			#renner.append({"id":"null","position":"null","boundingbox":"null"})
-		#else:
+			renner.append({"id":"null","position":"null","boundingbox":"null"})
+		else:
 			for k in track[teller]:
 				if int(k[4])<=aantalrenners:
 
@@ -149,8 +149,8 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 
 				
 		
-	dictrenner[index]={"positions":renner}
-	renner=[]
+		dictrenner[index]={"positions":renner}
+		renner=[]
 	transformaties=Affinetransform.tolist()
 	
 	colors=[[0,0,0],[0,255,255],[255,255,2],[255,1,2],[132,125,25],[255,125,0],[255,0,255],[0,0,0],[0,255,0],[255,125,2],[255,1,2],[125,125,125],[255,125,0],[255,0,255],[0,0,0],[0,0,0],[0,255,255],[255,255,2],[255,1,2],[132,125,25],[255,125,0],[255,0,255],[0,0,0],[0,255,0],[255,125,2],[255,1,2],[125,125,125],[255,125,0],[255,0,255],[0,0,0],[0,255,255],[255,255,2],[255,1,2],[132,125,25],[255,125,0],[255,0,255],[0,0,0],[0,255,0],[255,125,2],[255,1,2],[125,125,125],[255,125,0],[255,0,255]]
