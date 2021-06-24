@@ -32,12 +32,12 @@ def start(video):
 	print(scalingfactor)
 	start_stitching_time=time.time()
 	
-	stitched_image,affinetransformation,renners,fps_scaled,fps,mask,total_transform,indexen,width,baseline=prepare_data_and_stitch(frame_list,fps,scalingfactor)
+	stitched_image,affinetransformation,renners,fps_scaled,fps,mask,total_transform,indexen,width,baseline,teller=prepare_data_and_stitch(frame_list,fps,scalingfactor)
 	stitching_time=time.time()-start_stitching_time
 	stitched=stitched_image.copy()
 	#cv2.imwrite("solution32.jpg",stitched_image) 
 	#print(stitching_time) 
-	solution,renner,transformaties=calculate_pos(renners,affinetransformation,args.renners,stitched,fps_scaled,fps,total_transform,indexen,width,baseline)
+	solution,renner,transformaties=calculate_pos(renners,affinetransformation,args.renners,stitched,fps_scaled,fps,total_transform,indexen,width,baseline,teller)
 	#cv2.imwrite("lines32.png",solution)
 	#with open('positions32.txt', 'w') as outfile:
     	#	json.dump(renner, outfile)
