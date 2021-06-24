@@ -5,6 +5,7 @@ import json
 from json import JSONEncoder
 def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fps,total_transform,indexen,width,baseline,counter):
 	teller=0
+	aantalrenners=10000
 	
 	teller+=1
 	mot_tracker1=Sort(max_age=500000, min_hits=3, iou_threshold=0.005)#thresh 0.005
