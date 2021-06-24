@@ -320,6 +320,9 @@ def stitching(images,masks):
 				cv2.imwrite("endimage.jpg",prev_base_gray)
 				teller-=ret
 				Affinetransformations=Affinetransformations[:len(Affinetransformations)-ret]
+				if(indexen[len(indexen)-1])>teller):
+					indexen.pop()
+					baselines.pop()
 				
 				
 				break
