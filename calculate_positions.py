@@ -5,7 +5,7 @@ import json
 from json import JSONEncoder
 def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fps,total_transform,indexen,width,baseline):
 	teller=0
-	print(teller)
+	
 	teller+=1
 	mot_tracker1=Sort(max_age=500000, min_hits=3, iou_threshold=0.005)#thresh 0.005
 	#mot_tracker1.reset_count()
@@ -24,10 +24,9 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	offset=0
 	for k in baseline:
 		offset+=k
-	print(len(Affinetransform))
+	
 	for index in range(len(Affinetransform)):
-		print(np.array(renners[index]))
-		print(index)
+		
 		if len(np.array(renners[index]))!=0:
 			track.append(mot_tracker1.update(np.array(renners[index])))
 			teller+=1
