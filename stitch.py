@@ -233,6 +233,8 @@ def stitching(images,masks):
 				#next_features=goodFeaturesToTrack(curr, mask=base_mask,minDistance=10)
 				#next_features,base_descs=detector.compute(curr,next_features)
 				next_features, next_descs = detector.detectAndCompute(curr,(base_mask))
+				cv2.imwrite("./drive/MyDrive/wkvideo/mask/"+str(teller)+".jpg",base_mask)
+
 
 				"""
 				bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
@@ -254,6 +256,8 @@ def stitching(images,masks):
 				dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
 
 				output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None)
+				cv2.imwrite("./drive/MyDrive/wkvideo/output/"+str(teller)+".jpg",output)
+
 				
 
 				transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=5,maxIters=10000 ,refineIters=1000)
@@ -311,7 +315,7 @@ def stitching(images,masks):
 
 				"""
 				total_mask= cv2.add(mod_photo1,enlarged_base_img,dtype=cv2.CV_8U)
-				cv2.imwrite(""./drive/MyDrive/wkvideo/base_gray"+str(teller)+".jpg",base_gray)
+				cv2.imwrite("./drive/MyDrive/wkvideo/base_gray/"+str(teller)+".jpg",base_gray)
 				teller=teller+1
 				
 				
