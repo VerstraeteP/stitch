@@ -107,7 +107,8 @@ def predict_renner(images,masks):
 		v= Visualizer(img[:, :, ::-1], metadata=balloon_metadata, scale=0.5)
 		out=v.draw_instance_predictions(outputs["instances"].to("cpu"))
 		v=out.get_image()[:, :, ::-1]
-		cv2.imwrite("image"+str(counter)+".jpg",v)
+		cv2.imwrite(""./drive/MyDrive/wkvideo/riders"+str(k)+".jpg",v)
+
 		counter+=1
 		
 		
