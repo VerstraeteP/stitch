@@ -113,6 +113,8 @@ def predict_surface(img):
 		v = Visualizer(k[:, :, ::-1], metadata=surface_metadata, scale=0.5)
 		out=v.draw_instance_predictions(outputs["instances"].to("cpu"))
 		v=out.get_image()[:, :, ::-1]
+		cv2.imwrite("./drive/MyDrive/wkvideo/surface/"+str(teller)+".jpg",v)
+
 		
 		
 		
