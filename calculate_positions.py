@@ -16,6 +16,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 	dictrenner=dict()
 	renner=[]
 	pos_renners=[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+	trans_position=[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
 	Affinetransform=np.asarray(Affinetransform)
 	line=[[[0,0],[width,0]]]
 	linearray=[]
@@ -88,6 +89,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 								bounding1=np.array([[[k[0]+300,k[1]+300]]], dtype = "float32")
 								bounding2=np.array([[[k[2]+300,k[3]+300]]], dtype = "float32")
 								pts =np.array([[[((k[0]+(k[2]-k[0])/2)+300),((k[1]+(k[3]-k[1])/2))+300]]], dtype = "float32")
+								renner=np.array([[[k[0]+300,k[1]+300,k[2]+300,k[3]+300]], dtype= "float32")
 
 
 								prev=np.vstack((Affinetransform[index-1],[0,0,1]))
@@ -99,16 +101,20 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 
 								copy=Affinetransform[index].copy()
 								l=cv2.perspectiveTransform(pts,total)
+								rennerl=cv2.perspectiveTransform(renner,total)
 								bounding1=cv2.perspectiveTransform(bounding1,total)
 								bounding2=cv2.perspectiveTransform(bounding2,total)
 
 								l=cv2.perspectiveTransform(l,prev)
+								rennerl=cv2.perspectiveTransform(rennerl,prev)
 								bounding1=cv2.perspectiveTransform(bounding1,prev)
 								bounding2=cv2.perspectiveTransform(bounding2,prev)
 								l=cv2.perspectiveTransform(l,np.vstack((copy,[0,0,1])))
+								rennerl=cv2.perspectiveTransform(rennerl,np.vstack((copy,[0,0,1])))		 
 								bounding1=cv2.perspectiveTransform(bounding1,np.vstack((copy,[0,0,1])))
 								bounding2=cv2.perspectiveTransform(bounding2,np.vstack((copy,[0,0,1])))
 								l[0][0][0]+=offset
+								rennerl[0][0][0]+=offset
 								bounding1[0][0][0]+=offset
 								bounding2[0][0][0]+=offset
 
@@ -117,12 +123,16 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 								bounding1=np.array([[[k[0]+300,k[1]+300]]], dtype = "float32")
 								bounding2=np.array([[[k[2]+300,k[3]+300]]], dtype = "float32")
 								pts =np.array([[[((k[0]+(k[2]-k[0])/2)+300),(k[1]+(k[3]-k[1])/2)+300]]], dtype = "float32")
+								renner=np.array([[[k[0]+300,k[1]+300,k[2]+300,k[3]+300]], dtype= "float32")
+
 								copy=Affinetransform[index].copy()
 
 								l=cv2.perspectiveTransform(pts,np.vstack((copy,[0,0,1])))
+								rennerl=cv2.perspectiveTransform(renner,np.vstack((copy,[0,0,1])))
 								bounding1=cv2.perspectiveTransform(bounding1,np.vstack((copy,[0,0,1])))
 								bounding2=cv2.perspectiveTransform(bounding2,np.vstack((copy,[0,0,1])))
 								l[0][0][0]+=offset
+								rennerl[0][0][0]+=offset
 								bounding1[0][0][0]+=offset
 								bounding2[0][0][0]+=offset
 
@@ -133,6 +143,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 							else:
 
 								l= l.astype(int)
+								rennerl=rennerl.astype(int)
 
 								#l= l.astype(float)
 								#right= right.astype(int)
@@ -149,6 +160,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 									
 								
 								pos_renners[int(k[4])].append(l[0][0].tolist())
+								trans_position[int(k[4]))].append(l[0][0].tolist())
 
 				
 		
@@ -177,5 +189,5 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 					cv2.circle(afbeelding, (int(l[0]),int(l[1])), 3, (0,0,255), 2)
 					
 				cnt=cnt+1
-	return afbeelding,dictrenner,transformaties
+	return afbeelding,dictrenner,transformaties,trans_position
 	
