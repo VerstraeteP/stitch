@@ -90,7 +90,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 								bounding2=np.array([[[k[2]+300,k[3]+300]]], dtype = "float32")
 								pts =np.array([[[((k[0]+(k[2]-k[0])/2)+300),((k[1]+(k[3]-k[1])/2))+300]]], dtype = "float32")
 								rennerx=np.array([[[k[0]+300,k[1]+300]]], dtype= "float32")
-								rennery=np.array([[[k[2]+300,k[3]+300]]],dtype="foat32")
+								rennery=np.array([[[k[2]+300,k[3]+300]]],dtype="float32")
 
 
 								prev=np.vstack((Affinetransform[index-1],[0,0,1]))
