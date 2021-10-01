@@ -89,7 +89,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 								bounding1=np.array([[[k[0]+300,k[1]+300]]], dtype = "float32")
 								bounding2=np.array([[[k[2]+300,k[3]+300]]], dtype = "float32")
 								pts =np.array([[[((k[0]+(k[2]-k[0])/2)+300),((k[1]+(k[3]-k[1])/2))+300]]], dtype = "float32")
-								renner=np.array([[[k[0]+300,k[1]+300,k[2]+300,k[3]+300]], dtype= "float32")
+								renner=np.array([[[k[0]+300,k[1]+300,k[2]+300,k[3]+300]]], dtype= "float32")
 
 
 								prev=np.vstack((Affinetransform[index-1],[0,0,1]))
@@ -123,7 +123,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 								bounding1=np.array([[[k[0]+300,k[1]+300]]], dtype = "float32")
 								bounding2=np.array([[[k[2]+300,k[3]+300]]], dtype = "float32")
 								pts =np.array([[[((k[0]+(k[2]-k[0])/2)+300),(k[1]+(k[3]-k[1])/2)+300]]], dtype = "float32")
-								renner=np.array([[[k[0]+300,k[1]+300,k[2]+300,k[3]+300]], dtype= "float32")
+								renner=np.array([[[k[0]+300,k[1]+300,k[2]+300,k[3]+300]]], dtype= "float32")
 
 								copy=Affinetransform[index].copy()
 
