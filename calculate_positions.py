@@ -89,7 +89,8 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 								bounding1=np.array([[[k[0]+300,k[1]+300]]], dtype = "float32")
 								bounding2=np.array([[[k[2]+300,k[3]+300]]], dtype = "float32")
 								pts =np.array([[[((k[0]+(k[2]-k[0])/2)+300),((k[1]+(k[3]-k[1])/2))+300]]], dtype = "float32")
-								renner=np.array([[[k[0]+300,k[1]+300,k[2]+300,k[3]+300]]], dtype= "float32")
+								rennerx=np.array([[[k[0]+300,k[1]+300]]], dtype= "float32")
+								rennery=np.array([[[k[2]+300,k[3]+300]]],dtype="foat32")
 
 
 								prev=np.vstack((Affinetransform[index-1],[0,0,1]))
@@ -101,20 +102,26 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 
 								copy=Affinetransform[index].copy()
 								l=cv2.perspectiveTransform(pts,total)
-								rennerl=cv2.perspectiveTransform(renner,total)
+								rennerlx=cv2.perspectiveTransform(rennerx,total)
+								rennerly=cv2.perspectiveTransform(rennery,total)
 								bounding1=cv2.perspectiveTransform(bounding1,total)
 								bounding2=cv2.perspectiveTransform(bounding2,total)
 
 								l=cv2.perspectiveTransform(l,prev)
-								rennerl=cv2.perspectiveTransform(rennerl,prev)
+								rennerlx=cv2.perspectiveTransform(rennerlx,prev)
+								rennerly=cv2.perspectiveTransform(rennerly,prev)
 								bounding1=cv2.perspectiveTransform(bounding1,prev)
 								bounding2=cv2.perspectiveTransform(bounding2,prev)
 								l=cv2.perspectiveTransform(l,np.vstack((copy,[0,0,1])))
-								rennerl=cv2.perspectiveTransform(rennerl,np.vstack((copy,[0,0,1])))		 
+							
+								rennerlx=cv2.perspectiveTransform(rennerlx,np.vstack((copy,[0,0,1])))
+								rennerly=cv2.perspectiveTransform(rennerly,np.vstack((copy,[0,0,1])))		 
+
 								bounding1=cv2.perspectiveTransform(bounding1,np.vstack((copy,[0,0,1])))
 								bounding2=cv2.perspectiveTransform(bounding2,np.vstack((copy,[0,0,1])))
 								l[0][0][0]+=offset
-								rennerl[0][0][0]+=offset
+								rennerlx[0][0][0]+=offset
+								rennerly[0][0][0]+=offset
 								bounding1[0][0][0]+=offset
 								bounding2[0][0][0]+=offset
 
@@ -123,16 +130,19 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 								bounding1=np.array([[[k[0]+300,k[1]+300]]], dtype = "float32")
 								bounding2=np.array([[[k[2]+300,k[3]+300]]], dtype = "float32")
 								pts =np.array([[[((k[0]+(k[2]-k[0])/2)+300),(k[1]+(k[3]-k[1])/2)+300]]], dtype = "float32")
-								renner=np.array([[[k[0]+300,k[1]+300,k[2]+300,k[3]+300]]], dtype= "float32")
+								rennerx=np.array([[[k[0]+300,k[1]+300]]], dtype= "float32")
+								rennery=np.array([[[k[2]+300,k[3]+300]]],dtype="foat32")
 
 								copy=Affinetransform[index].copy()
 
 								l=cv2.perspectiveTransform(pts,np.vstack((copy,[0,0,1])))
-								rennerl=cv2.perspectiveTransform(renner,np.vstack((copy,[0,0,1])))
+								rennerlx=cv2.perspectiveTransform(rennerx,np.vstack((copy,[0,0,1])))
+								rennerly=cv2.perspectiveTransform(rennery,np.vstack((copy,[0,0,1])))
 								bounding1=cv2.perspectiveTransform(bounding1,np.vstack((copy,[0,0,1])))
 								bounding2=cv2.perspectiveTransform(bounding2,np.vstack((copy,[0,0,1])))
 								l[0][0][0]+=offset
-								rennerl[0][0][0]+=offset
+								rennerlx[0][0][0]+=offset
+								rennerly[0][0][0]+=offset
 								bounding1[0][0][0]+=offset
 								bounding2[0][0][0]+=offset
 
@@ -143,7 +153,8 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 							else:
 
 								l= l.astype(int)
-								rennerl=rennerl.astype(int)
+								rennerlx=rennerlx.astype(int)
+								rennerly=rennerly.astype(int)
 
 								#l= l.astype(float)
 								#right= right.astype(int)
@@ -158,9 +169,9 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 								else:
 									rennerspositie[(int(k[4]))] = [dictrenner1]
 									
-								
+								rennerlx[0][0].tolist().append(rennerly[0][0].tolist())
 								pos_renners[int(k[4])].append(l[0][0].tolist())
-								trans_position[int(k[4])].append(l[0][0].tolist())
+								trans_position[int(k[4])].append(rennerlx)
 
 				
 		
