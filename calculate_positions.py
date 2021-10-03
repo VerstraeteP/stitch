@@ -168,10 +168,12 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 									rennerspositie[(int(k[4]))].append(dictrenner1)
 								else:
 									rennerspositie[(int(k[4]))] = [dictrenner1]
-									
-								rennerlx[0][0].tolist().append(rennerly[0][0].tolist())
+								rennerend=[]	
+								
+								rennerend.append(rennerlx[0][0].tolist())
+								rennerend.append(rennerly[0][0].tolist())
 								pos_renners[int(k[4])].append(l[0][0].tolist())
-								trans_position[int(k[4])].append(rennerlx.tolist())
+								trans_position[int(k[4])].append(rennerend.tolist())
 
 				
 		
