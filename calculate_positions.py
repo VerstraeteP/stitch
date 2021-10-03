@@ -173,7 +173,7 @@ def calculate_pos(renners,Affinetransform,aantalrenners,afbeelding,fps_scaled,fp
 								rennerend.append(rennerlx[0][0].tolist())
 								rennerend.append(rennerly[0][0].tolist())
 								pos_renners[int(k[4])].append(l[0][0].tolist())
-								trans_position[int(k[4])].append(rennerend.tolist())
+								trans_position[int(k[4])].append(rennerend)
 
 				
 		
