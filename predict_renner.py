@@ -105,11 +105,13 @@ def predict_renner(images,masks):
 		outputs = predictor(image)  # format is documented at https://detectron2.readthedocs.io/tutorials/models.html#model-output-format
 		center=[]
 		v= Visualizer(img[:, :, ::-1], metadata=balloon_metadata, scale=0.5)
-		out=v.draw_instance_predictions(outputs["instances"].to("cpu"))
-		v=out.get_image()[:, :, ::-1]
-		cv2.imwrite("./drive/MyDrive/wkvideo/riders/"+str(k)+".jpg",v)
+		for m in outputs["instances"]:
+			
+			out=v.draw_instance_predictions(m.to("cpu"))
+			v=out.get_image()[:, :, ::-1]
+			cv2.imwrite("./drive/MyDrive/wkvideo/riders/"+str(k)+str(counter)+".jpg",v)
 
-		counter+=1
+			counter+=1
 		
 		
 		for k in range(len(outputs['instances'])):
