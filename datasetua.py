@@ -13,19 +13,19 @@ def main():
 	for file in glob.glob("./drive/MyDrive/videos/2021/GentWevelgem_1_dames.mp4"): 						#google drive folder with videos
 		
 			outfiles=[]
-			path, wedstrijd = os.path.split(file)							
-			path, jaartal = os.path.split(path)
-			filename=wedstrijd.split('.')[0]
-			wedstrijdnaam=wedstrijd.split('_')[0]
-			rit=wedstrijd.split('_')[1]
-			aankomstplaats=wedstrijd.split('_')[2].split('.')[0]
+			path, wedstrijd = os.path.split(file)									#get all info about race, year,stage, city
+			path, jaartal = os.path.split(path)									#from filename
+			filename=wedstrijd.split('.')[0]									#....
+			wedstrijdnaam=wedstrijd.split('_')[0]									#....
+			rit=wedstrijd.split('_')[1]										#....
+			aankomstplaats=wedstrijd.split('_')[2].split('.')[0]							#....
 			
 			stitch,line,renner,mask,transformaties,renners,transposition=start(file)				#call start function from main.py 
 			
 			json_format = json.dumps(str(renners))
 			jsonformat = json.dumps(str(transposition))
 			outfiles.append(jsonfinal)										#combine both metadata + riders positions
-			outfiles.append(renner)
+			outfiles.append(renner)											#....
 			jsonfinal={"Metadata":{"Name":wedstrijdnaam,"Year":jaartal,"Stage":rit,"City":aankomstplaats}} 		#metadata race info
 			
 			with open("./drive/MyDrive/dataset/boundingbox/"+str(jaartal)+"/"+filename+".txt", 'w') as outfile: 	#dump boundingboxes of detected riders
