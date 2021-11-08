@@ -16,7 +16,7 @@ def backgroundsubtraction(images):
         	cv2.rectangle(medianFrame,(x,y),(x+w+10,y+h+10),(255,255,255),-1)
          
 	
-	(thresh, blackAndWhiteImage) = cv2.threshold(medianFrame, 127, 255, cv2.THRESH_BINARY)		#
+	(thresh, blackAndWhiteImage) = cv2.threshold(medianFrame, 127, 255, cv2.THRESH_BINARY)		# threshold
 	
 	blackAndWhiteImage[blackAndWhiteImage>0]=255
 	
