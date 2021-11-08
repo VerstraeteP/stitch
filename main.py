@@ -16,27 +16,24 @@ def start(video):
 	"""
 	Process a video given by "arg.video", predicts if frame is a finish frame
 	"""
-	
+	"""
 	parser = argparse.ArgumentParser(description='Video-based sprint lane analysis to improve safety in road bicycle racing')
 	#parser.add_argument('--video', default="vidbocht.mp4", help='video file to process')
 	parser.add_argument('--renners', default=30, help='total renners')
 	args = parser.parse_args()
-	start_process_video=time.time()
-	frame_list,number_list,fps=process_video(video)
-	processing_video_time=time.time()-start_process_video
+	"""
 	
-	print(len(frame_list))
-	scalingfactor=math.ceil(len(frame_list)/300)
+	frame_list,fps=process_video(video)				#process video 
+	
+	scalingfactor=math.ceil(len(frame_list)/600)			#to avoid memory problems in stitching: only use the first 600 frames( first 20sec, most videos 30fps)
+	"""
 	if scalingfactor==0:
 		scalingfactor=1
-	print(scalingfactor)
-	start_stitching_time=time.time()
-	
+	"""
+	if scalingfactor == 0 : scalingfactor = 1			#if len(frame_list)<0: set scalingfactor to 1
+
 	stitched_image,affinetransformation,renners,fps_scaled,fps,mask,total_transform,indexen,width,baseline,teller=prepare_data_and_stitch(frame_list,fps,scalingfactor)
-	stitching_time=time.time()-start_stitching_time
-	stitched=stitched_image.copy()
-	#cv2.imwrite("solution32.jpg",stitched_image) 
-	#print(stitching_time) 
+	stitched=stitched_image.copy() 
 	solution,renner,transformaties,transpositions=calculate_pos(renners,affinetransformation,args.renners,stitched,fps_scaled,fps,total_transform,indexen,width,baseline,teller)
 	#cv2.imwrite("lines32.png",solution)
 	#with open('positions32.txt', 'w') as outfile:
@@ -48,18 +45,17 @@ def process_video(file_name,n=1):
 	"""
 	iterate over frames of videofile
 	:param file_name: filename
-	:param n:process one out of every n frames
+	:param n:process one out of every n frames-> default 1: take all frames
 	:return:list of finish frames
 	"""
-	print("reading videofile")
-	fvs= FileVideoStream(file_name).start()
+	
+	fvs= FileVideoStream(file_name).start()					#load video
 	
 	cam = cv2.VideoCapture(file_name)
-	fps = cam.get(cv2.CAP_PROP_FPS)
+	fps = cam.get(cv2.CAP_PROP_FPS)						#get original fps of video
 	
 	counter=1
 	frame_list=[]
-	list_frame_number=[]
 	teller=0
 	while fvs.running():
 		if fvs.more():
@@ -70,13 +66,13 @@ def process_video(file_name,n=1):
 			if frame is not None:
 					
 					
-				frame_list.append(cv2.resize(frame,(int(frame.shape[1]/2),int(frame.shape[0]/2))))
+				frame_list.append(cv2.resize(frame,(int(frame.shape[1]/2),int(frame.shape[0]/2))))   #append frame to list and resize it: height/2, width/2
 				
 			counter += 1
 		else:
 			time.sleep(2)
 	
-	return(frame_list,list_frame_number,fps)		
+	return(frame_list,fps)		
 		
 def process_frames(frames,numbers,maxgap=12):
 	"""
