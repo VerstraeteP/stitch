@@ -22,25 +22,24 @@ def prepare_data_and_stitch(images,fps,scalingfactor):
 	:return: images,masks
 	"""
 	
-	
+	"""
 	process_images=[]
-	
-	for i, data in enumerate(images):
+	"""
+	for i, data in enumerate(images):    				#go trought images and take scalingfactor into account and add it to new list
 		if i % scalingfactor ==0:
 			process_images.append(data)
-	process_images.append(images[-1])
+	process_images.append(images[-1])				#add last frame of video to make sure the frame containing the finish line is in the image list
 	
-	del(images)
-	process_images.reverse()
-	fps_scaled=scalingfactor
+	del(images)							#delete old images list
+	process_images.reverse()					#reverse framelist, so process_images[0]== finish frame, process_image[len(process_image)]== furthest frame from the finish line
 	
-	masks=predict_surface(process_images)
+	masks=predict_surface(process_images)				# call predict_surface function-> predict road surface
 	
-	stitchimage,transform,mask,totaltransform,teller,indexen,width,baselines=stitching(process_images,masks)
-	process_images[:teller-1]
+	stitchimage,transform,mask,totaltransform,teller,indexen,width,baselines=stitching(process_images,masks)	#call stitching function-> make stitching of finish frames
+	process_images[:teller-1]											
 	renners=predict_renner(process_images,masks)
 	
-	return stitchimage,transform,renners,fps_scaled,fps,mask,totaltransform,indexen,width,baselines,teller
+	return stitchimage,transform,renners,scalingfactor,fps,mask,totaltransform,indexen,width,baselines,teller
 	
 
 
