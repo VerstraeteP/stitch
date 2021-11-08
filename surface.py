@@ -79,19 +79,13 @@ def predict_surface(img):
 	cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 512   
 	cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1 
 	cfg.OUTPUT_DIR="./drive/MyDrive/surface"
-	"""
-		os.makedirs(cfg.OUTPUT_DIR, exist_ok=True)
-		trainer = DefaultTrainer(cfg) 
-		trainer.resume_or_load(resume=False)
-		trainer.train()
-	"""
 	
 	cfg.MODEL.WEIGHTS = os.path.join(cfg.OUTPUT_DIR, "model_final.pth")  
 	cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.3 # set a custom testing threshold
 	predictor = DefaultPredictor(cfg)
-	#dataset_dicts = get_balloon_dicts("balloon/train")
+	
 	dataset_dicts="surface_img/val"
-	files=sorted(glob.glob("balloon/val/*.jpg"))
+	#files=sorted(glob.glob("balloon/val/*.jpg"))
 	
 	teller=1
 	data=[]
@@ -100,53 +94,54 @@ def predict_surface(img):
 	background=backgroundsubtraction(img)
 	cv2.imwrite("background.jpg",background)
 	
-	#print(background.shape)
+	
 	
 		
 		
-	for teller,k in enumerate(img):
+	for teller,k in enumerate(img):								#go through all images
 		
 		minimum=None
-		predictor = DefaultPredictor(cfg)
-		outputs = predictor(k)
-		
-		v = Visualizer(k[:, :, ::-1], metadata=surface_metadata, scale=0.5)
-		out=v.draw_instance_predictions(outputs["instances"].to("cpu"))
-		v=out.get_image()[:, :, ::-1]
-		cv2.imwrite("./drive/MyDrive/wkvideo/surface/"+str(teller)+".jpg",v)
-
-		
-		
+		predictor = DefaultPredictor(cfg)						
+		outputs = predictor(k)								#predict surface of image k
+		"""
+		v = Visualizer(k[:, :, ::-1], metadata=surface_metadata, scale=0.5)		#visualization of predicted surface
+		out=v.draw_instance_predictions(outputs["instances"].to("cpu"))			#...
+		v=out.get_image()[:, :, ::-1]							#...
+		cv2.imwrite("./drive/MyDrive/wkvideo/surface/"+str(teller)+".jpg",v)		#...
+		"""
 		
 		
-		#maskoutput=outputs['instances'].pred_masks.to("cpu")[0][:2]
+		
+		
+		#maskoutput=outputs['instances'].pred_masks.to("cpu")[0][:2]			#next paragraph: check for multiple detections and make a
+												#decision if the predicted surface is part of road where the cyclist ride on 
 		maskoutput=0
 		indexen=[]
 		y=[]
 		x=[]
 		coordinaten=[]
-		prev_x_min=0
+		prev_x_min=0									
 		prev_x_max=k.shape[1]
-		if len(outputs['instances'].pred_boxes)==0:
-			maskoutput=np.zeros((k.shape[0],k.shape[1]), np.uint8)
+		if len(outputs['instances'].pred_boxes)==0:					#if only one road detection -> take detection as "finish road" 
+			maskoutput=np.zeros((k.shape[0],k.shape[1]), np.uint8)			#make new mask with certain shape
 			
 		else:
-			for index,k in enumerate(outputs['instances'].pred_boxes.to("cpu")):
-				coordinates=k.numpy()
-				middle=coordinates[2]-coordinates[0]
+			for index,k in enumerate(outputs['instances'].pred_boxes.to("cpu")):	#if multiple road detections-> do some checks about position of detection(knowledge that "finish road" is mostly in middle of frame)
+												#go through all predictions and take boundingboxescoordinates as variable k
+				coordinates=k.numpy()						#transform k from tensor object to numpy
+				middle=coordinates[2]-coordinates[0]				#calculate the center position of the bounding box in x direction
 				
 				
 
-				if middle>=prev_x_min and middle<=prev_x_max:
-					y.append(coordinates[3]-coordinates[1])
+				if middle>=prev_x_min and middle<=prev_x_max:			#check if center position is between two boundaries( prev frame boundaries of bounding box position)
+					y.append(coordinates[3]-coordinates[1])			#add center of boundingbox to list
 					x.append(coordinates[2]-coordinates[0])
-					indexen.append(index)
-					coordinaten.append(coordinates)
-					#prev_x_min=coordinates[0]
-					#prev_x_max=coordinates[2]
+					indexen.append(index)					#add index of detected boundingbox to list
+					coordinaten.append(coordinates)				#add coordinates of boundingbox to list
+					
 
 			
-			best_ind=0
+			best_ind=0					
 			if len(indexen)>1:
 				best=None
 
