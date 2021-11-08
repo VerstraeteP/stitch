@@ -22,9 +22,9 @@ def prepare_data_and_stitch(images,fps,scalingfactor):
 	:return: images,masks
 	"""
 	
-	"""
+	
 	process_images=[]
-	"""
+	
 	for i, data in enumerate(images):    				#go trought images and take scalingfactor into account and add it to new list
 		if i % scalingfactor ==0:
 			process_images.append(data)
