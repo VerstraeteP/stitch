@@ -22,7 +22,7 @@ def start(video):
 	parser.add_argument('--renners', default=30, help='total renners')
 	args = parser.parse_args()
 	"""
-	
+	aantal_renners=30
 	frame_list,fps=process_video(video)				#process video 
 	
 	scalingfactor=math.ceil(len(frame_list)/600)			#to avoid memory problems in stitching: only use the first 600 frames( first 20sec, most videos 30fps)
@@ -34,7 +34,7 @@ def start(video):
 
 	stitched_image,affinetransformation,renners,fps_scaled,fps,mask,total_transform,indexen,width,baseline,teller=prepare_data_and_stitch(frame_list,fps,scalingfactor)
 	stitched=stitched_image.copy() 
-	solution,renner,transformaties,transpositions=calculate_pos(renners,affinetransformation,args.renners,stitched,fps_scaled,fps,total_transform,indexen,width,baseline,teller)
+	solution,renner,transformaties,transpositions=calculate_pos(renners,affinetransformation,aantal_renners,stitched,fps_scaled,fps,total_transform,indexen,width,baseline,teller)
 	#cv2.imwrite("lines32.png",solution)
 	#with open('positions32.txt', 'w') as outfile:
     	#	json.dump(renner, outfile)
