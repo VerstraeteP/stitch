@@ -122,7 +122,8 @@ def predict_renner(images,masks):
 			#schrijf renner afbeelding weg"
 			position=outputs['instances'].pred_boxes.to("cpu").tensor.numpy()[k].tolist()
 			print(position)
-			print(v)
+			print("image")
+			print(image)
 			cv2.imwrite("./drive/MyDrive/wkvideo/riders/"+str(k)+str(counter)+".jpg",image[int(position[1])-50:int(position[3]+50),int(position[0])-50:int(position[2])+50])
 
 			
