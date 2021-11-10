@@ -65,13 +65,13 @@ def stitching(images,masks):
 	height, width = images[teller].shape[:2]
 	curr = np.zeros((height*2,width*3, 3), np.uint8)
 	baselines=[]
-
+									#in the next paragraph some new image are created, with a specific height and width. In the comment: use of image
 	
 	base_gray=np.zeros((height*2,width*3, 3), np.uint8)
 	total_mask=np.zeros((height*2,width*3), np.uint8)
 	base_mask= np.zeros((height*2,width*3), np.uint8)
 	mask_photo= np.zeros((height*2,width*3), np.uint8)
-	increase=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3,3), np.uint8)
+	increase=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3,3), np.uint8)		#to increase the image 
 	increasex=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3,3), np.uint8)
 	increase_mask=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3), np.uint8)
 	increase_mask_x=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3), np.uint8)
@@ -89,9 +89,9 @@ def stitching(images,masks):
 	vergroot=0
 	indexen=[]
 	lengte=len(images)
-	for cur_image in images[1:]:
-		try:
-			if vergroot<20:
+	for cur_image in images[1:]:								#go through all images starting from the second image
+		try:										#try-catch block: it can occur that the stitching fails,if it fails:try to restore the maximum successful image
+			if vergroot<20:								
 				neg=False
 				base_msk=masks[teller]
 				base_msk[base_msk==0]=255
@@ -108,16 +108,16 @@ def stitching(images,masks):
 
 
 
-				if cnt==0:
+				if cnt==0:							#
 					base_mask[300+border:300+base_msk.shape[0]-border,300+border:300+base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 
 					mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
-				else:
+				else:											#if it isn't the first image: we will first using the total transformation of all the previous stitched images, to tranform current image, so the succes rate of keypoint detection increases
 
 					#base_mask[start_img+border:base_msk.shape[0]-border+start_img,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 
 					base_mask[300+border:300+base_msk.shape[0]-border,300+border:300+base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
-					total_transformation=total_transformation[:2,:]
+					total_transformation=total_transformation[:2,:]					#transform 
 					transformation=transformation[:2,:]
 					total_transformation[0][2]=0
 					total_transformation[1][2]=0
@@ -125,8 +125,8 @@ def stitching(images,masks):
 					tran[0][2]=0
 					tran[1][2]=0
 
-					base_mask = cv2.warpAffine(base_mask, total_transformation, (widthc, heightc))
-					curr = cv2.warpAffine(curr, total_transformation, (widthc, heightc))
+					base_mask = cv2.warpAffine(base_mask, total_transformation, (widthc, heightc)) #transform base_mask image ( mask corresponding curr image) with the total_transformation
+					curr = cv2.warpAffine(curr, total_transformation, (widthc, heightc))		#transform curr image with the total transformation
 					base_mask = cv2.warpAffine(base_mask, tran, (widthc, heightc))
 					curr = cv2.warpAffine(curr, tran, (widthc, heightc))
 					total_transformation = np.vstack((total_transformation,array))
@@ -141,32 +141,32 @@ def stitching(images,masks):
 					total_affine.append(total_transformation)
 
 					transformation=transformation[:2,:]
-
-				for k,i in enumerate(base_gray[baseline:,:]):
-					if(~i.any()):
-						baseline=k+baseline
+				#in the next paragraph: check if the result image needs to be enlarged, we take some threshold space needed to make sure the new image will fit in the total stitched image
+				for k,i in enumerate(base_gray[baseline:,:]):					# check in y-direction, starting from baseline(last known position), go trough all lines
+					if(~i.any()):								#if in any line all values are = 0 occures: this is the last empty line 
+						baseline=k+baseline						#add number of line to baseline variable
 
 						break
 
-				transpose=base_gray[:baseline,baselinex+1:]
+				transpose=base_gray[:baseline,baselinex+1:]					#new cropped image, cropped in x-direction from baselinex+1 to len(transpose[1]), cropped in y-direction from 0 to baseline
 
-				tranposes=np.transpose(transpose,(1, 0, 2))
-				for k,i in enumerate(tranposes):
-					if(~i.any()):
+				tranposes=np.transpose(transpose,(1, 0, 2))					#transpose image matrix: [0,1,2],[3,4,5] -> [0,3],[1,4],[2,5]
+				for k,i in enumerate(tranposes):						#loop trought transpose image, to find right edge of image
+					if(~i.any()):								#find empty rows
 						baselinex=k+baselinex
 
 						break
-				transpose=base_gray[:baseline,:baselineneg]
+				transpose=base_gray[:baseline,:baselineneg]					#new cropped image
 				tranposes=np.transpose(transpose,(1, 0, 2))
 				if cnt>0:
-					for k,i in enumerate(tranposes):
+					for k,i in enumerate(tranposes):					#to find left edge of image
 						if (i.any()):
 							baselineneg=k
 							break
 
 
 
-				if (baselinex+int(cur_image.shape[1])/2)>base_gray.shape[1]:
+				if (baselinex+int(cur_image.shape[1])/2)>base_gray.shape[1]:			#if detected edge + half of new image is smaller than current stitched image, than make stitched image larger
 					vergroot+=1
 
 					base_gray = np.append(base_gray,increase,axis=1)
