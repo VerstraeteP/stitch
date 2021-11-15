@@ -315,14 +315,14 @@ def stitching(images,masks):
 				teller=teller+1
 				
 				
-		except:
+		except:												#if the stitching process fails: get max 5 frames back, and restore image
 				
 				ret= 5+cnt%5
-				base_gray=prev_prev_base_gray
+				base_gray=prev_prev_base_gray							#get last image
 				cv2.imwrite("endimage.jpg",prev_base_gray)
 				teller-=ret
-				Affinetransformations=Affinetransformations[:len(Affinetransformations)-ret]
-				if len(indexen)!=0:
+				Affinetransformations=Affinetransformations[:len(Affinetransformations)-ret]	#delete last ret frames of list of transformations
+				if len(indexen)!=0:								#if 
 					if(indexen[len(indexen)-1]>teller):
 						indexen.pop()
 						baselines.pop()
