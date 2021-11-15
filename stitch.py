@@ -226,13 +226,9 @@ def stitching(images,masks):
 
 
 
-				base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)
-				#base_features=goodFeaturesToTrack(base_gray, mask=mask_photo,minDistance=10)
-				#base_features,base_descs=detector.compute(base_gray,base_features)
-				#next_features=goodFeaturesToTrack(curr, mask=base_mask,minDistance=10)
-				#next_features,base_descs=detector.compute(curr,next_features)
-				next_features, next_descs = detector.detectAndCompute(curr,(base_mask))
-				cv2.imwrite("./drive/MyDrive/wkvideo/mask/"+str(teller)+".jpg",base_mask)
+				base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)		#detect keypoints an their descriptors of image base_gray and use mask_photo as a mask
+				next_features, next_descs = detector.detectAndCompute(curr,(base_mask))			#same as above, but for curr image and base_mask
+				#cv2.imwrite("./drive/MyDrive/wkvideo/mask/"+str(teller)+".jpg",base_mask)		#write seperate masks to a folder
 
 
 				"""
@@ -241,38 +237,38 @@ def stitching(images,masks):
 				matches = sorted(matches, key = lambda x:x.distance)
 				filtered_matches=matches[:200]
 				"""
-				bf = cv2.BFMatcher()
+				bf = cv2.BFMatcher()									#match the founded keypoints of the base_gray image with the keypoints of the curr image
 				matches = bf.knnMatch(base_descs,next_descs,k=2)
 				filtered_matches=[]
 				for m,n in matches:
-					if m.distance < 0.85*n.distance:
+					if m.distance < 0.85*n.distance:						#only use the best ones
 						filtered_matches.append(m)
 
 				filtered_matches = np.asarray(filtered_matches)		
 
 
-				src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)
-				dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)
+				src_pts  = np.float32([base_features[m.queryIdx].pt for m in filtered_matches]).reshape(-1,2)		#get the x, y coordinates from the best detected keypoints of the base_gray image
+				dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)		#get the x, y coordintates from the best detected keypoints of the curr image
 
-				output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None)
+				output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None)		#function to draw the found matches
 				cv2.imwrite("./drive/MyDrive/wkvideo/output/"+str(teller)+".jpg",output)
 
 				
 
-				transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=5,maxIters=10000 ,refineIters=1000)
+				transformation, status = cv2.estimateAffine2D(dst_pts, src_pts,ransacReprojThreshold=5,maxIters=10000 ,refineIters=1000)	#with the src_pts and dst_pts we can find a transformation between those points, ransacReprojThreshold= maximum reprojection error in the RANSAC algorithm to consider a point as an inlier.
 				filtered_matche=[]
 				array=np.array([0,0,1])
 
 				Affinetransformations.append(transformation)
 
-				mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))
+				mod_photo = cv2.warpAffine(curr, transformation, (widthc, heightc))					#apply transformation to the different images
 				base_msk= cv2.warpAffine(base_msk, transformation, (widthc, heightc))	
 				mask_photo = cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 				base_mask=cv2.warpAffine(base_mask, transformation, (widthc, heightc))
 
-				(ret,data_map) = cv2.threshold(cv2.cvtColor(mod_photo, cv2.COLOR_BGR2GRAY),0, 255,cv2.THRESH_BINARY)
+				(ret,data_map) = cv2.threshold(cv2.cvtColor(mod_photo, cv2.COLOR_BGR2GRAY),0, 255,cv2.THRESH_BINARY)	# make a mask in the new image
 
-				contours, hierarchy = cv2.findContours(data_map, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+				contours, hierarchy = cv2.findContours(data_map, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)		#findcontour, otherwise, a black line in stitched image, we find contour and color it black, so mask is a little smaller
 				contours1, hierarchy1 = cv2.findContours(base_msk, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 				cv2.drawContours(data_map, contours, -1, (0,255,255), 10)
 				enlarged_base_img= cv2.bitwise_and(total_mask,total_mask, mask =np.bitwise_not(data_map))
@@ -287,6 +283,7 @@ def stitching(images,masks):
 				
 					
 				base_gray=final_img
+																	# every 5 frames we save a temporary image, so if it fails we can go back
 				if cnt==0:	
 					prev_base_gray= base_gray
 					prev_prev_base_gray=base_gray
