@@ -24,9 +24,10 @@ def main():
 			
 			json_format = json.dumps(str(renners))
 			jsonformat = json.dumps(str(transposition))
+			jsonfinal={"Metadata":{"Name":wedstrijdnaam,"Year":jaartal,"Stage":rit,"City":aankomstplaats}} 		#metadata race info
 			outfiles.append(jsonfinal)										#combine both metadata + riders positions
 			outfiles.append(renner)											#....
-			jsonfinal={"Metadata":{"Name":wedstrijdnaam,"Year":jaartal,"Stage":rit,"City":aankomstplaats}} 		#metadata race info
+			
 			
 			with open("./drive/MyDrive/dataset/boundingbox/"+str(jaartal)+"/"+filename+".txt", 'w') as outfile: 	#dump boundingboxes of detected riders
 				json.dump(json_format, outfile)
