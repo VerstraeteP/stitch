@@ -141,7 +141,8 @@ def predict_surface(img):
 					
 
 			
-			best_ind=0					
+			best_ind=0								#in next paragraph: if multiple surfaces where detected: do some logic,
+												#to find the best matching detected surface, using the position of the last detected surface of previous image
 			if len(indexen)>1:
 				best=None
 
