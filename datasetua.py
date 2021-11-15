@@ -40,7 +40,6 @@ def main():
 			cv2.imwrite("./drive/MyDrive/dataset/stitch/"+str(jaartal)+"/"+filename+".jpg",stitch)  		#dump stitched image
 			cv2.imwrite("./drive/MyDrive/dataset/lines/"+str(jaartal)+"/"+filename+".jpg",line)			#dump stitched image+ riders lines 
 			
-			
-		
+					
 		
 main()
