@@ -230,7 +230,7 @@ def stitching(images,masks):
 
 				base_features,base_descs=detector.detectAndCompute(base_gray,mask_photo)		#detect keypoints an their descriptors of image base_gray and use mask_photo as a mask
 				next_features, next_descs = detector.detectAndCompute(curr,(base_mask))			#same as above, but for curr image and base_mask
-				#cv2.imwrite("./drive/MyDrive/wkvideo/mask/"+str(teller)+".jpg",base_mask)		#write seperate masks to a folder
+				
 
 
 				"""
@@ -319,7 +319,7 @@ def stitching(images,masks):
 				
 				ret= 5+cnt%5
 				base_gray=prev_prev_base_gray							#get last image
-				cv2.imwrite("endimage.jpg",prev_base_gray)
+				
 				teller-=ret
 				Affinetransformations=Affinetransformations[:len(Affinetransformations)-ret]	#delete last ret frames of list of transformations
 				if len(indexen)!=0:								#if 
