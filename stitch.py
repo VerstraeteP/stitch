@@ -26,9 +26,9 @@ def prepare_data_and_stitch(images,fps,scalingfactor):
 	process_images=[]
 	
 	for i, data in enumerate(images):    				#go trought images and take scalingfactor into account and add it to new list
-		if i % scalingfactor ==0:
+		if i % scalingfactor ==0:				#do a division of i(=counter) and scalingfactor if result is a round number add to process_images list
 			process_images.append(data)
-	process_images.append(images[-1])				#add last frame of video to make sure the frame containing the finish line is in the image list
+	process_images.append(images[-1])				#add last frame of video to make sure the frame containing the finish line is also in the image list
 	
 	del(images)							#delete old images list
 	process_images.reverse()					#reverse framelist, so process_images[0]== finish frame, process_image[len(process_image)]== furthest frame from the finish line
@@ -36,10 +36,10 @@ def prepare_data_and_stitch(images,fps,scalingfactor):
 	masks=predict_surface(process_images)				# call predict_surface function-> predict road surface
 	
 	stitchimage,transform,mask,totaltransform,teller,indexen,width,baselines=stitching(process_images,masks)	#call stitching function-> make stitching of finish frames
-	process_images[:teller-1]											
-	renners=predict_renner(process_images,masks)
+	process_images[:teller-1]											#only use the images the stitching algorithm processed										
+	renners=predict_renner(process_images,masks)									#call predict_renner function-> predict riders in the frames
 	
-	return stitchimage,transform,renners,scalingfactor,fps,mask,totaltransform,indexen,width,baselines,teller
+	return stitchimage,transform,renners,scalingfactor,fps,mask,totaltransform,indexen,width,baselines,teller	
 	
 
 
@@ -53,55 +53,56 @@ def stitching(images,masks):
 	:param masks: set of mask associated with the images
 	:return: stitched image, Affinetransform
 	"""
-	cur_image=images[0]
-	ttlchange=0
-	ttlchangeteller=0
-	detector = cv2.SIFT_create(contrastThreshold = 0.01)
-	Affinetransformations=[[[1 , 0 ,500],[0,1,0]]]
+	cur_image=images[0]						#cur_image: the image we want to stitch
+	ttlchange=0							#variable:
+	ttlchangeteller=0						#variable
+	detector = cv2.SIFT_create(contrastThreshold = 0.01)		#make a new Sift Detector
+	Affinetransformations=[[[1 , 0 ,500],[0,1,0]]]			#add a first transformation to the Affinetransformation list: the transformation is just a movement of 500 in the x-direction
 	total_affine=[]
-	base_msk= masks[0]
-	cnt=0
+	base_msk= masks[0]						#mask corresponding the first image
+	cnt=0				
 	teller=1
 	height, width = images[teller].shape[:2]
-	curr = np.zeros((height*2,width*3, 3), np.uint8)
+			
 	baselines=[]
 									#in the next paragraph some new image are created, with a specific height and width. In the comment: use of image
 	
-	base_gray=np.zeros((height*2,width*3, 3), np.uint8)
-	total_mask=np.zeros((height*2,width*3), np.uint8)
-	base_mask= np.zeros((height*2,width*3), np.uint8)
+	base_gray=np.zeros((height*2,width*3, 3), np.uint8)		#the final stitched image		
+	curr = np.zeros((height*2,width*3, 3), np.uint8)		#larger image for the image we want to stitch
+	total_mask=np.zeros((height*2,width*3), np.uint8)		#the final mask image of stitched mask images
+	base_mask= np.zeros((height*2,width*3), np.uint8)		#
 	mask_photo= np.zeros((height*2,width*3), np.uint8)
-	increase=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3,3), np.uint8)		#to increase the image 
-	increasex=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3,3), np.uint8)
-	increase_mask=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3), np.uint8)
-	increase_mask_x=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3), np.uint8)
+	increase=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3,3), np.uint8)		#to increase the image in y-direction: blank image to append to existing image
+	increasex=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3,3), np.uint8)		# same but in x-direction
+	increase_mask=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3), np.uint8)		#to increase the mask image in y-direction: blank image to append to existing image
+	increase_mask_x=np.zeros((images[0].shape[0]*2,images[0].shape[1]*3), np.uint8)		#same but in x-direction
 	start_img=0
-	base_gray[:images[0].shape[0],500:images[0].shape[1]+500]=cur_image
-	total_mask[:base_msk.shape[0],500:base_msk.shape[1]+500]=base_msk
+	base_gray[:images[0].shape[0],500:images[0].shape[1]+500]=cur_image		#put first image into the total stitching image, with an offset of 500 in x direction
+	total_mask[:base_msk.shape[0],500:base_msk.shape[1]+500]=base_msk		#do the same for the mask
 	heightc, widthc = curr.shape[:2]
-	baseline=0
-	baselinex=600
+	baseline=0									#set variable baseline to zero: variable to find first zero row in x-direction
+	baselinex=600									#set variable baselinex to 600: variable to find first zero column in y-direction, on the right side of the image
 	largest=0
 	times=0
 	width=images[0].shape[1]
-	baselineneg=600
+	baselineneg=600									#set variable baselineneg to 600: variable to find first zero column in y-direction, on the left side of the image(from 0 to left border of image)
 	border=5
 	vergroot=0
-	indexen=[]
+	indexen=[]									#list of indexen: list holds the position where the image is enlarged
 	lengte=len(images)
 	for cur_image in images[1:]:								#go through all images starting from the second image
 		try:										#try-catch block: it can occur that the stitching fails,if it fails:try to restore the maximum successful image
-			if vergroot<20:								
+			if vergroot<20:							# we set a maxiumum of 20 times we can enlarge the image, otherwise it gives RAM problems								
 				neg=False
-				base_msk=masks[teller]
-				base_msk[base_msk==0]=255
+				base_msk=masks[teller]					#load new image mask
+				base_msk[base_msk==0]=255				#inverse image ( white-> black, black->white)
 
 				base_msk[base_msk==1]=0
-				base_mask[:,:]=0
+				base_mask[:,:]=0			
 
-				curr[:,:]=0	
-				#curr[start_img:cur_image.shape[0]+start_img,:cur_image.shape[1]]=cur_image
-				curr[300:cur_image.shape[0]+300,300:cur_image.shape[1]+300]=cur_image
+				curr[:,:]=0						#clear full image
+				
+				curr[300:cur_image.shape[0]+300,300:cur_image.shape[1]+300]=cur_image		#load image into larger image with offset in x-and y-direction
 
 
 
