@@ -109,18 +109,17 @@ def stitching(images,masks):
 
 
 
-				if cnt==0:							#
+				if cnt==0:							#if it's the first image to stitch: 
 					base_mask[300+border:300+base_msk.shape[0]-border,300+border:300+base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 
 					mask_photo[:base_msk.shape[0],500:500+base_msk.shape[1]]=base_msk
 				else:											#if it isn't the first image: we will first using the total transformation of all the previous stitched images, to tranform current image, so the succes rate of keypoint detection increases
 
-					#base_mask[start_img+border:base_msk.shape[0]-border+start_img,border:base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
 
-					base_mask[300+border:300+base_msk.shape[0]-border,300+border:300+base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border]
-					total_transformation=total_transformation[:2,:]					#transform 
-					transformation=transformation[:2,:]
-					total_transformation[0][2]=0
+					base_mask[300+border:300+base_msk.shape[0]-border,300+border:300+base_msk.shape[1]-border]=base_msk[border:cur_image.shape[0]-border,border:cur_image.shape[1]-border] # shift image in x and y direction 300 pixels: to get space to do rotations...etc
+					#total_transformation=total_transformation[:2,:]					#we only want the two first columns of the transformation, so no translation
+					#transformation=transformation[:2,:]						#idem, for the last transformation we did
+					total_transformation[0][2]=0							
 					total_transformation[1][2]=0
 					tran=transformation.copy()
 					tran[0][2]=0
@@ -128,8 +127,8 @@ def stitching(images,masks):
 
 					base_mask = cv2.warpAffine(base_mask, total_transformation, (widthc, heightc)) #transform base_mask image ( mask corresponding curr image) with the total_transformation
 					curr = cv2.warpAffine(curr, total_transformation, (widthc, heightc))		#transform curr image with the total transformation
-					base_mask = cv2.warpAffine(base_mask, tran, (widthc, heightc))
-					curr = cv2.warpAffine(curr, tran, (widthc, heightc))
+					base_mask = cv2.warpAffine(base_mask, tran, (widthc, heightc))			#do a second transformation with the last transformation( reason: get identic same image as previous stitched image)
+					curr = cv2.warpAffine(curr, tran, (widthc, heightc))				#do a second transformation with the last transformation
 					total_transformation = np.vstack((total_transformation,array))
 
 
