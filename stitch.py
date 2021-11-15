@@ -253,7 +253,7 @@ def stitching(images,masks):
 				dst_pts  = np.float32([next_features[m.trainIdx].pt for m in filtered_matches]).reshape(-1,2)		#get the x, y coordintates from the best detected keypoints of the curr image
 
 				output = cv2.drawMatches(base_gray, base_features, curr, next_features, filtered_matches, None)		#function to draw the found matches
-				cv2.imwrite("./drive/MyDrive/wkvideo/output/"+str(teller)+".jpg",output)
+				
 
 				
 
