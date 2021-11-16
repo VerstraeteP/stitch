@@ -13,8 +13,6 @@ from detectron2.engine import DefaultTrainer, DefaultPredictor, launch
 from detectron2.config import get_cfg
 import glob
 
-# The following is modification of Detectron2 Beginner's Tutorial.
-# Cf https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5
 
 def get_balloon_dicts(img_dir):
     json_file = os.path.join(img_dir, "via_region_data.json")
@@ -124,7 +122,7 @@ def predict_renner(images,masks):
 			print(position)
 			print("image")
 			print(image)
-			cv2.imwrite("./drive/MyDrive/folder/riders/"+str(k)+str(counter)+".jpg)
+			cv2.imwrite("./drive/MyDrive/folder/riders/"+str(k)+str(counter)+".jpg")
 			#cv2.imwrite("./drive/MyDrive/wkvideo/riders/"+str(k)+str(counter)+".jpg",image[int(position[1]):int(position[3]),int(position[0]):int(position[2])])
 
 			
