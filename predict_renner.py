@@ -122,13 +122,8 @@ def predict_renner(images,masks):
 			print(position)
 			print("image")
 			print(image)
-			try:
-				cv2.imwrite("./drive/MyDrive/folder/riders/"+str(k)+str(counter)+".jpg",image[int(position[1])-40:int(position[3]+40),int(position[0]-40):int(position[2])+40])
-			except:
-				try:
-					cv2.imwrite("./drive/MyDrive/folder/riders/"+str(k)+str(counter)+".jpg",image[int(position[1])-20:int(position[3]+20),int(position[0]-20):int(position[2])+20])
-				except:
-					cv2.imwrite("./drive/MyDrive/folder/riders/"+str(k)+str(counter)+".jpg",image[int(position[1]):int(position[3]),int(position[0]):int(position[2])])
+			
+			cv2.imwrite("./drive/MyDrive/folder/riders/"+str(k)+str(counter)+".jpg",image[int(position[1]):int(position[3]),int(position[0]):int(position[2])])
 	
 			#cv2.imwrite("./drive/MyDrive/wkvideo/riders/"+str(k)+str(counter)+".jpg",image[int(position[1]):int(position[3]),int(position[0]):int(position[2])])
 
