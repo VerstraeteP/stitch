@@ -125,7 +125,7 @@ def predict_renner(images,masks):
 			
 			#cv2.imwrite("./drive/MyDrive/folder/riders/"+str(k)+str(counter)+".jpg",image)
 	
-			cv2.imwrite("./drive/MyDrive/wkvideo/riders/"+str(k)+str(counter)+".jpg",image[int(position[1]):int(position[3]),int(position[0]):int(position[2])])
+			cv2.imwrite("./drive/MyDrive/folder/riders/"+str(k)+str(counter)+".jpg",image[int(position[1]):int(position[3]),int(position[0]):int(position[2])])
 
 			
 
